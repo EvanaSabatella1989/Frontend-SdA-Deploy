@@ -1,0 +1,8 @@
+.editar{
+    display: flex;
+    justify-content: right;
+}
+img{
+    height: 400px;
+    align-items: center;
+}

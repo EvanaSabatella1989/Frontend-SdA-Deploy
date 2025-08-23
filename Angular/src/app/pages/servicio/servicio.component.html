@@ -1,0 +1,59 @@
+<div class="container ">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <img src="{{servicio.imagen}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{servicio.nombre}}</h5>
+          <p class="card-text">{{servicio.descripcion}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Costo del servicio: $ {{servicio.precio}}</li>
+        </ul>
+      </div>
+    </div>
+<div  class="col">
+  
+
+  
+  <form [formGroup]="reservaForm" (ngSubmit)="reservar()" class="p-4 border rounded shadow-sm">
+    <h5>Reserva un turno para el servicio de tu vehiculo</h5>
+    <!-- Nombre del servicio (solo lectura) -->
+    <div class="mb-3">
+      <label for="servicio" class="form-label fw-bold">Servicio</label>
+      <input type="text" id="servicio" formControlName="servicio" class="form-control" [value]="servicio.nombre" readonly>
+    </div>
+  
+    <!-- Selección de sucursal -->
+    <div class="mb-3">
+      <label for="sucursal" class="form-label fw-bold">Sucursal</label>
+      <select id="sucursal" formControlName="sucursal" class="form-control" (change)="cargarTurnos()">
+        <option *ngFor="let sucursal of sucursales" [value]="sucursal.id">
+          {{ sucursal.nombre }}
+        </option>
+      </select>
+    </div>
+  
+    <!-- Selección de turno -->
+    <div class="mb-3">
+      <label for="turno" class="form-label fw-bold">Turno</label>
+      <select id="turno" formControlName="turno" class="form-control">
+        <option *ngFor="let turno of turnos" [value]="turno.id">
+          {{ turno.fecha }} - {{ turno.hora }}
+        </option>
+      </select>
+      <div *ngIf="turnos.length === 0 && reservaForm.value.sucursal" class="text-danger mt-2">
+        ❌ No hay turnos disponibles en esta sucursal. Por favor, elige otra.
+      </div>
+    </div>
+    <div *ngIf="isLoading">Cargando, por favor espera...⌛</div>
+    <!-- Botón de envío -->
+    <button type="submit" class="btn btn-primary w-100">Reservar</button>
+  </form>
+  
+   <!-- Mostrar mensaje de confirmación o error -->
+  
+  
+  
+</div>
+

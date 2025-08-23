@@ -1,0 +1,22 @@
+form{
+    max-width: 500px;
+    margin: 0 auto;
+
+}
+
+.btn{
+    background-color: #060818;
+    color: #FFFFFF;
+}
+
+.btn:hover{
+    background-color: #F5C057;
+}
+ 
+a{
+    color:  #F5C057;
+}
+
+.bg-color{
+    background-color: #060818;
+}

@@ -1,0 +1,75 @@
+.container {
+    margin-top: 25px;
+}
+
+form {
+    margin-top: 15px;
+    border: 2px solid #F5C057; 
+    border-radius: 25px; 
+    padding: 20px;
+    background-color: #eeeff5; 
+}
+
+input.form-control, textarea.form-control {
+      
+    border: 1px solid #F5C057; 
+    border-radius: 30px; 
+}
+
+input.form-control:focus, textarea.form-control:focus {
+    border-color: #F5C057; 
+    outline: none; 
+}
+
+.btn {
+    margin-top: 15px;
+    background-color: #F5C057;
+}
+
+.btn:hover {
+    color: #060818;
+}
+
+.card {
+    background-color: #060818;
+    color: #FFFFFF;
+}
+
+li {
+    background-color: #060818;
+    color: #FFFFFF;
+}
+select.form-control {
+    border: 1px solid #F5C057; 
+    border-radius: 30px;  
+    background-color: #ffffff; 
+    padding: 8px 12px;
+}
+
+/* Para que el borde cambie cuando se hace clic */
+select.form-control:focus {
+    border-color: #F5C057;
+    outline: none;
+}
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+  }
+  
+  .spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  

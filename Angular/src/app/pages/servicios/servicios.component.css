@@ -1,0 +1,58 @@
+:root {
+    ---color-principal: #060818;
+    ---color-secundario: #F5C057;
+    ---color-card: #FFFFFF;
+    ---color-background: #efefef;
+}
+
+h1{
+    text-align: center;
+}
+
+h5 {
+    color: #efefef;
+    font-size: 1em;
+}
+
+
+/*style cards*/
+.card-body {
+    background-color: #060818;
+    color: #FFFFFF;
+    
+}
+
+.card-img-top{
+    height: 41vh;
+    
+}
+
+.card-body h5 {
+    color: #FFFFFF;
+
+}
+#ver-mas{
+    color: #F5C057;
+}
+
+
+
+.btn {
+    background-color: #F5C057;
+
+}
+
+.row ul li{
+    list-style: none;
+}
+
+.btn:hover{
+    color: #060818;
+}
+
+#list{
+     float: right;
+     margin-right: 30px;
+     margin-bottom: 15px;
+}
+    /*box-shadow:5px 5px 10px #565656, -5px -5px 10px #8a8a8a;*/

@@ -1,0 +1,35 @@
+/* ayuda a que el footer se mantenga abajo */
+
+
+header.fondo {
+    padding-top: 12rem;
+    padding-bottom: 6rem;
+    padding-right: 2rem;
+    text-align:-webkit-center ;
+    color: goldenrod;
+    background-image: url("../src/assets/pagina/bannerPrincipal.jpg");
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+ 
+    background-size: cover;
+    height: 400px;
+  }
+  
+  h1.mensaje-bienvenida {
+    line-height: 1.5rem;
+    margin-bottom: 25px;
+  }
+
+  p, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+  }
+
+  main {
+    min-height: 100vh;
+  }
+
+  
+  
+
+  

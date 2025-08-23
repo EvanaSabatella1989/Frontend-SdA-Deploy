@@ -1,0 +1,24 @@
+.card-body h3{
+    color: black;
+   margin: 5px;
+}  
+
+.container h2{
+    color:aliceblue;
+    margin:5px;
+}
+
+.album{
+    background-color:  #060818;
+}
+
+
+.btn{
+   
+    background-color:  #F5C057;
+}
+
+.btn:hover{
+    border-color: #F5C057;
+    transition-duration: 1s;
+    }

@@ -1,0 +1,36 @@
+<div class="w-100 p-3 pb-md-5 container-card-carrito">
+  <div
+    class="d-flex flex-wrap justify-content-md-between align-items-center text-align-center"
+  >
+    <div class="d-flex col-12 col-md-6 gap-5 align-items-md-center">
+      <img src="http://localhost:8000{{product.imagen}}" alt="{{product.nombre}}" style="height: 50px; width: 50px" />
+      <h5 class="text-center fw-semilbold">{{ product.nombre }}</h5>
+    </div>
+
+    <div
+      class="d-flex col-12 col-md-6 gap-5 align-items-md-center justify-content-between mt-4"
+    >
+      <form class="btn-quality">
+        <input type="hidden" name="" id="" />
+        <button (click)="subtractQuality($event)"><span>-</span></button>
+        <div class="andes-form-control">
+          <label>
+            <div class="andes-form-control__control">
+              <input value="{{ quality }}" />
+            </div>
+          </label>
+        </div>
+        <button (click)="addQuality($event)"><span>+</span></button>
+      </form>
+      <h3 class="fw-normal">${{ precio }}</h3>
+    </div>
+  </div>
+
+  <div class="d-flex gap-3 mt-3 more-btn">
+    <span class="text-primary cursor-pointer" (click)="deleteOfCart()"
+      >Eliminar</span
+    >
+    <span class="text-primary">Comprar ahora</span>
+    <span class="text-primary">Detalle</span>
+  </div>
+</div>

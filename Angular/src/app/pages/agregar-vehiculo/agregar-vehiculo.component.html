@@ -1,0 +1,37 @@
+<div class="container">
+  <h2>Agregar Nuevo Vehículo</h2>
+  <form [formGroup]="vehiculoForm" (ngSubmit)="agregarVehiculo()">
+
+    <label>Categoría:</label>
+    <select formControlName="categoria" class="form-control">
+      <option value="">Seleccione una categoría</option>
+      <option value="Moto">Moto</option>
+      <option value="Auto">Auto</option>
+      <option value="Camión">Camión</option>
+      <option value="Ómnibus">Ómnibus</option>
+      <option value="Furgón">Furgón</option>
+      <option value="Otro">Otro</option>
+    </select>
+
+    <label>Marca:</label>
+    <select formControlName="marca" class="form-control" [disabled]="marcasDisponibles.length === 0">
+      <option value="">Seleccione una marca</option>
+      <option *ngFor="let marca of marcasDisponibles" [value]="marca">{{ marca }}</option>
+    </select>
+
+    <label>Modelo:</label>
+    <input type="text" formControlName="modelo" class="form-control">
+
+    <label>Tipo:</label>
+    <!-- <input type="text" formControlName="tipo" class="form-control"> -->
+    <select formControlName="tipo" class="form-control" [disabled]="tiposDisponibles.length === 0">
+      <option value="">Seleccione un tipo de vehiculo</option>
+      <option *ngFor="let tipo of tiposDisponibles" [value]="tipo">{{ tipo }}</option>
+    </select>
+
+    <label>Año de Fabricación:</label>
+    <input type="number" formControlName="anio_fabricacion" class="form-control">
+
+    <button type="submit" class="btn btn-primary mt-3" [disabled]="vehiculoForm.invalid">Agregar Vehículo</button>
+  </form>
+</div>

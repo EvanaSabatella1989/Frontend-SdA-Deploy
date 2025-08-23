@@ -1,0 +1,105 @@
+<!-- <div class="container mt-4">
+    <h2>Perfil de {{ usuario.nombre }}</h2>
+    <p>Email: {{ usuario.email }}</p>
+    <p>Teléfono: {{ usuario.telefono }}</p>
+  
+    <hr />
+  
+    <h3>Compras Realizadas</h3>
+    <ul>
+      <li *ngFor="let compra of compras">
+        {{ compra.fecha }} - {{ compra.total }} USD
+      </li>
+    </ul>
+  
+    <h3>Carrito de Compras</h3>
+    <ul>
+      <li *ngFor="let item of carrito">
+        {{ item.nombre }} - {{ item.precio }} USD
+      </li>
+    </ul>
+  
+    <h3>Reservas</h3>
+    <ul>
+      <li *ngFor="let reserva of reservas">
+        {{ reserva.fecha }} - {{ reserva.estado }}
+      </li>
+    </ul>
+  
+    <h3>Turnos</h3>
+    <ul>
+      <li *ngFor="let turno of turnos">
+        {{ turno.fecha }} - {{ turno.servicio }}
+      </li>
+    </ul>
+  
+    <h3>Vehículos Cargados</h3>
+    <ul>
+      <li *ngFor="let vehiculo of vehiculos">
+        {{ vehiculo.marca }} - {{ vehiculo.modelo }} - {{ vehiculo.patente }}
+      </li>
+    </ul>
+  </div> -->
+  <section class="w-100 vh-auto d-flex align-items-center bg-color">
+  <div *ngIf="usuario" class="perfil">
+    <h2>Perfil de {{ usuario.first_name }} {{ usuario.last_name }}</h2>
+    <p><strong>Email:</strong> {{ usuario.email }}</p>
+    <p><strong>Teléfono:</strong> {{ usuario.num_telefono }}</p>
+
+<div *ngIf="!isAdmin">
+    <h2>Vehiculos</h2>
+    <div *ngIf="vehiculos.length > 0; else noVehiculos">
+    <ul >
+    <li *ngFor="let vehiculo of vehiculos">
+      <!-- {{ vehiculo.marca }} - {{ vehiculo.modelo }} - {{ vehiculo.patente }} -->
+        {{vehiculo.modelo}} - {{vehiculo.tipo}}
+        <button>
+          <!-- <i class="bi bi-pencil-fill" id="edit" routerLink="/editar-productos/{{item.id}}">
+          </i> -->
+          <i class="bi bi-pencil-fill" id="edit" routerLink="">
+          </i>
+        </button>
+        <div *ngIf="vehiculo.categoria == 'Moto'">
+          <img  src="http://localhost:8000/media/photos/moto1.png" alt="{{ vehiculo.modelo }}" width="100">
+        </div>
+        <div *ngIf="vehiculo.categoria == 'Auto'">
+          <img  src="http://localhost:8000/media/photos/auto.png" alt="{{ vehiculo.modelo }}" width="100">
+        </div>
+        
+    </li>
+    
+  </ul>
+  <button routerLink="/agregar-vehiculo">Cargar otro vehiculo</button>
+</div>
+</div>
+  <ng-template #noVehiculos>
+    <p>No hay vehiculos cargados.</p>
+    <button routerLink="/agregar-vehiculo">Cargar vehiculo</button>
+</ng-template>
+    
+<div *ngIf="!isAdmin">
+    <h2>Carrito</h2>
+    <div *ngIf="carrito.length > 0; else noProductos">
+        <!-- <li *ngFor="let item of carrito">
+            <strong>{{ item.producto.nombre }}</strong>
+            
+        </li> -->
+        <p>Tiene productos en el carrito</p>
+        <button routerLink="/carrito">Continuar comprando</button>
+        
+      </div>
+    <ng-template #noProductos>
+        <p>No hay productos en el carrito.</p>
+    </ng-template>
+  </div>
+
+  <div *ngIf="!isAdmin">
+    <h2>Mis turnos</h2>
+  </div>
+
+  <div *ngIf="isAdmin">
+    <h2>Turnos asignados</h2>
+  </div>
+   
+  </div>
+</section>

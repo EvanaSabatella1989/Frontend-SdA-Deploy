@@ -1,0 +1,142 @@
+<!-- <main>
+    <div class="container contenido">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="card">
+                    <div class="card-block">
+                        <div class="map">
+                            <iframe src="https://www.google.com/maps/d/embed?mid=1SuapcyNcs8InyT3uud3cQwyXiE-h0Ls&ehbc=2E312F" 
+                            width="840" height="960"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="list-group">
+                    <address class="list-group-item list-group-item-success ">
+                        <strong>Sucursal N° 1</strong><br>
+                        Cerrito 2546, San Martín, Provincia de Buenos Aires
+                    </address>
+                    <a href="tel:+54 9 11 6481-6243"
+                        class="list-group-item clickToCall clickableBackgroundColor active"><span
+                        class="fa fa-phone mr-2"> </span>Llamar
+                    </a>
+                    <p></p>
+                    <div class="list-group">
+                        <address class="list-group-item list-group-item-success ">
+                            <strong>Sucursal N° 2</strong><br>
+                            Av. Independia 670, Mar del Plata, Provincia de Buenos Aires
+                        </address>
+                        <a href="tel:+54 9 11 6481-6243"
+                            class="list-group-item clickToCall clickableBackgroundColor active"><span
+                            class="fa fa-phone mr-2"> </span>Llamar
+                        </a>
+                    </div>
+                    <p></p>
+                    <div class="list-group">
+                        <address class="list-group-item list-group-item-success ">
+                           <strong>Sucursal N° 3</strong><br>
+                            9 de Julio 1860, Provincia de Tucumán
+                        </address>
+                        <a href="tel:+54 9 11 6481-6243"
+                            class="list-group-item clickToCall clickableBackgroundColor active"><span
+                            class="fa fa-phone mr-2"> </span>LLamar
+                        </a>
+                    </div>
+                    <p></p>
+                    <div class="list-group">
+                        <address class="list-group-item list-group-item-success ">
+                            <strong>Sucursal N° 4</strong><br>
+                             Laprida 350, Provincia de Mendoza
+                        </address>
+                        <a href="tel:+54 9 11 6481-6243"
+                           class="list-group-item clickToCall clickableBackgroundColor active"><span
+                           class="fa fa-phone mr-2"> </span>LLamar
+                        </a>
+                    </div>
+                    <p></p>
+                    <div class="list-group">
+                        <address class="list-group-item list-group-item-success ">
+                            <strong>Sucursal N° 5</strong><br>
+                            Av. Colón 4500, 
+                            Provincia de Córdoba
+                        </address>
+                        <a href="tel:+54 9 11 6481-6243"
+                            class="list-group-item clickToCall clickableBackgroundColor active"><span
+                            class="fa fa-phone mr-2"> </span>LLamar
+                        </a>
+                    </div>
+                    <p></p>
+                    <div class="list-group">
+                        <address class="list-group-item list-group-item-success ">
+                            <strong>Sucursal N° 6</strong><br>
+                            Av. San Martín 1540, 
+                            Provincia de Chaco
+                        </address>
+                        <a href="tel:+54 9 11 6481-6243"
+                            class="list-group-item clickToCall clickableBackgroundColor active"><span
+                            class="fa fa-phone mr-2"> </span>LLamar
+                        </a>
+                    </div>
+                </div>    
+            </div>
+        </div>            
+    </div>     
+</main> --><!-- sucursales.component.html -->
+<!-- <main>
+    <div class="container contenido">
+      <div class="row">
+        <div class="col-lg-9">
+          <div class="card">
+            <div class="card-block">
+              <div class="map">
+                <iframe *ngFor="let sucursal of sucursales" 
+                        [src]="sucursal.mapaUrl" 
+                        width="840" height="960"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="list-group">
+            <div *ngFor="let sucursal of sucursales">
+              <address class="list-group-item list-group-item-success">
+                <strong>{{ sucursal.nombre }}</strong><br>
+                {{ sucursal.direccion }}
+              </address>
+              <a href="tel:{{ sucursal.telefono }}" 
+                 class="list-group-item clickToCall clickableBackgroundColor active">
+                 <span class="fa fa-phone mr-2"></span>Llamar
+              </a>
+            </div>
+          </div>    
+        </div>
+      </div>            
+    </div>     
+  </main>
+  
+   -->
+  <main>
+    <div class="contenedor">
+        <div *ngFor="let sucursal of sucursales" class="tarjeta">
+          <h3>{{ sucursal.nombre }}</h3>
+          
+          <!-- Google Maps Embed -->
+          <iframe
+          width="100%"
+          height="200"
+          frameborder="0"
+          style="border:0"
+          [src]="sucursal.mapaUrl"
+          allowfullscreen>
+        </iframe>
+          
+        <p>
+          <i class="fas fa-map-marker-alt"></i> {{ sucursal.direccion }}<br>
+          <i class="fa-solid fa-phone"></i> {{ sucursal.telefono }}
+        </p>
+        </div>
+      </div>
+  </main>
+   
+  

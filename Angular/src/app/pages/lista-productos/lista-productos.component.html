@@ -1,0 +1,41 @@
+<h4>Lista de Productos</h4>
+    
+<a href="/agregar-productos" class="btn btn-info">Agregar Producto</a>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Imagen</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">Fecha Creación</th>
+        <th scope="col">Categoria</th>
+        <th scope="col">Editar</th>
+        <th scope="col">Eliminar</th>
+      </tr>
+    </thead>
+    <tbody  *ngFor="let item of miProd" >
+      <tr>
+        <th scope="row">{{item.id}}</th>
+        <td>{{item.nombre}}</td>
+        <td><img src="{{item.imagen}}" alt=""></td>
+        <td>{{item.descripcion}}</td>
+        <td>{{item.precio}}</td>
+        <td>{{item.cantidad}}</td>
+        <td>{{item.fecha_creacion}}</td>
+        <td>{{item.categoria.nombre}}</td>
+        <td><a ><i class="bi bi-pencil-fill" id="edit" routerLink="/editar-productos/{{item.id}}"></i></a></td>
+        <td><a (click)=eliminar(item) ><i class="bi bi-trash-fill" id="borrar"></i></a></td>
+        
+        
+        
+      </tr>
+      
+      
+    </tbody>
+  </table>
+
+  <a routerLink="/productos" class="btn btn-info">Volver</a>

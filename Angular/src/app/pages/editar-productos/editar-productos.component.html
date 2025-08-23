@@ -1,0 +1,68 @@
+<h4>Editar Producto</h4>
+
+<form method="post" (ngSubmit)="actualizar()" class="col-6" enctype="multipart/form-data">
+
+  <p [(ngModel)]="productos.id">id {{productos.id}}</p> 
+
+  <div class="mb-3" ngForm="form">
+    <p name="id" (change)="guardarId($event)"></p>
+    <label class="form-label">Nombre del Producto</label>
+    <input type="text" class="form-control" name="nombre" (change)="guardarNombre($event)" [(ngModel)]="productos.nombre">
+  </div>
+
+  <div class="mb-3">
+    <label for="formFile" class="form-label">Imagen</label>
+    <div >
+      <img class="imagen" src="{{productos.imagen}}" alt="">
+    </div>
+    
+    <input class="form-control" type="file" name="imagen" (change)="enviarFoto($event)" [(ngModel)]="productos.imagen">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Descripción</label>
+    <textarea class="form-control" rows="3" name="descripcion"  (change)="guardarDescripcion($event)" [(ngModel)]="productos.descripcion"></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Precio</label>
+    <input type="number" class="form-control" name="precio" (change)="guardarPrecio($event)"[(ngModel)]="productos.precio">
+     <p>{{productos.precio}}</p>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Cantidad</label>
+    <input type="number" class="form-control" name="cantidad" (change)="guardarCantidad($event)" [(ngModel)]="productos.cantidad">
+  </div>
+
+  
+  <div class="mb-3 ">
+
+    <div class="categoria  row mb-3">
+      <label class="form-label">Categoría</label>
+      
+        <select class="form-control cat" id="catsel" name="categoria_sel" (change)="selectCategoria($event)" [(ngModel)]="productos.categoria">
+          <option *ngFor="let cat of categorias" value={{cat.id}}> {{cat.nombre}}</option>
+          
+        </select>
+      
+      
+        <a class="catb" routerLink="/categorias"><button class="btn">+</button></a>
+
+      
+
+
+
+
+    </div>
+
+
+
+  </div>
+
+
+
+
+  <button class="btn" type="submit">Guardar Producto</button><button class="btn" routerLink="/lista-productos">Volver </button>
+
+</form>

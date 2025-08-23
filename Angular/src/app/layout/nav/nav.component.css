@@ -1,0 +1,16 @@
+/* .div-logo{
+    background-image: url("/src/assets/pagina/logo.png");
+} */
+header{
+    background-color: #060818;
+   
+}
+
+.nav-link:hover  {
+
+    color: #F5C057;
+} 
+
+.nav-link{
+    color: aliceblue;
+}

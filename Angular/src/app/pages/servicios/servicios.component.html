@@ -1,0 +1,29 @@
+<main>
+    <h1>Servicios</h1>
+   
+    <a routerLink="/lista-servicios" class="btn btn-info" id="list" *ngIf="isAdmin">Lista de Servicios</a>
+    <a routerLink="/agregar-servicios" class="btn btn-info" id="list" *ngIf="isAdmin">Agregar</a>
+    <div class="row">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+
+            <ul *ngFor="let servicio of miServi">
+                <li>
+                    <div class="col">
+                        <div class="card">
+                            <img src="{{servicio.imagen}}" class="card-img-top" alt="...">
+
+                            <div class="card-body">
+                                <h5 class="card-title ">{{servicio.nombre}}</h5>
+                                <a href="servicio/{{servicio.id}}/" class="btn btn-primary" >Reservar</a>
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</main>
+
