@@ -8,7 +8,7 @@ import { CarritoItem } from './store-cart.service';
   providedIn: 'root'
 })
 export class PayService {
-  apiUrl = 'http://localhost:8000/api'
+  apiUrl = 'https://backend-sda-deploy.onrender.com/api/'
   constructor(
     private http: HttpClient
   ) { }

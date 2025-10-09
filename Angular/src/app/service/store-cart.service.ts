@@ -77,7 +77,7 @@ export interface CarritoItem {
 export class StoreCartService {
 
   
-  private apiUrl = "http://localhost:8000/api/carrito"
+  private apiUrl = "https://backend-sda-deploy.onrender.com/api/carrito"
   //private carrito = new BehaviorSubject<Producto[]>([]);
   private carrito = new BehaviorSubject<CarritoItem[]>([]);
   myCart$ = this.carrito.asObservable();

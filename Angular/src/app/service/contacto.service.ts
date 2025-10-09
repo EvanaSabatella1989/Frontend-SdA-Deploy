@@ -7,7 +7,7 @@ import { Contacto } from 'src/app/models/contacto';
   providedIn: 'root'
 })
 export class ContactoService {
-  private apiUrl = 'http://127.0.0.1:8000/api/contacto/';  // Ajusta la URL si es necesario
+  private apiUrl = 'https://backend-sda-deploy.onrender.com/api/contacto/';  // Ajusta la URL si es necesario
 
   constructor(private http: HttpClient) {}
 

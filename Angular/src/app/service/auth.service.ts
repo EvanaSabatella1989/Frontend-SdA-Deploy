@@ -23,7 +23,7 @@ export class AuthService {
   private isAdminSubject = new BehaviorSubject<boolean>(this.tokenService.isAdmin());
   isAdmin$ = this.isAdminSubject.asObservable();
 
-  apiUrl = 'http://localhost:8000/api'
+  apiUrl = 'https://backend-sda-deploy.onrender.com/api/'
   constructor(
     private http: HttpClient,
     private tokenService: TokenService

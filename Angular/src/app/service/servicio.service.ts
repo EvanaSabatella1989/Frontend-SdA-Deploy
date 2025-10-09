@@ -10,10 +10,10 @@ import { Sucursal } from '../models/sucursal';
 })
 export class ServicioService {
 // url2:string="http://localhost:8000/photos/photos/";
-url:string="http://localhost:8000/api/servicios/"
-urlDos:string="http://localhost:8000/api/reserva/"
-urlTres:string="http://127.0.0.1:8000/api"
-url4:string="http://127.0.0.1:8000/api/sucursal/"
+url:string="https://backend-sda-deploy.onrender.com/api/servicios/"
+urlDos:string="https://backend-sda-deploy.onrender.com/api/reserva/"
+urlTres:string="https://backend-sda-deploy.onrender.com/api/"
+url4:string="https://backend-sda-deploy.onrender.com/api/sucursal/"
 
  constructor(private http:HttpClient) { }
 

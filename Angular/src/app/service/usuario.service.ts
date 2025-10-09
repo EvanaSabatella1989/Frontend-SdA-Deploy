@@ -16,8 +16,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class UsuarioService {
-  private apiUrl = "http://localhost:8000/api/perfil/";
-  private apiUrl2="http://localhost:8000/api";
+  private apiUrl = "https://backend-sda-deploy.onrender.com/api/perfil/";
+  private apiUrl2="https://backend-sda-deploy.onrender.com/api/";
 
   constructor(private http: HttpClient) {}
 

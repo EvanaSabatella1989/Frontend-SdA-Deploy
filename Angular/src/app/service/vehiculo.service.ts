@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class VehiculoService {
-  private apiUrl = 'http://localhost:8000/api/vehiculo';  // URL del backend
+  private apiUrl = 'https://backend-sda-deploy.onrender.com/api/vehiculo';  // URL del backend
 
   constructor(private http: HttpClient) {}
 

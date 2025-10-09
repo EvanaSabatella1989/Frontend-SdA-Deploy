@@ -27,7 +27,7 @@ import { Router } from '@angular/router';
 export class PagoExitosoComponent implements OnInit {
   paymentId: string | null = null;
   status: string | null = null;
-  private apiUrl = 'http://127.0.0.1:8000/api/venta/confirmar-pago';  // Ajusta la URL según tu backend
+  private apiUrl = 'https://backend-sda-deploy.onrender.com/api/venta/confirmar-pago';  // Ajusta la URL según tu backend
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {}
 

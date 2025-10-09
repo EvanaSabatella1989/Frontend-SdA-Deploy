@@ -10,7 +10,7 @@ import { Categoria } from '../models/categoria'
 export class CategoriaService {
 
   //  url:string="http://localhost:3000/";
-url:string="http://localhost:8000/api/"
+url:string="https://backend-sda-deploy.onrender.com/api/"
 
 constructor(private http:HttpClient) { }
 

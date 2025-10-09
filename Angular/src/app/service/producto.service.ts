@@ -7,7 +7,7 @@ import {Observable} from 'rxjs';
 })
 export class ProductoService {
 
-  url:string="http://localhost:8000/api/";
+  url:string="https://backend-sda-deploy.onrender.com/api/";
 
   constructor(private http: HttpClient) { }
 
