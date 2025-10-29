@@ -32,6 +32,7 @@ import { PagoFallidoComponent } from './pago-fallido/pago-fallido.component';
 import { PagoPendienteComponent } from './pago-pendiente/pago-pendiente.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { AgregarVehiculoComponent } from './agregar-vehiculo/agregar-vehiculo.component';
+import { ReservaComponent } from './reserva/reserva.component';
 
 
 
@@ -67,6 +68,7 @@ import { AgregarVehiculoComponent } from './agregar-vehiculo/agregar-vehiculo.co
     PagoPendienteComponent,
     PerfilComponent,
     AgregarVehiculoComponent,
+    ReservaComponent,
 
   ],
   imports: [
