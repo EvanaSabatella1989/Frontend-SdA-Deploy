@@ -18,6 +18,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { StoreCartService } from 'src/app/service/store-cart.service';
 
 @Component({
   selector: 'app-pago-exitoso',
@@ -27,9 +28,9 @@ import { Router } from '@angular/router';
 export class PagoExitosoComponent implements OnInit {
   paymentId: string | null = null;
   status: string | null = null;
-  private apiUrl = 'https://backend-sda-deploy.onrender.com/api/venta/confirmar-pago';  // Ajusta la URL según tu backend
+  private apiUrl = 'http://127.0.0.1:8000/api/venta/confirmar-pago';  // Ajusta la URL según tu backend
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router, private serviceStore: StoreCartService) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -54,10 +55,16 @@ export class PagoExitosoComponent implements OnInit {
   confirmarPago(paymentId: string) {
     const body = { status: 'approved', payment_id: paymentId };
 
-    this.http.post(this.apiUrl, body, { headers: this.getHeaders()}).subscribe(
-      response => console.log('Pago confirmado con éxito', response),
-      error => console.error('Error al confirmar pago', error)
-    );
+    this.http.post(this.apiUrl, body, { headers: this.getHeaders()}).subscribe({
+      next: (response: any) => {
+        console.log('Pago confirmado con éxito', response);
+        // ✅ Vaciar carrito en frontend después de confirmar pago
+        this.serviceStore.emptyCart().subscribe(() => {
+          console.log("Carrito vaciado después del pago confirmado");
+        });
+      },
+      error: (error) => console.error('Error al confirmar pago', error)
+    });
   }
 
     volverInicio() {

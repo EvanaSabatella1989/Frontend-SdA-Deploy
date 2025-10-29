@@ -7,117 +7,38 @@
         <button class="btn btn-light " routerLink="/lista-productos" *ngIf="isAdmin">Lista</button>
       </div>
       
-      <header class="mb-4">
-        <h3>Productos {{catSelec.nombre}}</h3> 
-        <div class="categorias" >
-
-            <!--<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Categorias 
-            </a>
-            <ul class="dropdown-menu">
-              <li ><a class="dropdown-item" href="/productos">Todas</a></li>
-              <li *ngFor="let  cat of categorias"><a class="dropdown-item" href="/productos/">{{cat.nombre}}</a></li>
-              
-            </ul>-->
-          
-        </div>
-      </header>
-  
-      <div class="row">
-
-        <!-- <div *ngFor="let prod of productos"  class="col-lg-3 col-md-6 col-sm-6 d-flex">
-          <div class="card w-100 my-2 shadow-2-strong">
-            <img src="{{prod.imagen}}" class="card-img-top" style="aspect-ratio: 1 / 1" />
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">{{prod.nombre}}</h5>
-              <p class="card-text">${{prod.precio}}</p>
-              <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                <a routerLink="/articulo/{{prod.id}}" class="btn btn-primary shadow-0 me-1">Comprar </a>
-                
-              </div> -->
-
-              <div *ngFor="let prod of productos" class="col-lg-3 col-md-6 col-sm-6 d-flex">
-                <div class="card w-100 my-2 shadow-2-strong">
-                  <img src="{{prod.imagen}}" class="card-img-top" style="aspect-ratio: 1 / 1" />
-                  <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">{{prod.nombre}}</h5>
-                    <p class="card-text">${{prod.precio}}</p>
-                    <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                      <button 
-                        class="btn btn-primary shadow-0 me-1" 
-                        routerLink="/articulo/{{prod.id}}">
-                        Ver detalle
-                      </button>
-                      <!-- <button 
-                        *ngIf="isAdmin" 
-                        class="btn btn-primary shadow-0 me-1" 
-                        routerLink="/articulo/{{prod.id}}">
-                        Ver detalle
-                      </button> -->
-                      <!-- <button 
-                        *ngIf="isInCart(prod.id)" 
-                        class="btn btn-secondary shadow-0 me-1" 
-                        routerLink="/carrito">
-                        Ver carrito
-                      </button> -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-  <!--<div class="container my-5">
     <header class="mb-4">
-      <h3>Productos {{ catSelec.tipoCategoria }}</h3>
+      <h3>Productos <span class="cat-selec">{{catSelec.nombre}}</span></h3>
       <div class="categorias">
-        <a
-          class="nav-link dropdown-toggle"
-          href="#"
-          role="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Categorias
-        </a>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="/productos">Todas</a></li>
-          <li *ngFor="let cat of categorias">
-            <a class="dropdown-item" href="/productos/{{ cat.id }}">{{
-              cat.nombre
-            }}</a>
-          </li>
-        </ul>
+        <div class="dropdown">
+          <a class="btn btn-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            Categorías
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <button class="dropdown-item" (click)="filtrarPorCategoria({id:0, nombre:''})">Todas</button>
+            </li>
+            <li *ngFor="let cat of categorias">
+              <button class="dropdown-item" (click)="filtrarPorCategoria(cat)">{{cat.nombre}}</button>
+            </li>
+          </ul>
+        </div>
       </div>
     </header>
-
-    <div class="row">
-      <div
-        *ngFor="let prod of productos"
-        class="col-lg-3 col-md-6 col-sm-6 d-flex"
-      >
+  
+      <div class="row">
+      <div *ngFor="let prod of productosFiltrados" class="col-lg-3 col-md-6 col-sm-6 d-flex">
         <div class="card w-100 my-2 shadow-2-strong">
-          <img
-            src="{{ prod.imagen }}"
-            class="card-img-top"
-            style="aspect-ratio: 1 / 1"
-          />
+          <img [src]="prod.imagen" class="card-img-top" style="aspect-ratio: 1 / 1" />
           <div class="card-body d-flex flex-column">
-            <h5 class="card-title">{{ prod.nombre }}</h5>
-            <p class="card-text">${{ prod.precio }}</p>
-            <div
-              class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto"
-            >
-              <button class="btn btn-primary" (click)="addProductToCart(prod)">
-                Añadir al carrito
+            <h5 class="card-title">{{prod.nombre}}</h5>
+            <p class="card-text">${{prod.precio}}</p>
+            <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
+              <button class="btn btn-primary shadow-0 me-1" [routerLink]="'/articulo/' + prod.id">
+                Ver detalle
               </button>
-              <a
-                href="/articulo/{{ prod.id }}"
-                class="btn btn-primary shadow-0 me-1"
-                >Detalles</a
-              >
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
--->
+    </div> 

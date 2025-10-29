@@ -6,7 +6,11 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy": "ng deploy --base-href=https://evanasabatella1989.github.io/Frontend-SdA-Deploy/ --dir=dist/frontend-sda-deploy"
+
+
+
   },
   "private": true,
   "dependencies": {

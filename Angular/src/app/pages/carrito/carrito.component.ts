@@ -82,9 +82,10 @@ export class CarritoComponent implements OnInit {
         console.log("Respuesta de Mercado Pago:", resp);
 
         if (resp.init_point) {
-          // window.open(resp.init_point, '_blank');  // ✅ Abre en nueva pestaña
-          window.location.replace(resp.init_point)
+          window.open(resp.init_point, '_blank');  // ✅ Abre en nueva pestaña
+          // window.location.replace(resp.init_point)
           this.status = 'success';
+         
         } else {
           console.error('No se recibió un link de pago');
           this.status = 'failed';

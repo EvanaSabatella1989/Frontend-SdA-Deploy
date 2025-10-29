@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RequestStatus } from 'src/app/models/statusrequest';
 import { AuthService } from 'src/app/service/auth.service';
 
@@ -9,7 +9,12 @@ import { AuthService } from 'src/app/service/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
+
 export class LoginComponent implements OnInit {
+  showPassword: boolean = false;
+
+
   form = this.formBuilders.group({
     email: ['', [Validators.email, Validators.required, Validators.pattern('^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,3})+$')
   ]],
@@ -20,11 +25,19 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private formBuilders: FormBuilder,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+     this.route.queryParams.subscribe(params => {
+      const email = params['email'];
+      if (email) {
+        this.form.patchValue({ email }); // trae el correo de registro
+      }
+    });
   }
+  
 
   get email() {
     return this.form.get('email')
@@ -61,5 +74,10 @@ export class LoginComponent implements OnInit {
       this.form.markAllAsTouched()
     }
    }
+
+  //para ver la contraseña
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+}
 
 }

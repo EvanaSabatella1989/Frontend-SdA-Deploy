@@ -1,9 +1,24 @@
 
-    <h4>Categorías</h4>
+<h4>Categorías</h4>
     
-<a href="/agregar-categorias" class="btn btn-info">Agregar Categoria</a>
+<a routerLink="/agregar-categorias" class="btn btn-info">Agregar Categoria</a>
+<br>
+<button 
+  class="btn" 
+  (click)="tipoCategoria='producto'; cargarCategorias()"
+  [ngClass]="tipoCategoria === 'producto' ? 'btn-primary' : 'btn-outline-primary'">
+  Productos
+</button>
+
+<button 
+  class="btn" 
+  (click)="tipoCategoria='servicio'; cargarCategorias()"
+  [ngClass]="tipoCategoria === 'servicio' ? 'btn-primary' : 'btn-outline-primary'">
+  Servicios
+</button>
 
 <table class="table">
+
     <thead>
       <tr>
         <th scope="col">Id</th>

@@ -24,3 +24,14 @@ img{
     
     height:50px ;
 }
+
+.boton-activo {
+  background-color: #0d6efd;
+  color: white;
+}
+
+.boton-inactivo {
+  background-color: white;
+  color: #0d6efd;
+  border: 1px solid #0d6efd;
+}

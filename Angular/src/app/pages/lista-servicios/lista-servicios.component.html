@@ -1,33 +1,115 @@
-<h4>Lista de servicios</h4>
+<main>
 
-<a href="/agregar-servicios" class="btn btn-info">Agregar Servicio</a>
+  <h2 class="text-center mb-4">Nuestros Servicios</h2>
 
-<table class="table">
-    <thead>
+  <div class="d-flex justify-content-end mb-3">
+    <a (click)="abrirModal()" class="btn btn-success">Agregar Servicio</a>
+  </div>
+
+  <table class="table table-bordered table-striped text-center align-middle">
+    <thead class="table-dark">
       <tr>
-        <th scope="col">Id</th>
+        <th scope="col" style="display: none;">Id</th>
         <th scope="col">Nombre</th>
         <th scope="col">Imagen</th>
         <th scope="col">Descripción</th>
         <th scope="col">Precio</th>
-        <th scope="col">Fecha Creación</th>
-        <th scope="col">Editar</th>
-        <th scope="col">Eliminar</th>
+        <th scope="col">Categoría</th>
+        <th scope="col">Sucursal</th>
+        <!-- <th scope="col">Fecha Creación</th> -->
+        <th scope="col">Acciones</th>
+        <!-- <th scope="col">Eliminar</th> -->
       </tr>
     </thead>
-    <tbody  *ngFor="let item of miList" >
-      <tr>
-        <th scope="row">{{item.id}}</th>
-        <td>{{item.nombre}}</td>
-        <td><img src="{{item.imagen}}" alt="imagen de servicio"></td>
-        <td>{{item.descripcion}}</td>
-        <td>{{item.precio}}</td>
-        <td>{{item.fecha_creacion}}</td>
-        <!-- <td><a href="editar-servicios/{{item.id}}" class="btn btn-primary" >Editar</a></td> -->
-        <td><a><i class="bi bi-pencil-fill" id="edit" routerLink="/editar-servicios/{{item.id}}"></i></a></td>
-        <td><a (click)=delete(item) ><i class="bi bi-trash-fill" id="borrar"></i></a></td>
-        <!-- <td><button (click)=delete(item) class="btn btn-danger"> Borrar</button></td> -->
-      </tr>  
+    <tbody>
+      <tr *ngFor="let item of miList">
+        <th scope="row" style="display: none;">{{ item.id }}</th>
+        <td>{{ item.nombre }}</td>
+        <td>
+          <img [src]="item.imagen" alt="{{item.nombre}}" />
+        </td>
+        <td>{{ item.descripcion }}</td>
+        <td>{{ item.precio | currency:'ARS':'symbol':'1.0-0' }}</td>
+        <td>{{ item.categoriaNombre }}</td>
+        <td>{{ item.sucursalNombre  }}</td>
+        <!-- <td>{{ item.fecha_creacion | date:'dd/MM/yyyy' }}</td> -->
+        <td>
+          <!-- <a [routerLink]="['/editar-servicios', item.id]" class="btn btn-primary btn-sm">Editar</a> -->
+          <button (click)="abrirModal(item)" class="btn btn-primary btn-sm me-2">Editar</button>
+          <!--  (click)="abrirModal(servicio) -->
+
+          <button (click)="delete(item)" class="btn btn-danger btn-sm">Borrar</button>
+        </td>
+      </tr>
     </tbody>
   </table>
-  <a routerLink="/servicios" class="btn btn-info">Volver</a>
+
+  <div class="mb-3 d-flex justify-content-center">
+    <a routerLink="/panel" class="btn btn-info">Volver</a>
+  </div>
+</main>
+
+<!-- modal para editar y crear -->
+<div class="modal fade" id="modalServicio" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{servicioActual ? 'Editar Servicio' : 'Agregar Servicio'}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+
+          <!-- <div class="mb-3">
+  <label>Sucursal</label>
+  <select class="form-select" [(ngModel)]="sucursalSeleccionada" name="sucursal" required>
+    <option [ngValue]="null">-- Selecciona una sucursal --</option>
+    <option *ngFor="let suc of sucursales" [value]="suc.id">
+      {{ suc.nombre }}
+    </option>
+  </select>
+</div> -->
+          <div class="mb-3">
+            <label>Nombre</label>
+            <input type="text" class="form-control" [(ngModel)]="nombre" name="nombre">
+          </div>
+
+          <div class="mb-3">
+  <label>Categoría</label>
+  <select class="form-select" [(ngModel)]="categoriaSeleccionada" name="categoria" required>
+    <option [ngValue]="null">-- Selecciona una categoría --</option>
+    <option *ngFor="let cat of categorias" [value]="cat.id">
+      {{ cat.nombre }}
+    </option>
+  </select>
+</div>
+
+          <div class="mb-3">
+            <label>Descripción</label>
+            <textarea class="form-control" [(ngModel)]="descripcion" name="descripcion"></textarea>
+          </div>
+          <div class="mb-3">
+            <label>Precio</label>
+            <input type="number" class="form-control" [(ngModel)]="precio" name="precio" placeholder="Ej: 30000">
+
+          </div>
+          <div class="mb-3">
+            <label>Imagen</label>
+            <img *ngIf="servicioActual?.imagen" [src]="servicioActual?.imagen" alt="Imagen actual"
+              class="img-fluid mb-2">
+
+            <input type="file" class="form-control" (change)="seleccionarImagen($event)">
+            <!-- <img *ngIf="servicioActual?.imagen" [src]="servicioActual.imagen" alt="Imagen actual" class="img-fluid mb-2">
+ -->
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button class="btn btn-primary" (click)="guardarServicio()">
+          {{servicioActual ? 'Actualizar' : 'Crear'}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

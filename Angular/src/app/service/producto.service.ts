@@ -1,13 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductoService {
 
-  url:string="https://backend-sda-deploy.onrender.com/api/";
+  // url:string="https://backend-sda-deploy.onrender.com/api";
+  url:string=environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -20,44 +22,52 @@ export class ProductoService {
     }
 
   public traerProductos():Observable<any>{
-    return this.http.get(this.url +"producto/");
+    return this.http.get(this.url +"/producto/");
 
   };
   
   public detail(Id:number): Observable<any>{
-    return this.http.get<any>(this.url + 'producto/'+ Id + '/');
+    return this.http.get<any>(this.url + '/producto/'+ Id + '/');
   };
 
   public detailCat(Id:number): Observable<any>{
 
-    return this.http.get<any>(this.url + 'producto?idCategoria='+ Id);
+    return this.http.get<any>(this.url + '/producto?idCategoria='+ Id);
   };
 
-  public traerCategorias():Observable<any>{
-    return this.http.get(this.url +"categoria/");
+  // public traerCategorias():Observable<any>{
+  //   return this.http.get(this.url +"categoria/");
 
-  };
+  // };
+
+  traerCategorias(tipo: string = '') {
+  let url = this.url + '/categorias/';
+  if(tipo){
+    url += `?tipo=${tipo}`;
+  }
+  return this.http.get<any[]>(url); // <-- indicamos que devuelve un array
+}
   public categoria(Id:number): Observable<any>{
-    return this.http.get<any>(this.url + 'categoria/'+ Id);
+    return this.http.get<any>(this.url + '/categoria/'+ Id);
   };
 
   //alta de una producto
 public create(data:any):Observable<any>{
   //return this.http.post(this.url,data);
-  console.log('servicio ' + data.nombre)
+  console.log('producto ' + data.nombre)
   //return this.http.post(this.url +'producto/',data );
-  return this.http.post(`${this.url}producto/`, data);
+  return this.http.post(`${this.url}/producto/`, data);
 
  } 
  
  //actualizar producto
  public update(id:any,data:any): Observable<any>{
-  return this.http.put(`${this.url}producto/${id}/`,data);
+  return this.http.put(`${this.url}/producto/${id}/`,data);
  }
  
  //eliminar producto
  public delete(id:any):Observable<any>{
-  return this.http.delete(`${this.url}producto/${id}/`);
+  return this.http.delete(`${this.url}/producto/${id}/`);
  }
 
 }

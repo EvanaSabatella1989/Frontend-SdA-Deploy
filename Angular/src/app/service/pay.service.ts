@@ -2,13 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Producto } from '../models/product.model';
 import { CarritoItem } from './store-cart.service';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class PayService {
-  apiUrl = 'https://backend-sda-deploy.onrender.com/api/'
+  // apiUrl = 'https://backend-sda-deploy.onrender.com/api'
+  apiUrl = environment.apiUrl
   constructor(
     private http: HttpClient
   ) { }
@@ -40,7 +42,9 @@ export class PayService {
   
     return this.http.post<{init_point: string}>(`${this.apiUrl}/venta/preference`, {
       items: formattedItems
-    }, { headers: this.getHeaders() });
+    }, { headers: this.getHeaders() })
+    ;
+    
   }
 
   

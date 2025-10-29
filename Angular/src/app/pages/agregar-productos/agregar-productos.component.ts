@@ -28,7 +28,7 @@ export class AgregarProductosComponent {
 
   ngOnInit(): void {
 
-    this.productoServicio.traerCategorias().subscribe(resp2 => {
+    this.productoServicio.traerCategorias('producto').subscribe(resp2 => {
       this.categorias = resp2;
 
     })
@@ -55,9 +55,11 @@ export class AgregarProductosComponent {
   guardarCategoria(event: any) {
     console.log(this.categoria = event.target.value)
   }
+  
   selectCategoria(event: any) {
-    console.log(this.categoria = event.target.value)
-  }
+  this.categoria = event.target.value; // 👈 lo convertís a número aquí
+  console.log('Categoría seleccionada:', this.categoria);
+}
 
   enviarFoto(event: any) {
     console.log(this.imagen = event.target.files[0])

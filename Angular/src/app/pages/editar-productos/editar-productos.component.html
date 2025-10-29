@@ -2,7 +2,7 @@
 
 <form method="post" (ngSubmit)="actualizar()" class="col-6" enctype="multipart/form-data">
 
-  <p [(ngModel)]="productos.id">id {{productos.id}}</p> 
+  <!-- <p [(ngModel)]="productos.id">id {{productos.id}}</p>  -->
 
   <div class="mb-3" ngForm="form">
     <p name="id" (change)="guardarId($event)"></p>
@@ -16,7 +16,8 @@
       <img class="imagen" src="{{productos.imagen}}" alt="">
     </div>
     
-    <input class="form-control" type="file" name="imagen" (change)="enviarFoto($event)" [(ngModel)]="productos.imagen">
+    <input class="form-control" type="file" name="imagen" (change)="enviarFoto($event)">
+
   </div>
 
   <div class="mb-3">
@@ -41,10 +42,13 @@
     <div class="categoria  row mb-3">
       <label class="form-label">Categoría</label>
       
-        <select class="form-control cat" id="catsel" name="categoria_sel" (change)="selectCategoria($event)" [(ngModel)]="productos.categoria">
-          <option *ngFor="let cat of categorias" value={{cat.id}}> {{cat.nombre}}</option>
-          
-        </select>
+        <select class="form-control cat" id="catsel" name="categoria_sel"
+        [(ngModel)]="productos.categoria.id">
+  <option *ngFor="let cat of categorias" [ngValue]="cat.id">
+    {{cat.nombre}}
+  </option>
+</select>
+
       
       
         <a class="catb" routerLink="/categorias"><button class="btn">+</button></a>

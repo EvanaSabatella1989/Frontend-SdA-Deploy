@@ -1,4 +1,4 @@
-.contenedor {
+/* .contenedor {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -15,6 +15,16 @@
 
 iframe {
   border-radius: 8px;
+} */
+
+ .card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+   transform: translateY(-3px);
+  box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
+  transition: all 0.2s ease;
 }
 
   

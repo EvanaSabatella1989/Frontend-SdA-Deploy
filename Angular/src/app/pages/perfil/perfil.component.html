@@ -1,45 +1,4 @@
-<!-- <div class="container mt-4">
-    <h2>Perfil de {{ usuario.nombre }}</h2>
-    <p>Email: {{ usuario.email }}</p>
-    <p>Teléfono: {{ usuario.telefono }}</p>
-  
-    <hr />
-  
-    <h3>Compras Realizadas</h3>
-    <ul>
-      <li *ngFor="let compra of compras">
-        {{ compra.fecha }} - {{ compra.total }} USD
-      </li>
-    </ul>
-  
-    <h3>Carrito de Compras</h3>
-    <ul>
-      <li *ngFor="let item of carrito">
-        {{ item.nombre }} - {{ item.precio }} USD
-      </li>
-    </ul>
-  
-    <h3>Reservas</h3>
-    <ul>
-      <li *ngFor="let reserva of reservas">
-        {{ reserva.fecha }} - {{ reserva.estado }}
-      </li>
-    </ul>
-  
-    <h3>Turnos</h3>
-    <ul>
-      <li *ngFor="let turno of turnos">
-        {{ turno.fecha }} - {{ turno.servicio }}
-      </li>
-    </ul>
-  
-    <h3>Vehículos Cargados</h3>
-    <ul>
-      <li *ngFor="let vehiculo of vehiculos">
-        {{ vehiculo.marca }} - {{ vehiculo.modelo }} - {{ vehiculo.patente }}
-      </li>
-    </ul>
-  </div> -->
+
   <section class="w-100 vh-auto d-flex align-items-center bg-color">
   <div *ngIf="usuario" class="perfil">
     <h2>Perfil de {{ usuario.first_name }} {{ usuario.last_name }}</h2>
@@ -47,24 +6,39 @@
     <p><strong>Teléfono:</strong> {{ usuario.num_telefono }}</p>
 
 <div *ngIf="!isAdmin">
-    <h2>Vehiculos</h2>
+    <h2>Vehiculos <i class="bi bi-car-front-fill"></i></h2>
     <div *ngIf="vehiculos.length > 0; else noVehiculos">
     <ul >
     <li *ngFor="let vehiculo of vehiculos">
       <!-- {{ vehiculo.marca }} - {{ vehiculo.modelo }} - {{ vehiculo.patente }} -->
         {{vehiculo.modelo}} - {{vehiculo.tipo}}
-        <button>
-          <!-- <i class="bi bi-pencil-fill" id="edit" routerLink="/editar-productos/{{item.id}}">
-          </i> -->
-          <i class="bi bi-pencil-fill" id="edit" routerLink="">
-          </i>
-        </button>
-        <div *ngIf="vehiculo.categoria == 'Moto'">
-          <img  src="http://localhost:8000/media/photos/moto1.png" alt="{{ vehiculo.modelo }}" width="100">
-        </div>
-        <div *ngIf="vehiculo.categoria == 'Auto'">
-          <img  src="http://localhost:8000/media/photos/auto.png" alt="{{ vehiculo.modelo }}" width="100">
-        </div>
+        
+        <div>
+    <!-- Moto -->
+    <i *ngIf="vehiculo.categoria == 'Moto'" class="fa-solid fa-motorcycle fa-2x"></i>
+
+    <!-- Auto -->
+    <i *ngIf="vehiculo.categoria == 'Auto'" class="fa-solid fa-car-side fa-2x"></i>
+
+    <!-- Camión -->
+    <i *ngIf="vehiculo.categoria == 'Camión'" class="fa-solid fa-truck-moving fa-2x"></i>
+
+    <!-- Ómnibus -->
+    <i *ngIf="vehiculo.categoria == 'Ómnibus'" class="fa-solid fa-bus fa-2x"></i>
+
+    <!-- Furgón -->
+    <i *ngIf="vehiculo.categoria == 'Furgón'" class="fa-solid fa-van-shuttle fa-2x"></i>
+
+    <!-- Otro -->
+    <i *ngIf="vehiculo.categoria == 'Otro'" class="fa-solid fa-question fa-2x"></i>
+  </div>
+  <button [routerLink]="['/vehiculo/editar', vehiculo.id]">
+    <i class="bi bi-pencil-fill" id="edit"></i>
+  </button>
+
+  <button type="button" class="btn btn-danger" (click)="eliminarVehiculo(vehiculo.id)">
+    <i class="fa-solid fa-trash"></i>
+  </button>
         
     </li>
     
@@ -78,14 +52,15 @@
 </ng-template>
     
 <div *ngIf="!isAdmin">
-    <h2>Carrito</h2>
+    <h2>
+    Carrito <i class="bi bi-cart-fill"></i> 
+  </h2>
     <div *ngIf="carrito.length > 0; else noProductos">
-        <!-- <li *ngFor="let item of carrito">
-            <strong>{{ item.producto.nombre }}</strong>
-            
-        </li> -->
+        
         <p>Tiene productos en el carrito</p>
-        <button routerLink="/carrito">Continuar comprando</button>
+        <button routerLink="/carrito">
+        <i class="bi bi-bag-check-fill"></i> Continuar comprando
+      </button>
         
       </div>
     <ng-template #noProductos>
@@ -94,12 +69,35 @@
   </div>
 
   <div *ngIf="!isAdmin">
-    <h2>Mis turnos</h2>
+    <h2>Mis turnos <i class="bi bi-calendar-event"></i></h2>
+    <div *ngIf="reservas.length > 0; else noTurnos">
+      <p>Tiene las siguientes reservas</p>
+        <li *ngFor="let reserva of reservas">
+  <strong>{{ reserva.servicio_info.nombre }}</strong>
+  <p>en sucursal</p>
+  <strong>{{ reserva.sucursal_info.nombre }}</strong>
+  <p>El día: </p>
+  <strong>{{ reserva.turno_info.fecha | date:'dd/MM/yyyy' }}</strong>
+  <p>a las </p>
+  <strong>{{ reserva.turno_info.hora }}</strong>
+  
+  <!-- Mostrar alerta de turno vencido -->
+  <p *ngIf="isTurnoVencido(reserva)" class="text-danger">
+    Turno vencido
+  </p>
+</li>
+        <p>Lo esperamos!!</p>
+        <!-- <button routerLink="/carrito">Continuar comprando</button> -->
+        
+      </div>
+    <ng-template #noTurnos>
+        <p>No hay reservas de servicios.</p>
+    </ng-template>
   </div>
 
-  <div *ngIf="isAdmin">
+  <!-- <div *ngIf="isAdmin">
     <h2>Turnos asignados</h2>
-  </div>
+  </div> -->
    
   </div>
 </section>

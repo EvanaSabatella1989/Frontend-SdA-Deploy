@@ -22,3 +22,17 @@
     border-color: #F5C057;
     transition-duration: 1s;
     }
+
+.hover-card {
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-card:hover {
+  background-color: grey;
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+a{
+    text-decoration: none;
+}

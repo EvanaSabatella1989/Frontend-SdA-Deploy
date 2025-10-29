@@ -3,7 +3,7 @@
   <form [formGroup]="vehiculoForm" (ngSubmit)="agregarVehiculo()">
 
     <label>Categoría:</label>
-    <select formControlName="categoria" class="form-control">
+    <!-- <select formControlName="categoria" class="form-control">
       <option value="">Seleccione una categoría</option>
       <option value="Moto">Moto</option>
       <option value="Auto">Auto</option>
@@ -11,6 +11,10 @@
       <option value="Ómnibus">Ómnibus</option>
       <option value="Furgón">Furgón</option>
       <option value="Otro">Otro</option>
+    </select> -->
+    <select formControlName="categoria" class="form-control">
+     <option value="">Seleccione una categoría</option>
+     <option *ngFor="let cat of categorias" [ngValue]="cat">{{ cat.nombre }}</option>
     </select>
 
     <label>Marca:</label>

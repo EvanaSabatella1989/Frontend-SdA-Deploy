@@ -9,35 +9,56 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CategoriasComponent implements OnInit{
   
   miCat:any;
-
+  tipoCategoria: string = 'producto'; // por defecto
 constructor(private cat: CategoriaService, private activatedRoute: ActivatedRoute, private router: Router) {
     
    }
 
   ngOnInit(): void {
-    this.cat.obtenerCategorias().subscribe({
-      next:(categoriasTodas)=>{
-        this.miCat=categoriasTodas;
-        console.log(" Exito se cargo las categorías");
-      },
-      error:(errorData)=> {
-        console.log("error del componenete categoría ");
-        console.error(errorData);
-        this.router.navigate(['']);
-      }
-    })
-  
+    // this.cat.obtenerCategorias().subscribe({
+    //   next:(categoriasTodas)=>{
+    //     this.miCat=categoriasTodas;
+    //     console.log(" Exito se cargo las categorías");
+    //   },
+    //   error:(errorData)=> {
+    //     console.log("error del componenete categoría ");
+    //     console.error(errorData);
+    //     this.router.navigate(['']);
+    //   }
+    // })
 
+
+
+  //   this.cat.obtenerCategorias('producto').subscribe({
+  //   next: (categoriasProductos) => {
+  //     this.miCat = categoriasProductos;
+  //     console.log("✅ Éxito, se cargaron solo las categorías de productos");
+  //   },
+  //   error: (errorData) => {
+  //     console.log("❌ Error en el componente categoría");
+  //     console.error(errorData);
+  //     this.router.navigate(['']);
+  //   }
+  // });
+  
+    this.cargarCategorias();
    
 
 
   }
 
+  cargarCategorias() {
+  this.cat.obtenerCategorias(this.tipoCategoria).subscribe({
+    next: (categorias) => this.miCat = categorias,
+    error: (err) => console.error(err)
+  });
+}
+
   delete(item:any){
     this.miCat.forEach((categoria: any) => {
           if (categoria.id == item.id) {
             this.cat.delete(item.id).subscribe(
-                res=>this.cat.obtenerCategorias().subscribe(
+                res=>this.cat.obtenerCategorias(this.tipoCategoria).subscribe(
                 Response=>this.miCat=Response
                 )
             );

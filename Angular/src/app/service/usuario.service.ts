@@ -1,45 +1,62 @@
-// import { Injectable } from '@angular/core';
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class UsuarioService {
-
-//   constructor() { }
-// }
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
-  private apiUrl = "https://backend-sda-deploy.onrender.com/api/perfil/";
-  private apiUrl2="https://backend-sda-deploy.onrender.com/api/";
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
-  private getHeaders(): HttpHeaders {
-      const token = localStorage.getItem('token'); // Recuperar el token JWT
-      return new HttpHeaders({
-        'Authorization': `Bearer ${token}`, // Agregar el token al header
-        'Content-Type': 'application/json'
-      });
+  /** 
+   * Genera los headers con token JWT si existe.
+   */
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.warn('⚠️ No se encontró token en localStorage');
+      return new HttpHeaders(); // sin auth
+    }
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+  }
+
+  /** 
+   * Obtiene el perfil del usuario autenticado
+   */
+  obtenerPerfil(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/perfil/`, {
+      headers: this.getAuthHeaders(),
+    });
+  }
+
+  /**
+   * Obtiene el ID del cliente asociado al usuario autenticado
+   */
+  obtenerClienteId(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/perfil-cliente/`, {
+      headers: this.getAuthHeaders(),
+    });
+  }
+
+  /**
+   * Obtiene el perfil con datos específicos para reservas
+   */
+  obtenerPerfilReserva(): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('❌ No hay token guardado. Redirigir al login.');
+      return throwError(() => new Error('Token no disponible'));
     }
 
-  // obtenerPerfil(userId: string): Observable<any> {
-  //   return this.http.get(`${this.apiUrl}/${userId}/perfil`);
-  // }
-
-  obtenerPerfil(): Observable<any> {
-    return this.http.get<any>(this.apiUrl,{ headers: this.getHeaders()});
+    return this.http.get<any>(`${this.apiUrl}/perfil-reserva/`, {
+      headers: this.getAuthHeaders(),
+    });
   }
-
-  // para obtener los id de clientes relacionados a usuario
-  obtenerClienteId(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl2}/perfil-cliente/`, { headers: this.getHeaders() });
-  }
-  
 }
+

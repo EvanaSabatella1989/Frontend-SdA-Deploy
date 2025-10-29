@@ -4,3 +4,104 @@
 
     
 }
+
+/* Contenedor principal */
+section {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  background: #f8f9fa; /* gris clarito */
+}
+
+/* Caja del perfil */
+.perfil {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 900px;
+}
+
+/* Títulos */
+.perfil h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 0.3rem;
+  color: #007bff;
+}
+
+/* Info de usuario */
+.perfil p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  color: #444;
+}
+
+/* Lista de vehículos */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+li {
+  background: #f1f1f1;
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Botones */
+button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+/* Ícono de editar */
+#edit {
+  font-size: 1.2rem;
+  color: white;
+}
+
+/* Imagen de vehículo */
+li img {
+  margin-left: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+/* Mensajes vacíos */
+ng-template p {
+  font-style: italic;
+  color: #888;
+}
+
+/* Carrito y reservas */
+.perfil div {
+  margin-top: 2rem;
+}
+
+h2 i {
+  margin-right: 0.5rem;
+  color: #007bff;
+  vertical-align: middle;
+  font-size: 1.4rem;
+}
+
+button i {
+  margin-right: 0.4rem;
+}

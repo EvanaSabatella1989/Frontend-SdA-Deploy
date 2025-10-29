@@ -1,9 +1,13 @@
 <!-- contenedor del formulario -->
 <div class="container py-5">
-  <div class="feature col-md-6 mx-auto">
-    <h3 class="fs-2 text-center">Dejanos tu mensaje</h3>
-    <form [formGroup]="form" (ngSubmit)="enviarFormulario()" class="w-75 mx-auto">
-      <div>
+  <h3 class="fs-2 text-center mb-4">Contactate con Nosotros</h3>
+  <p class="text-center mb-4">Escribinos y te respoderemos a la brevedad</p>
+  <div class="card shadow-lg mx-auto p-4" style="max-width: 600px; border-radius: 15px; background-color: #f8f9fa;">
+    
+    <form [formGroup]="form" (ngSubmit)="enviarFormulario()" >
+
+
+      <div class="mb-3">
         <label for="validationName" class="form-label">Nombre</label>
         <input type="text" class="form-control" id="validationNombre" required formControlName="nombre" />
         <div *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched">
@@ -31,8 +35,8 @@
       </div>
 
       <br />
-      <div>
-        <button class="col-12 btn btn-primary bg-primary text-white" type="submit" [disabled]="form.invalid">
+      <div class="d-grid">
+        <button class="btn btn-primary btn-lg" type="submit" [disabled]="form.invalid">
           Enviar
         </button>
       </div>
@@ -42,18 +46,18 @@
 
 <!-- contenedor de redes sociales -->
 <div class="container py-5 text-center">
-  <h3 class="fs-2">Seguinos en nuestras redes</h3>
+  <h3 class="fs-2 mb-4">También podes seguinos en nuestras redes</h3>
   <div class="d-flex justify-content-center gap-3">
-    <a class="btn btn-primary me-2" style="background-color: #3b5998;" href="#!" role="button">
+    <a class="social-btn" href="#!" aria-label="Facebook">
       <i class="fab fa-facebook-f"></i>
     </a>
-    <a class="btn btn-primary me-2" style="background-color: #55acee;" href="#!" role="button">
+    <a class="social-btn" href="#!" aria-label="Twitter">
       <i class="fab fa-twitter"></i>
     </a>
-    <a class="btn btn-primary me-2" style="background-color: #ac2bac;" href="#!" role="button">
+    <a class="social-btn" href="#!" aria-label="Instagram">
       <i class="fab fa-instagram"></i>
     </a>
-    <a class="btn btn-primary" style="background-color: #0082ca;" href="#!" role="button">
+    <a class="social-btn" href="#!" aria-label="LinkedIn">
       <i class="fab fa-linkedin-in"></i>
     </a>
   </div>

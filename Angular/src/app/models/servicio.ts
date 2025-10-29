@@ -1,3 +1,5 @@
+import { Sucursal } from "./sucursal";
+
 export class Servicio {
     public id?: number;
     nombre?: string;
@@ -5,6 +7,7 @@ export class Servicio {
     descripcion?: string;
     precio: number;
     fecha_creacion?: string;
+    sucursal?: Sucursal;   
     
     
 

@@ -1,0 +1,83 @@
+<main>
+
+  <h2 class="text-center mb-4">Lista de Usuarios</h2>
+
+  <div class="d-flex justify-content-end mb-3">
+    <button class="btn btn-success" (click)="abrirModal()">+ Nuevo Usuario</button>
+  </div>
+
+  <table class="table table-bordered table-striped text-center align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">Email</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Dirección</th>
+        <th scope="col">Teléfono</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cliente of clientes">
+        <td>{{ cliente.email }}</td>
+        <td>{{ cliente.first_name }} {{ cliente.last_name }}</td>
+        <td>{{ cliente.direccion }}</td>
+        <td>{{ cliente.num_telefono }}</td>
+        <td>
+          <button class="btn btn-primary btn-sm me-2" (click)="abrirModal(cliente)">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="eliminarCliente(cliente.id!)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="mb-3 d-flex justify-content-center">
+    <a routerLink="/panel" class="btn btn-info">Volver</a>
+  </div>
+
+</main>
+
+<!-- modal para editar y crear -->
+<div class="modal fade" id="modalCliente" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ clienteActual ? 'Editar Cliente' : 'Crear Cliente' }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3" *ngIf="!clienteActual">
+            <label>Email</label>
+            <input type="email" class="form-control" [(ngModel)]="email" name="email">
+          </div>
+          <div class="mb-3" *ngIf="!clienteActual">
+            <label>Contraseña</label>
+            <input type="password" class="form-control" [(ngModel)]="password" name="password">
+          </div>
+          <div class="mb-3">
+            <label>Nombre</label>
+            <input type="text" class="form-control" [(ngModel)]="first_name" name="first_name">
+          </div>
+          <div class="mb-3">
+            <label>Apellido</label>
+            <input type="text" class="form-control" [(ngModel)]="last_name" name="last_name">
+          </div>
+          <div class="mb-3">
+            <label>Dirección</label>
+            <input type="text" class="form-control" [(ngModel)]="direccion" name="direccion">
+          </div>
+          <div class="mb-3">
+            <label>Teléfono</label>
+            <input type="text" class="form-control" [(ngModel)]="num_telefono" name="num_telefono">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
+        <button class="btn btn-primary" (click)="guardarCliente()">
+          {{ clienteActual ? 'Actualizar' : 'Crear' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

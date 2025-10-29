@@ -1,0 +1,88 @@
+<main>
+  <div *ngIf="isAdmin " class="mt-5">
+    <h2 class="text-center mb-4">Gestión de Reservas</h2>
+
+
+
+    <div class="mb-3 d-flex justify-content-end">
+      <button class="btn btn-success mb-3" (click)="abrirModal()">+ Nueva Reserva</button>
+    </div>
+    
+    <table class="table table-bordered table-striped text-center align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Cliente</th>
+          <th scope="col">Servicio</th>
+          <th scope="col">Sucursal</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Hora</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of reservas">
+          <td>{{ r.cliente.first_name }} {{ r.cliente.last_name }}</td>
+          <td>{{ r.servicio_info?.nombre }}</td>
+          <td>{{ r.sucursal_info?.nombre }}</td>
+          <td>{{ r.turno_info?.fecha }}</td>
+          <td>{{ r.turno_info?.hora }}</td>
+          <td>
+            <button class="btn btn-primary btn-sm me-2" (click)="abrirModal(r)">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="eliminarReserva(r.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="mb-3 d-flex justify-content-center">
+    <a routerLink="/panel" class="btn btn-info">Volver</a>
+  </div>
+  </div>
+
+
+  <!-- modal para dmin reserva, lo botones aparecen solo si hay reservas cargadas -->
+  <div class="modal fade" id="modalReserva" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form [formGroup]="reservaForm" (ngSubmit)="guardarReserva()">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ reservaActual ? 'Editar' : 'Nueva' }} Reserva</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label>Cliente</label>
+              <select formControlName="cliente" class="form-select">
+                <option *ngFor="let c of clientes" [value]="c.id">{{ c.first_name }} {{ c.last_name }}</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label>Servicio</label>
+              <select formControlName="servicio" class="form-select" (change)="cargarServicios()">
+                <option *ngFor="let s of servicios" [value]="s.id">{{ s.nombre }}</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label>Sucursal</label>
+              <select formControlName="sucursal" class="form-select" (change)="alCambiarSucursal()">
+                <option *ngFor="let s of sucursales" [value]="s.id">{{ s.nombre }}</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label>Turno</label>
+              <select formControlName="turno" class="form-select">
+                <option *ngFor="let t of turnosDisponibles" [value]="t.id">{{ t.fecha }} - {{ t.hora }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success">{{ reservaActual ? 'Actualizar' : 'Crear' }}</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+</main>

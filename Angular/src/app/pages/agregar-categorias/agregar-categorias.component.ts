@@ -12,6 +12,7 @@ import { Categoria } from 'src/app/models/categoria';
 export class AgregarCategoriasComponent {
 
   nombre: string = "";
+  tipo: string = "producto"; // valor por defecto
 
   constructor(private categoriaServicio: CategoriaService, private router: Router){
 
@@ -19,13 +20,25 @@ export class AgregarCategoriasComponent {
 
   ngOnInit(): void { }
 
+  // create(): void{
+  //   // const categoria = new Categoria(this.nombre);
+  //   const categoria = new FormData();
+  //   categoria.append('nombre',this.nombre)
+  //   this.categoriaServicio.create(categoria).subscribe(
+  //     data=>this.router.navigate(['/categorias'])
+  //   );
+  //   console.log(categoria);
+  // }
+
   create(): void{
-    // const categoria = new Categoria(this.nombre);
     const categoria = new FormData();
-    categoria.append('nombre',this.nombre)
+    categoria.append('nombre', this.nombre);
+    categoria.append('tipo', this.tipo);
+
     this.categoriaServicio.create(categoria).subscribe(
-      data=>this.router.navigate(['/categorias'])
+      data => this.router.navigate(['/categorias/'])
     );
-    console.log(categoria);
+
+    console.log('Categoría a crear:', this.nombre, this.tipo);
   }
 }

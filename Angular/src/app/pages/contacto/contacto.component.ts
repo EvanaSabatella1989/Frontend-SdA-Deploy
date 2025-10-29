@@ -10,59 +10,41 @@ import { ContactoService } from 'src/app/service/contacto.service';
 })
 export class ContactoComponent  implements OnInit {
 form: FormGroup;
-isLoading = false;  // Bandera para indicar si está cargando
+isLoading = false; 
 
 
   constructor(private contactoService: ContactoService) {
     this.form = new FormGroup({
       nombre: new FormControl('', [Validators.required, Validators.minLength(3)]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      telefono: new FormControl('', [Validators.pattern('^[0-9]{10,15}$')]),
       mensaje: new FormControl('', [Validators.required, Validators.minLength(10)])
     });
   }
 
   enviarFormulario() {
-    if (this.form.valid) {
-      this.isLoading = true;  // Activar el indicador de carga
-      this.contactoService.enviarContacto(this.form.value).subscribe({
-        next: () => {
-          alert('Mensaje enviado con éxito');
-          this.form.reset(); // Limpiar formulario después de enviar
-        },
-        error: () => alert('Error al enviar el mensaje')
-      });
-    } else {
+    if (this.form.invalid) {
       alert('Por favor, complete todos los campos correctamente.');
+      return;
     }
-  }
-  // get Nombre(){
-  //   return this.form.get("nombre");
-  //  }
 
-  //  get Email(){
-  //   return this.form.get("email");
-  //  }
+    this.isLoading = true;
 
-  //  get Mensaje(){
-  //   return this.form.get("mensaje");
-  //  }
-
-  //  onEnviar(event: Event){
-  //   event.preventDefault;
-  //   if(this.form.valid){
-  //     alert("Enviar al servidor");
-  //   }
-  //   else{
-  //     this.form.markAllAsTouched();
-  //   }
-  //  }
-
-  ngOnInit(): void {
+    this.contactoService.enviarContacto(this.form.value).subscribe({
+      next: () => {
+        alert('✅ Mensaje enviado con éxito. ¡Gracias por contactarnos!');
+        this.form.reset();
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error(err);
+        alert('❌ Error al enviar el mensaje. Intente nuevamente.');
+        this.isLoading = false;
+      }
+    });
   }
 
-
-   }
+  ngOnInit(): void {}
+}
 
   
 

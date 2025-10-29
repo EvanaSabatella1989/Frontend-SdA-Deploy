@@ -1,0 +1,58 @@
+<div class="container mt-5 mb-5">
+  <div class="row g-4">
+    <!-- izquierda servicio (usuario) -->
+    <div class="col-md-6">
+      <div class="card shadow-sm rounded">
+        <img *ngIf="servicio.imagen" [src]="servicio.imagen" class="card-img-top" alt="{{ servicio.nombre }}"
+          style="object-fit: cover; max-height: 300px;">
+        <div class="card-body">
+          <h2 class="card-title">{{ servicio.nombre }}</h2>
+          <p class="card-text"><strong>Descripción:</strong> {{ servicio.descripcion }}</p>
+          <p class="card-text"><strong>Precio:</strong> ${{ servicio.precio }}</p>
+        </div>
+      </div>
+
+
+    </div>
+
+    <!-- derecha formulario (usuario) -->
+    <div class="col-md-6">
+      <div class="card shadow-sm rounded p-4" style="background-color: #f8f9fa;">
+        <h3 class="mb-4">Reservar turno</h3>
+
+        <form *ngIf="reservaForm" [formGroup]="reservaForm" (ngSubmit)="reservar()">
+          <div class="mb-3">
+            <label class="form-label">Sucursal:</label>
+            <select formControlName="sucursal" class="form-select" (change)="alCambiarSucursal()">
+              <option *ngFor="let suc of sucursales" [value]="suc.id">{{ suc.nombre }}</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Turno:</label>
+            <select formControlName="turno" class="form-select">
+              <option *ngFor="let t of turnosDisponibles" [value]="t.id">{{ t.fecha }} - {{ t.hora }}</option>
+            </select>
+          </div>
+
+
+          <div class="mb-3" *ngIf="vehiculosFiltrados.length > 0">
+            <label class="form-label">Vehículo:</label>
+            <select formControlName="vehiculo" class="form-select">
+              <option *ngFor="let v of vehiculosFiltrados" [value]="v.id">{{ v.marca }} {{ v.modelo }} </option>
+            </select>
+          </div>
+          <div class="mb-3" *ngIf="vehiculosFiltrados.length === 0">
+            <p class="text-warning">⚠️ No tenés vehículos cargados. Antes de confirmar la reserva deberás <a
+                routerLink="/agregar-vehiculo">agregar uno</a>.</p>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100">Confirmar reserva</button>
+        </form>
+        <p class="mt-3 text-center text-danger">{{ mensaje }}</p>
+      </div>
+    </div>
+  </div>
+
+
+</div>

@@ -18,20 +18,28 @@ import { LayoutModule } from '../layout/layout.module';
 import { ProductosComponent } from './productos/productos.component';
 import { ArticuloComponent } from './articulo/articulo.component';
 import { ServicioComponent } from './servicio/servicio.component';
-import { ListaServiciosComponent } from './lista-servicios/lista-servicios.component';
+
 import { CategoriasComponent } from './categorias/categorias.component';
 import { ListaProductosComponent } from './lista-productos/lista-productos.component';
-import { AgregarServiciosComponent } from './agregar-servicios/agregar-servicios.component';
 import { AgregarProductosComponent } from './agregar-productos/agregar-productos.component';
 import { AgregarCategoriasComponent } from './agregar-categorias/agregar-categorias.component';
 import { EditarCategoriasComponent } from './editar-categorias/editar-categorias.component';
 import { EditarProductosComponent } from './editar-productos/editar-productos.component';
-import { EditarServiciosComponent } from './editar-servicios/editar-servicios.component';
 import { PagoExitosoComponent } from './pago-exitoso/pago-exitoso.component';
 import { PagoFallidoComponent } from './pago-fallido/pago-fallido.component';
 import { PagoPendienteComponent } from './pago-pendiente/pago-pendiente.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { AgregarVehiculoComponent } from './agregar-vehiculo/agregar-vehiculo.component';
+import { ReservaComponent } from './reserva/reserva.component';
+import { TurnosComponent } from './turnos/turnos.component';
+import { AgregarReservasComponent } from './agregar-reservas/agregar-reservas.component';
+import { PanelAdminComponent } from './panel-admin/panel-admin.component';
+import { ListaServiciosComponent } from './lista-servicios/lista-servicios.component';
+import { ListaUsuariosComponent } from './lista-usuarios/lista-usuarios.component';
+import { EditarVehiculoComponent } from './editar-vehiculo/editar-vehiculo.component';
+
+import { AgregarSucursalesComponent } from './agregar-sucursales/agregar-sucursales.component';
+
 
 
 
@@ -53,20 +61,27 @@ import { AgregarVehiculoComponent } from './agregar-vehiculo/agregar-vehiculo.co
     ProductosComponent,
     ArticuloComponent,
     ServicioComponent,
-    ListaServiciosComponent,
     CategoriasComponent,
     ListaProductosComponent,
-    AgregarServiciosComponent,
     AgregarProductosComponent,
     AgregarCategoriasComponent,
     EditarCategoriasComponent,
-    EditarServiciosComponent,
     EditarProductosComponent,
     PagoExitosoComponent,
     PagoFallidoComponent,
     PagoPendienteComponent,
     PerfilComponent,
     AgregarVehiculoComponent,
+    ReservaComponent,
+    TurnosComponent,
+    AgregarReservasComponent,
+    PanelAdminComponent,
+    ListaServiciosComponent,
+    ListaUsuariosComponent,
+    EditarVehiculoComponent,
+    
+    AgregarSucursalesComponent,
+ 
 
   ],
   imports: [
@@ -78,8 +93,8 @@ import { AgregarVehiculoComponent } from './agregar-vehiculo/agregar-vehiculo.co
   ],
   exports: [DashboardComponent, ServiciosComponent, QuienesSomosComponent, IntegranteComponent,
     SucursalesComponent, ContactoComponent, RegistrarseComponent, LoginComponent,
-    CarritoComponent, ServicioComponent, ListaServiciosComponent, CategoriasComponent,
-    ListaProductosComponent, AgregarServiciosComponent, EditarServiciosComponent,
+    CarritoComponent, ServicioComponent, CategoriasComponent,
+    ListaProductosComponent,
     AgregarCategoriasComponent, AgregarProductosComponent, EditarCategoriasComponent
 
   ]

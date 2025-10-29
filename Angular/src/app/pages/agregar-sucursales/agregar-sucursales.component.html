@@ -1,0 +1,81 @@
+<main>
+ <div  class="mt-5">
+<h2 class="text-center mb-4">Lista de Sucursales</h2>
+
+<div class="mb-3 d-flex justify-content-end">
+<button class="btn btn-success mb-3" (click)="abrirModal()">Nueva Sucursal</button>
+</div>
+
+<table class="table table-bordered table-striped text-center align-middle">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Dirección</th>
+      <th scope="col">Teléfono</th>
+      <th scope="col">Servicios</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let sucursal of sucursales">
+      <td>{{ sucursal.nombre }}</td>
+      <td>{{ sucursal.direccion }}</td>
+      <td>{{ sucursal.telefono }}</td>
+      <td>
+  <span *ngFor="let s of sucursal.servicios; let last = last">
+    {{ s.nombre }}<span *ngIf="!last"> - </span>
+  </span>
+</td>
+      <td>
+        <button class="btn btn-primary btn-sm me-2" (click)="abrirModal(sucursal)">Editar</button>
+        <button class="btn btn-danger btn-sm" (click)="eliminar(sucursal.id!)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="sucursalModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ sucursalSeleccionada ? 'Editar' : 'Nueva' }} Sucursal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form">
+          <div class="mb-3">
+            <label>Nombre</label>
+            <input type="text" formControlName="nombre" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Dirección</label>
+            <input type="text" formControlName="direccion" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Teléfono</label>
+            <input type="text" formControlName="telefono" class="form-control">
+          </div>
+
+    
+<div formArrayName="servicios">
+  <div *ngFor="let s of servicios; let i = index">
+    <input type="checkbox" [value]="s.id" (change)="onCheckboxChange($event)"
+           [checked]="form.get('servicios')?.value.includes(s.id)">
+    {{ s.nombre }}
+  </div>
+</div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button class="btn btn-success" (click)="guardar()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>

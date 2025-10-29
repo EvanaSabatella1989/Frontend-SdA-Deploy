@@ -1,0 +1,80 @@
+<main>
+<div class="container my-4" *ngIf="isAdmin">
+     <h2 class="text-center mb-4">Gestión de Turnos</h2>
+
+    <div class="d-flex justify-content-end mb-3">
+        <button class="btn btn-success" (click)="abrirModal()">+ Nuevo Turno</button>
+    </div>
+
+    <table class="table table-bordered table-striped text-center align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Sucursal</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Hora</th>
+                <th scope="col">Disponible</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let turno of turnos">
+                <td>
+                    {{ turno.sucursal?.nombre || 'N/A' }}
+                </td>
+                <td>{{ turno.fecha }}</td>
+                <td>{{ turno.hora }}</td>
+                <td>{{ turno.disponible ? '✅' : '❌' }}</td>
+                <td>
+                    <button class="btn btn-sm btn-primary me-2" (click)="abrirModal(turno)">Editar</button>
+                    <button class="btn btn-sm btn-danger" (click)="eliminarTurno(turno.id)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+ <div class="mb-3 d-flex justify-content-center">
+    <a routerLink="/panel" class="btn btn-info">Volver</a>
+  </div>
+
+</main>
+
+
+<!-- modal-->
+<div class="modal fade" id="modalTurno" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ turnoActual?.id ? 'Editar Turno' : 'Nuevo Turno' }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formTurno">
+                    <div class="mb-3">
+                        <label>Sucursal</label>
+                        <select formControlName="sucursal" class="form-select">
+                            <option [ngValue]="null">Seleccione una sucursal</option>
+                            <option *ngFor="let suc of sucursales" [ngValue]="suc.id">{{ suc.nombre }}</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>Fecha</label>
+                        <input formControlName="fecha" class="form-control" type="date">
+                    </div>
+                    <div class="mb-3">
+                        <label>Hora</label>
+                        <input formControlName="hora" class="form-control" type="time">
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" formControlName="disponible">
+                        <label class="form-check-label">Disponible</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="guardarTurno()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

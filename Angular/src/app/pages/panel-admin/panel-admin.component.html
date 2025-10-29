@@ -1,0 +1,17 @@
+<main>
+    <div class="container my-5">
+  <h2 class="text-center mb-4">Panel de Administración</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+  <div class="col" *ngFor="let modulo of modulosAdmin">
+    <div class="card h-100 text-center">
+      <div class="card-body">
+        <i [class]="modulo.icono" style="font-size: 2rem;"></i>
+        <h5 class="card-title mt-2">{{modulo.titulo}}</h5>
+        <p class="card-text">{{modulo.descripcion}}</p>
+        <button class="btn btn-primary" [routerLink]="[modulo.ruta]">Ir</button>
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+</main>

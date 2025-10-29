@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Token } from '../models/token.model';
 import { TokenService } from './token.service';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 interface LoginResponse extends Token {
   is_admin: boolean;
   // Traemos el nombre para manejar la sesión de usuario:
   first_name: string;
-
+  id:number;
 }
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class AuthService {
   private isAdminSubject = new BehaviorSubject<boolean>(this.tokenService.isAdmin());
   isAdmin$ = this.isAdminSubject.asObservable();
 
-  apiUrl = 'https://backend-sda-deploy.onrender.com/api'
+  apiUrl = environment.apiUrl;
   constructor(
     private http: HttpClient,
     private tokenService: TokenService
@@ -37,9 +38,10 @@ export class AuthService {
     })
     .pipe(
       tap(resp => {
-        
+        console.log('Respuesta login:', resp);
         this.isLoggedInSubject.next(true); // Notifica que el usuario está logueado
         this.tokenService.createToken(resp.access_token);
+        localStorage.setItem('user_id', resp.id.toString()); //para tarer el id del usuario
         // guardamos el nombre del usuario en el localStorage
         localStorage.setItem('first_name', resp.first_name);
         localStorage.setItem('token', resp.access_token) 
@@ -81,6 +83,10 @@ obtenerIdUsuario(): string {
   return '';
 }
 
+obtenerIdUsuario2(): number {
+  return Number(localStorage.getItem('user_id'));
+}
+
   getUserName(): string {
     return localStorage.getItem('first_name') || '';
   }
@@ -93,6 +99,9 @@ obtenerIdUsuario(): string {
     this.isLoggedInSubject.next(false)
   }
 
+  obtenerClientes(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/clientes/`);
+}
 
 }
 

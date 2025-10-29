@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ListaProductosComponent implements OnInit{
 
   miProd:any;
-
+  categorias: any[] = [];
   constructor(private prod: ProductoService, private activatedRoute: ActivatedRoute, private router: Router) {
     
   }
@@ -25,9 +25,13 @@ export class ListaProductosComponent implements OnInit{
         console.error(errorData);
         this.router.navigate(['']);
       }
-    })
+    });
 
-    
+    this.prod.traerCategorias('producto').subscribe(resp => {
+    this.categorias = resp;
+ 
+  });
+
   }
   // eliminar(produc:any){
   //   this.miProd.forEach((producto:any)=>{
