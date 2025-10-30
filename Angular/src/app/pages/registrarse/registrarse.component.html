@@ -1,6 +1,8 @@
 <section class="w-100 vh-100 d-flex align-items-center bg-color">
   <form class="col shadow p-3 d-flex flex-column gap-3 bg-white" [formGroup]="registrar" (ngSubmit)="guardar()">
     <h2>Registro</h2>
+
+
     <div class="col-12">
       <label for="validationName" class="form-label">Nombre</label>
       <input type="text" class="form-control" placeholder="Juan" name="nombre" id="validationNombre" required
@@ -9,35 +11,52 @@
     </div>
 
     <div class="col-12">
-      <label for="validationCustom02" class="form-label">Apellido</label>
+      <label for="validationApellido" class="form-label">Apellido</label>
       <input type="text" class="form-control" id="validationApellido" placeholder="Pérez" name="apellido"
         formControlName="apellido" required [class.is-invalid]="apellidoNoValido" />
       <small *ngIf="apellidoNoValido" class="text-danger">El apellido es un campo requerido</small>
     </div>
 
+
     <div class="col-12">
       <label for="validationEmail" class="form-label">Correo</label>
-      <input type="email" class="form-control" id="validationEmail" aria-describedby="inputGroupPrepend"
-        placeholder="juanperez@gmail.com" formControlName="correo" required [class.is-invalid]="correoNoValido" />
-      <small *ngIf="correoNoValido" class="text-danger">Ingrese un correo valido</small>
+      <input type="email" class="form-control" id="validationEmail" placeholder="juanperez@gmail.com"
+        formControlName="correo" required [class.is-invalid]="correoNoValido" />
+      <small *ngIf="correoNoValido" class="text-danger">Ingrese un correo válido</small>
     </div>
 
-    <div class="col-12">
-      <label for="validationPassword" class="form-label">Contraseña</label>
-      <input type="password" class="form-control" id="validationPassword" aria-describedby="inputGroupPrepend"
-        formControlName="password1" required [class.is-invalid]="password1NoValido" />
-      <small *ngIf="password1NoValido" class="text-danger">Ingrese una contraseña con el minimo de 6 caracteres</small>
-    </div>
 
     <div class="col-12">
-      <label for="validationPassword" class="form-label">Confirmar Contraseña</label>
-      <input type="password" class="form-control" id="validationPassword" aria-describedby="inputGroupPrepend"
-        formControlName="password2" required [class.is-invalid]="password2NoValido" />
+      <label for="validationPassword1" class="form-label">Contraseña</label>
+      <div class="input-group">
+        <input [type]="showPassword1 ? 'text' : 'password'" class="form-control" id="validationPassword1"
+          formControlName="password1" required [class.is-invalid]="password1NoValido" />
+        <button type="button" class="btn btn-outline-secondary" (click)="showPassword1 = !showPassword1">
+          <i class="bi" [ngClass]="showPassword1 ? 'bi-eye-slash' : 'bi-eye'"></i>
+        </button>
+      </div>
+      <small *ngIf="password1NoValido" class="text-danger">Ingrese una contraseña con el mínimo de 6 caracteres</small>
+    </div>
+
+
+    <div class="col-12">
+      <label for="validationPassword2" class="form-label">Confirmar Contraseña</label>
+      <div class="input-group">
+        <input [type]="showPassword2 ? 'text' : 'password'" class="form-control" id="validationPassword2"
+          formControlName="password2" required [class.is-invalid]="password2NoValido" />
+        <button type="button" class="btn btn-outline-secondary" (click)="showPassword2 = !showPassword2">
+          <i class="bi" [ngClass]="showPassword2 ? 'bi-eye-slash' : 'bi-eye'"></i>
+        </button>
+      </div>
       <small *ngIf="password2NoValido" class="text-danger">Las contraseñas no coinciden</small>
     </div>
+
+
     <div *ngIf="status === 'failed'" class="alert alert-danger" role="alert">
-      Este usuario ya esta registrado
+      Este usuario ya está registrado
     </div>
+
+
     <div class="col-12">
       <button class="col-12 btn btn-primary" type="submit">
         <div *ngIf="status === 'loading'" class="spinner-border" role="status" style="height: 20px; width: 20px">
@@ -47,8 +66,9 @@
       </button>
     </div>
 
+
     <div class="col-12">
-      <p>Ya tienes una cuenta? <a routerLink="/login">Ingresa</a></p>
+      <p>¿Ya tienes una cuenta? <a routerLink="/login">Ingresa</a></p>
     </div>
   </form>
 </section>
