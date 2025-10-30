@@ -9,12 +9,14 @@ import { VehiculoService } from 'src/app/service/vehiculo.service';
 import { forkJoin } from 'rxjs';
 declare var bootstrap: any;
 
+
 @Component({
   selector: 'app-reserva',
   templateUrl: './reserva.component.html',
   styleUrls: ['./reserva.component.css']
 })
 export class ReservaComponent {
+
   reservaForm!: FormGroup;
   servicio: any = {};
   sucursales: any[] = [];
@@ -140,6 +142,5 @@ ngOnInit(): void {
       }
     );
   }
-
 
 }
