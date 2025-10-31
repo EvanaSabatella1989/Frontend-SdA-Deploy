@@ -2,7 +2,7 @@
   <section class="container-carrito m-3 p-5 shadow">
     <h5>Carrito</h5>
 
-    <div *ngIf="cartItems.length > 0">
+    <div *ngIf="cartItems && cartItems.length > 0">
       
     <app-card-product
   [product]="product.producto"
@@ -13,7 +13,7 @@
     </div>
 
     <div
-      *ngIf="cartItems.length === 0"
+      *ngIf="cartItems && cartItems?.length === 0"
       class="d-flex flex-column gap-2 text-center align-items-center justify-content-center"
       style="min-height: 300px"
     >

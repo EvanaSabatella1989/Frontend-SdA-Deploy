@@ -33,7 +33,7 @@ export class StoreCartService {
   }
 
   getCarrito(): void {
-    this.http.get<{ items: CarritoItem[] }>(`${this.apiUrl}/`, { headers: this.getHeaders()}).subscribe(response => {
+    this.http.get<{ items: CarritoItem[] }>(`${this.apiUrl}/carrito/`, { headers: this.getHeaders()}).subscribe(response => {
       this.carrito.next(response.items);
     });
   }

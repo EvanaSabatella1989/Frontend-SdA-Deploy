@@ -12,11 +12,11 @@ import { environment } from '../../environments/environment';
 })
 export class ServicioService {
   // url2:string="http://localhost:8000/photos/photos/";
-  url: string = "http://localhost:8000/api/servicios/"
-  urlDos: string = "http://localhost:8000/api/reservas/"
-  urlTres: string = "http://127.0.0.1:8000/api"
-  url4: string = "http://127.0.0.1:8000/api/sucursal/"
-  urlTurno: string = "http://127.0.0.1:8000/api/turnos/"
+  // url: string = "http://localhost:8000/api/servicios/"
+  // urlDos: string = "http://localhost:8000/api/reservas/"
+  // urlTres: string = "http://127.0.0.1:8000/api"
+  // url4: string = "http://127.0.0.1:8000/api/sucursal/"
+  // urlTurno: string = "http://127.0.0.1:8000/api/turnos/"
 
   apiUrl = environment.apiUrl
 

@@ -46,13 +46,28 @@ export class CarritoComponent implements OnInit {
   //     this.total_precio = Number(Number.parseFloat(precio.toString()).toFixed(2))
       
   // });
-      this.serviceStore.myCart$.subscribe(items => {
-       this.cartItems = items;
-       console.log("Productos preparados : " +this.cartItems)
-       this.total_precio = items
-         .map(item => item.producto.precio * item.cantidad)
-          .reduce((acc, precio) => acc + precio, 0);
-     });
+    //   this.serviceStore.myCart$.subscribe(items => {
+    //    this.cartItems = items;
+    //    console.log("Productos preparados : " +this.cartItems)
+    //    this.total_precio = items
+    //      .map(item => item.producto.precio * item.cantidad)
+    //       .reduce((acc, precio) => acc + precio, 0);
+    //  });
+    this.serviceStore.myCart$.subscribe(items => {
+  if (!items || items.length === 0) {
+    this.cartItems = [];
+    this.total_precio = 0;
+    console.log("Carrito vacío o sin productos");
+    return;
+  }
+
+  this.cartItems = items;
+  console.log("Productos preparados:", this.cartItems);
+
+  this.total_precio = items
+    .map(item => item.producto?.precio * (item.cantidad ?? 1))
+    .reduce((acc, precio) => acc + precio, 0);
+});
   }
 
   // preferenceMP(){
@@ -82,8 +97,9 @@ export class CarritoComponent implements OnInit {
         console.log("Respuesta de Mercado Pago:", resp);
 
         if (resp.init_point) {
-          window.open(resp.init_point, '_blank');  // ✅ Abre en nueva pestaña
-          // window.location.replace(resp.init_point)
+          // window.open(resp.init_point, '_blank');  // ✅ Abre en nueva pestaña
+          // window.open(resp.init_point);  
+          window.location.replace(resp.init_point)
           this.status = 'success';
          
         } else {
