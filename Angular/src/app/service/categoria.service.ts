@@ -23,12 +23,16 @@ ngOnInit(){}
 //    return this.http.get(this.url+"categorias/");
    
 //  }
-obtenerCategorias(tipo: string = '') {
-  let url = this.url + '/categorias/';
-  if (tipo) {
-    url += `?tipo=${tipo}`;
-  }
-  return this.http.get(url);
+// obtenerCategorias(tipo: string = '') {
+//   let url = this.url + '/categorias/';
+//   if (tipo) {
+//     url += `?tipo=${tipo}`;
+//   }
+//   return this.http.get(url);
+// }
+
+obtenerCategorias(tipo: string): Observable<Categoria[]> {
+  return this.http.get<Categoria[]>(`${this.url}/categorias?tipo=${tipo}`);
 }
 
 

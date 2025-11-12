@@ -19,6 +19,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { StoreCartService } from 'src/app/service/store-cart.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-pago-exitoso',
@@ -28,7 +29,8 @@ import { StoreCartService } from 'src/app/service/store-cart.service';
 export class PagoExitosoComponent implements OnInit {
   paymentId: string | null = null;
   status: string | null = null;
-  private apiUrl = 'http://127.0.0.1:8000/api/venta/confirmar-pago';  // Ajusta la URL según tu backend
+  apiUrl = environment.apiUrl 
+  // private apiUrl = 'http://127.0.0.1:8000/api/venta/confirmar-pago';  // Ajusta la URL según tu backend
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router, private serviceStore: StoreCartService) {}
 
@@ -36,6 +38,11 @@ export class PagoExitosoComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.paymentId = params['payment_id'];
       this.status = params['status'];
+
+      // const tokenFromUrl = params['jwt'];
+      //   if (tokenFromUrl) {
+      //     localStorage.setItem('token', tokenFromUrl); // ✅ restaurar
+      //   }
 
       if (this.status === 'approved' && this.paymentId) {
         this.confirmarPago(this.paymentId);
@@ -55,7 +62,7 @@ export class PagoExitosoComponent implements OnInit {
   confirmarPago(paymentId: string) {
     const body = { status: 'approved', payment_id: paymentId };
 
-    this.http.post(this.apiUrl, body, { headers: this.getHeaders()}).subscribe({
+    this.http.post(this.apiUrl+'/venta/confirmar-pago', body, { headers: this.getHeaders()}).subscribe({
       next: (response: any) => {
         console.log('Pago confirmado con éxito', response);
         // ✅ Vaciar carrito en frontend después de confirmar pago

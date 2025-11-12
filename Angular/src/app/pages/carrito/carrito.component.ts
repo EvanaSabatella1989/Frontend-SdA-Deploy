@@ -97,9 +97,15 @@ export class CarritoComponent implements OnInit {
         console.log("Respuesta de Mercado Pago:", resp);
 
         if (resp.init_point) {
-          // window.open(resp.init_point, '_blank');  // ✅ Abre en nueva pestaña
-          // window.open(resp.init_point);  
-          window.location.replace(resp.init_point)
+          window.open(resp.init_point, '_blank');  // ✅ Abre en nueva pestaña
+          // window.open(resp.init_point); 
+          
+          // const token = localStorage.getItem('token');
+          // sessionStorage.setItem('token', token || ''); // refuerzo
+
+          // window.location.replace(`${resp.init_point}?jwt=${token}`);
+          
+          // window.location.replace(resp.init_point)
           this.status = 'success';
          
         } else {
