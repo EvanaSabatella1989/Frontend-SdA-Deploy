@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class PanelAdminComponent {
 modulosAdmin = [
+  { titulo: 'Categorias', descripcion: 'CRUD de categorías', ruta: '/categorias', icono: 'bi bi-tags' },
   { titulo: 'Productos', descripcion: 'CRUD de productos', ruta: '/lista-productos', icono: 'bi bi-box' },
   { titulo: 'Servicios', descripcion: 'CRUD de servicios', ruta: '/lista-servicios', icono: 'bi bi-tools' },
   { titulo: 'Reservas', descripcion: 'Gestionar reservas', ruta: '/admin/reservas', icono: 'bi bi-calendar-check' },

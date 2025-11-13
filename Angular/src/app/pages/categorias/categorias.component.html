@@ -1,27 +1,38 @@
 
 <h4>Categorías</h4>
+
+<div class="container">
     
-<a routerLink="/agregar-categorias" class="btn btn-info">Agregar Categoria</a>
+<!-- <button class="btn btn-agregar btn-success" (click)="abrirModal()">+ Nueva Categoría</button> -->
+ <!-- Botón para agregar -->
+<button class="btn btn-agregar btn-success" (click)="abrirModal()">+ Nueva Categoría</button>
+
 <br>
 <button 
-  class="btn" 
+  class="btn btn-filtro btn-amarillo"
   (click)="tipoCategoria='producto'; cargarCategorias()"
-  [ngClass]="tipoCategoria === 'producto' ? 'btn-primary' : 'btn-outline-primary'">
+  [ngClass]="tipoCategoria === 'producto' ? 'boton-activo' : 'boton-inactivo'">
   Productos
 </button>
 
 <button 
-  class="btn" 
+  class="btn btn-filtro btn-amarillo"
   (click)="tipoCategoria='servicio'; cargarCategorias()"
-  [ngClass]="tipoCategoria === 'servicio' ? 'btn-primary' : 'btn-outline-primary'">
+  [ngClass]="tipoCategoria === 'servicio' ? 'boton-activo' : 'boton-inactivo'">
   Servicios
 </button>
 
-<table class="table">
+<br>
+<p *ngIf="tipoCategoria === 'servicio'" class="alert alert-info mt-3">
+  Agregue aquí los tipos de vehículos que manejará el taller.
+</p>
+
+
+<!-- <table class="table">
 
     <thead>
       <tr>
-        <th scope="col">Id</th>
+        
         <th scope="col">Nombre</th>
         
         <th scope="col">Editar</th>
@@ -30,7 +41,7 @@
     </thead>
     <tbody  *ngFor="let item of miCat" >
       <tr>
-        <th scope="row">{{item.id}}</th>
+        
         <td>{{item.nombre}}</td>
         
         <td><button routerLink="/editar-categorias/{{item.id}}" class="bi bi-pencil-fill"></button></td>
@@ -42,6 +53,94 @@
       
       
     </tbody>
-  </table>
-  <a routerLink="/agregar-productos" class="btn btn-info">Volver</a>
+  </table> -->
+
+  <!-- Tabla -->
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Editar</th>
+      <th>Eliminar</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let item of miCat">
+    <tr>
+      <td>{{ item.nombre }}</td>
+      <td>
+        <button (click)="abrirModal(item)" class="bi bi-pencil-fill"></button>
+      </td>
+      <td>
+        <button (click)="delete(item)" class="bi bi-trash-fill"></button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+  
+  <div class="volver-container">
+   <a routerLink="/panel" class="btn btn-volver btn-amarillo">Volver</a>
+  </div>
+
+  </div>
+
+  
+
+<!-- Modal reutilizable -->
+<div class="modal fade" id="modalCategoria" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">{{ editando ? 'Editar Categoría' : 'Agregar Nueva Categoría' }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+
+      <div class="modal-body">
+        <form (ngSubmit)="guardarCategoria()" #formCategoria="ngForm">
+
+          <!-- Nombre -->
+          <div class="mb-3">
+            <label class="form-label">Nombre de la Categoría</label>
+            <input
+              type="text"
+              id="nombre"
+              class="form-control"
+              [(ngModel)]="nombre"
+              name="nombre"
+              maxlength="50"
+              required
+              (ngModelChange)="verificarDuplicado()"
+            />
+            <!-- Mensaje de error -->
+            <small *ngIf="nombre.length > 50" class="text-danger">
+              El nombre no puede superar los 50 caracteres.
+            </small>
+            <small *ngIf="nombreDuplicado" class="text-danger">
+              Ya existe una categoría con este nombre.
+            </small>
+          </div>
+
+          <!-- Tipo (solo lectura) -->
+          <div class="mb-3">
+            <label class="form-label">Tipo de Categoría</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="tipo"
+              name="tipo"
+              readonly
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary"
+            [disabled]="formCategoria.invalid || nombreDuplicado || nombre.length > 50">
+            {{ editando ? 'Actualizar' : 'Guardar' }}
+          </button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 

@@ -10,9 +10,19 @@
     color: red;
 }
 
-.btn{
+.btn-agregar{
     float: right;
     margin-bottom: 15px;
+}
+
+.btn-filtro{
+    float: left;
+    margin-bottom: 15px;
+}
+
+.btn-volver{
+    margin: auto;
+    /* margin-bottom: 15px; */
 }
 
 h4{
@@ -34,4 +44,32 @@ img{
   background-color: white;
   color: #0d6efd;
   border: 1px solid #0d6efd;
+}
+
+.volver-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.btn-amarillo {
+  background-color: #F5C057;
+  color: #000; /* texto oscuro para buen contraste */
+  border: none;
+}
+
+.btn-amarillo:hover {
+  background-color: #e0ac45; /* un tono más oscuro al pasar el mouse */
+  color: #000;
+}
+
+.boton-activo {
+  background-color: #e0ac45 !important; /* tono más oscuro */
+  color: #000 !important;
+}
+
+.boton-inactivo {
+  background-color: #F5C057 !important;
+  color: #000 !important;
+  opacity: 0.8;
 }

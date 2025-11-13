@@ -54,7 +54,7 @@ export class DashboardComponent implements OnInit {
 
   cargarMarcas(): void {
   this.marcasVehiculos = [
-    { nombre: 'Peugeot', imagen: '../assets/marcas/peu.jpeg' },
+    { nombre: 'Peugeot', imagen: 'assets/marcas/peu.jpeg' },
     { nombre: 'Fiat', imagen: 'assets/marcas/fiat.jpeg' },
     { nombre: 'Renault', imagen: 'assets/marcas/renault.jpeg' },
     { nombre: 'Chevrolet', imagen: 'assets/marcas/chevrolet.jpeg' },
@@ -74,7 +74,6 @@ export class DashboardComponent implements OnInit {
     { nombre: 'BMW', imagen: 'assets/marcas/bmw.jpeg' },
     { nombre: 'Audi', imagen: 'assets/marcas/audi.jpeg' },
     { nombre: 'Nissan', imagen: 'assets/marcas/nissan.jpeg' },
-    { nombre: 'Kia', imagen: 'assets/marcas/kia.png' },
     { nombre: 'Hyundai', imagen: 'assets/marcas/hyundai.png' },
     { nombre: 'Iveco', imagen: 'assets/marcas/iveco.jpeg' },
     { nombre: 'Ford', imagen: 'assets/marcas/ford.png' },
@@ -91,7 +90,7 @@ export class DashboardComponent implements OnInit {
     { nombre: 'Shell', imagen: 'assets/marcas/shell.png' },
     { nombre: 'Pirelli', imagen: 'assets/marcas/pirelli.jpeg' },
     { nombre: 'Bosch', imagen: 'assets/marcas/bosch.png' },
-    { nombre: 'NGK', imagen: '../assets/marcas/ngk.jpeg' },
+    { nombre: 'NGK', imagen: 'assets/marcas/ngk.jpeg' },
     { nombre: 'Bridgestone', imagen: 'assets/marcas/bridgestone.png' },
     { nombre: 'Gulf', imagen: 'assets/marcas/gulf.png' },
     { nombre: 'Liqui-moli', imagen: 'assets/marcas/liqui.png' },

@@ -1,8 +1,10 @@
-export class Categoria{
-    public id?: number;
-    nombre?: string;
+export class Categoria {
+  public id?: number;
+  public nombre: string;
+  public tipo: string;
 
-    constructor(nombre:string){
-        this.nombre=nombre;
-    }
+  constructor(nombre: string, tipo: string) {
+    this.nombre = nombre;
+    this.tipo = tipo;
+  }
 }
