@@ -13,9 +13,10 @@ import { forkJoin } from 'rxjs';
 })
 export class CarritoComponent implements OnInit {
   cartItems: any[] = [];
-  products: Producto[] = []
-  status: RequestStatus = 'init'
-  total_precio = 0
+  products: Producto[] = [];
+  status: RequestStatus = 'init';
+  total_precio = 0;
+  
   constructor(
     private serviceStore: StoreCartService,
     private payService: PayService,
@@ -23,7 +24,69 @@ export class CarritoComponent implements OnInit {
   ){
 
   }
+   ngOnInit(): void {
+    this.serviceStore.getCarrito();
 
+    this.serviceStore.myCart$.subscribe(items => {
+      this.cartItems = items;
+      this.total_precio = items
+        .map(item => item.producto.precio * item.cantidad)
+        .reduce((acc, precio) => acc + precio, 0);
+    });
+
+    // detecta cuando el usuario vuelve a esta pestaña
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        this.revisarCheckout();
+      }
+    });
+  }
+
+  preferenceMP() {
+    this.status = 'loading';
+    console.log("Productos a enviar:", this.cartItems);
+
+    this.payService.preference(this.cartItems).subscribe({
+      next: (resp: { init_point: string }) => {
+        console.log("Respuesta de Mercado Pago:", resp);
+
+        if (resp.init_point) {
+
+          // marca que el checkout fue iniciado
+          localStorage.setItem('checkoutIniciado', 'true');
+
+          // abre MP en nueva pestaña
+          window.open(resp.init_point, '_blank');
+
+          this.status = 'success';
+
+        } else {
+          console.error('No se recibió un link de pago');
+          this.status = 'failed';
+        }
+      },
+      error: (error: any) => {
+        console.error('Error en la solicitud de pago:', error);
+        this.status = 'failed';
+      }
+    });
+  }
+
+  // revisa si el checkout estaba iniciado y si sí limpia el carrito
+  revisarCheckout() {
+    const checkoutIniciado = localStorage.getItem('checkoutIniciado');
+
+    if (!checkoutIniciado) return; // si no se inicio pago  no hacer nada
+
+    console.log("Volviste desde Mercado Pago. Vaciando carrito...");
+
+    this.serviceStore.clearCart();  // vacia el carrito
+
+    localStorage.removeItem('checkoutIniciado'); // limpia el flag
+  }
+
+}
+  /*
   ngOnInit(): void {
       // this.serviceStore.myCart$.subscribe(products => {
       //   this.products = products
@@ -120,4 +183,4 @@ export class CarritoComponent implements OnInit {
     });
   }
 
-}
+}*/
