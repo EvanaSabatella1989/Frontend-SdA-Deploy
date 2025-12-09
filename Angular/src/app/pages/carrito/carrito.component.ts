@@ -5,6 +5,7 @@ import { PayService } from 'src/app/service/pay.service';
 import { StoreCartService } from 'src/app/service/store-cart.service';
 import { ProductoService } from 'src/app/service/producto.service';
 import { forkJoin } from 'rxjs';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-carrito',
@@ -21,25 +22,37 @@ export class CarritoComponent implements OnInit {
     private serviceStore: StoreCartService,
     private payService: PayService,
     private productService: ProductoService,
+    private cdr: ChangeDetectorRef
   ){
 
   }
    ngOnInit(): void {
     this.serviceStore.getCarrito();
 
+    // Escucha cambios del carrito enviados desde otras pestañas
+    const channel = new BroadcastChannel('carrito-channel');
+    channel.onmessage = (event) => {
+      if (event.data === 'carrito_actualizado') {
+        console.log("Carrito actualizado desde otra pestaña");
+        this.serviceStore.getCarrito(); // 🔥 Trae datos reales del backend
+      }
+    };
+
     this.serviceStore.myCart$.subscribe(items => {
       this.cartItems = items;
       this.total_precio = items
         .map(item => item.producto.precio * item.cantidad)
         .reduce((acc, precio) => acc + precio, 0);
+
+         this.cdr.detectChanges(); // 🔥 fuerza el refresco
     });
 
-    // detecta cuando el usuario vuelve a esta pestaña
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden) {
-        this.revisarCheckout();
-      }
-    });
+    //detecta cuando el usuario vuelve a esta pestaña
+    // document.addEventListener('visibilitychange', () => {
+    //   if (!document.hidden) {
+    //     this.revisarCheckout();
+    //   }
+    // });
   }
 
   preferenceMP() {
@@ -72,18 +85,18 @@ export class CarritoComponent implements OnInit {
     });
   }
 
-  // revisa si el checkout estaba iniciado y si sí limpia el carrito
-  revisarCheckout() {
-    const checkoutIniciado = localStorage.getItem('checkoutIniciado');
+  //revisa si el checkout estaba iniciado y si sí limpia el carrito
+  // revisarCheckout() {
+  //   const checkoutIniciado = localStorage.getItem('checkoutIniciado');
 
-    if (!checkoutIniciado) return; // si no se inicio pago  no hacer nada
+  //   if (!checkoutIniciado) return; // si no se inicio pago  no hacer nada
 
-    console.log("Volviste desde Mercado Pago. Vaciando carrito...");
+  //   console.log("Volviste desde Mercado Pago. Vaciando carrito...");
 
-    this.serviceStore.clearCart();  // vacia el carrito
+  //   this.serviceStore.clearCart();  // vacia el carrito
 
-    localStorage.removeItem('checkoutIniciado'); // limpia el flag
-  }
+  //   localStorage.removeItem('checkoutIniciado'); // limpia el flag
+  // }
 
 }
   /*

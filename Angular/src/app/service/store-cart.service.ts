@@ -22,7 +22,15 @@ export class StoreCartService {
   private carrito = new BehaviorSubject<CarritoItem[]>([]);
   myCart$ = this.carrito.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    const channel = new BroadcastChannel('carrito-channel');
+    channel.onmessage = (event) => {
+    if (event.data === 'carrito_actualizado') {
+      console.log("🔄 Recibido evento: carrito actualizado en otra pestaña");
+      this.syncCarrito(); // vuelve a emitir el nuevo estado
+    }
+  };
+  }
 
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('token'); // Recuperar el token JWT
@@ -67,6 +75,11 @@ export class StoreCartService {
 
 emptyCart() {
   return this.http.delete(`${this.apiUrl}/carrito/vaciar_carrito/`, { headers: this.getHeaders() });
+}
+
+syncCarrito() {
+  this.getCarrito();
+  this.carrito.next(this.carrito.getValue()); // 🔥 fuerza la emisión
 }
 
 

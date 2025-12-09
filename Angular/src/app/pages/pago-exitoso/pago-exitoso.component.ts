@@ -66,9 +66,21 @@ export class PagoExitosoComponent implements OnInit {
       next: (response: any) => {
         console.log('Pago confirmado con éxito', response);
         // ✅ Vaciar carrito en frontend después de confirmar pago
-        this.serviceStore.emptyCart().subscribe(() => {
-          console.log("Carrito vaciado después del pago confirmado");
-        });
+        // this.serviceStore.emptyCart().subscribe(() => {
+        //   console.log("Carrito vaciado después del pago confirmado");
+        // });
+
+        // ❗ Ya NO deberías vaciar el carrito manualmente
+      // this.serviceStore.emptyCart() ❌  (porque ya lo hace tu backend)
+
+      // ✔️ Sincronizamos carrito para que Angular refleje el carrito vacío del backend
+        this.serviceStore.syncCarrito();
+
+        
+
+        // 🔥 Notificar todas las pestañas
+        const channel = new BroadcastChannel('carrito-channel');
+        channel.postMessage('carrito_actualizado');
       },
       error: (error) => console.error('Error al confirmar pago', error)
     });
