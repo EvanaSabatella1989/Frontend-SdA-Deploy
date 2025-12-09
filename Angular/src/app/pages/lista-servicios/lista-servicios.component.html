@@ -31,7 +31,7 @@
         <td>{{ item.descripcion }}</td>
         <td>{{ item.precio | currency:'ARS':'symbol':'1.0-0' }}</td>
         <td>{{ item.categoriaNombre }}</td>
-        <td>{{ item.sucursalNombre  }}</td>
+        <td>{{ item.sucursalNombre }}</td>
         <!-- <td>{{ item.fecha_creacion | date:'dd/MM/yyyy' }}</td> -->
         <td>
           <!-- <a [routerLink]="['/editar-servicios', item.id]" class="btn btn-primary btn-sm">Editar</a> -->
@@ -71,26 +71,27 @@
 </div> -->
           <div class="mb-3">
             <label>Nombre</label>
-            <input type="text" class="form-control" [(ngModel)]="nombre" name="nombre">
+            <input type="text" class="form-control" [(ngModel)]="nombre" name="nombre"
+              [ngClass]="{'is-invalid': campoInvalido(nombre)}">
           </div>
 
           <div class="mb-3">
-  <label>Categoría</label>
-  <select class="form-select" [(ngModel)]="categoriaSeleccionada" name="categoria" required>
-    <option [ngValue]="null">-- Selecciona una categoría --</option>
-    <option *ngFor="let cat of categorias" [value]="cat.id">
-      {{ cat.nombre }}
-    </option>
-  </select>
-</div>
+            <label>Categoría</label>
+            <select class="form-select" [(ngModel)]="categoriaSeleccionada" name="categoria"  [ngClass]="{'is-invalid': !categoriaSeleccionada}" required>
+              <option [ngValue]="null">-- Selecciona una categoría --</option>
+              <option *ngFor="let cat of categorias" [value]="cat.id">
+                {{ cat.nombre }}
+              </option>
+            </select>
+          </div>
 
           <div class="mb-3">
             <label>Descripción</label>
-            <textarea class="form-control" [(ngModel)]="descripcion" name="descripcion"></textarea>
+            <textarea class="form-control" [(ngModel)]="descripcion" name="descripcion"  [ngClass]="{'is-invalid': campoInvalido(descripcion)}"></textarea>
           </div>
           <div class="mb-3">
             <label>Precio</label>
-            <input type="number" class="form-control" [(ngModel)]="precio" name="precio" placeholder="Ej: 30000">
+            <input type="number" class="form-control" [(ngModel)]="precio" name="precio" placeholder="Ej: 30000"  [ngClass]="{'is-invalid': precioInvalido()}">
 
           </div>
           <div class="mb-3">
@@ -98,7 +99,7 @@
             <img *ngIf="servicioActual?.imagen" [src]="servicioActual?.imagen" alt="Imagen actual"
               class="img-fluid mb-2">
 
-            <input type="file" class="form-control" (change)="seleccionarImagen($event)">
+            <input type="file" class="form-control" (change)="seleccionarImagen($event)"  [ngClass]="{'is-invalid': !imagenSeleccionada && !servicioActual}">
             <!-- <img *ngIf="servicioActual?.imagen" [src]="servicioActual.imagen" alt="Imagen actual" class="img-fluid mb-2">
  -->
           </div>
@@ -106,7 +107,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button class="btn btn-primary" (click)="guardarServicio()">
+        <button class="btn btn-primary" (click)="guardarServicio()" [disabled]="formInvalido()">
           {{servicioActual ? 'Actualizar' : 'Crear'}}
         </button>
       </div>

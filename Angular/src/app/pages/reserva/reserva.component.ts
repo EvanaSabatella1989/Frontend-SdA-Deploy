@@ -27,7 +27,7 @@ export class ReservaComponent {
   vehiculos: any[] = [];
   modalInstance: any;
   isAdmin: boolean = false;
-  vehiculosFiltrados: any[] = [];  // ✅ los que coinciden con la categoría del servicio
+  vehiculosFiltrados: any[] = [];  //  los que coinciden con la categoría del servicio
 
   constructor(private authService: AuthService, private servicioService: ServicioService,
     private fb: FormBuilder, private route: ActivatedRoute,

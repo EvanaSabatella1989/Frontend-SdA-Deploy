@@ -24,7 +24,7 @@ export class ListaServiciosComponent {
   modalInstance: any;
   nombre: string = '';
   descripcion: string = '';
-  precio: number = 0;
+  precio: number | null = null;
   categorias: any[] = [];
   categoriaSeleccionada: number | null = null;
   catSelec: any = { id: 0, nombre: 'Todos' };
@@ -32,14 +32,14 @@ export class ListaServiciosComponent {
   sucursalSeleccionada: number | null = null;
 
 
-  constructor(private sucursalService: ServicioService,private list: ServicioService, private activatedRouter: ActivatedRoute, private router: Router) {
+  constructor(private sucursalService: ServicioService, private list: ServicioService, private activatedRouter: ActivatedRoute, private router: Router) {
 
   }
 
 
   ngOnInit(): void {
     this.listarServicios()
-    
+
 
     //Traer categorías de servicio
     this.list.obtenerCategorias('servicio').subscribe({
@@ -48,63 +48,67 @@ export class ListaServiciosComponent {
         console.log("Categorías de servicios cargadas", this.categorias);
 
         this.list.obtenerSucursales().subscribe({
-        next: (respSuc) => {
-          this.sucursales = respSuc;
-          console.log("Sucursales cargadas", this.sucursales);
+          next: (respSuc) => {
+            this.sucursales = respSuc;
+            console.log("Sucursales cargadas", this.sucursales);
 
-          // Ahora sí, cargamos los servicios
-          this.listarServicios();
+            // Ahora sí, cargamos los servicios
+            this.listarServicios();
+          },
+
+          error: (error) => console.error("Error al traer sucursales:", error)
+        });
       },
-      
-     error: (error) => console.error("Error al traer sucursales:", error)
-      });
-    },
-    error: (error) => {
-      console.error("Error al traer categorías de servicios", error);
-    }
-  });
-}
+      error: (error) => {
+        console.error("Error al traer categorías de servicios", error);
+      }
+    });
+  }
 
 
   listarServicios() {
-  this.list.obtenerServiciosConSucursales().subscribe({
-    next: (todaLaLista) => {
-      this.miList = todaLaLista.map((s: any) => {
-        const categoriaEncontrada = this.categorias.find(c => c.id === s.categoria);
-        const sucursalesNombres = s.sucursales?.map((suc: any) => suc.nombre).join(', ') || 'sin sucursal';
-        return {
-          ...s,
-          categoriaNombre: categoriaEncontrada ? categoriaEncontrada.nombre : 'Sin categoría',
-          sucursalNombre: sucursalesNombres
-        };
-      });
-      console.log("Servicios cargados con categoría y sucursales:", this.miList);
-    },
-    error: (errorData) => {
-      console.log("no cargo lista");
-      console.log(errorData);
-      this.router.navigate(['']);
-    }
-  });
-}
+    this.list.obtenerServiciosConSucursales().subscribe({
+      next: (todaLaLista) => {
+        this.miList = todaLaLista.map((s: any) => {
+          const categoriaEncontrada = this.categorias.find(c => c.id === s.categoria);
+          const sucursalesNombres = s.sucursales?.map((suc: any) => suc.nombre).join(', ') || 'sin sucursal';
+          return {
+            ...s,
+            categoriaNombre: categoriaEncontrada ? categoriaEncontrada.nombre : 'Sin categoría',
+            sucursalNombre: sucursalesNombres
+          };
+        });
+        console.log("Servicios cargados con categoría y sucursales:", this.miList);
+      },
+      error: (errorData) => {
+        console.log("no cargo lista");
+        console.log(errorData);
+        this.router.navigate(['']);
+      }
+    });
+  }
 
 
 
-  abrirModal(servicio?:Servicio){
-    this.servicioActual=servicio || null;
+  abrirModal(servicio?: Servicio) {
 
-    if(servicio){
-       this.nombre = servicio.nombre ?? '';
+
+    if (servicio) {
+      this.servicioActual = servicio || null;
+      // modo editar
+      this.nombre = servicio.nombre ?? '';
       this.descripcion = servicio.descripcion ?? '';
       this.precio = servicio.precio;
-      this.sucursalSeleccionada=servicio.sucursal?.id ?? null;
-      
+      this.sucursalSeleccionada = servicio.sucursal?.id ?? null;
+      this.imagenSeleccionada = null; // para que no quede la imagen anterior cargada
     } else {
+      // modo crera/modal limpio
+      this.servicioActual = null;
       this.nombre = '';
       this.descripcion = '';
-      this.precio = 0;
+      this.precio = null;
       this.imagenSeleccionada = null;
-       this.sucursalSeleccionada = null;
+      this.sucursalSeleccionada = null;
     }
 
     const modalEl = document.getElementById('modalServicio');
@@ -113,7 +117,7 @@ export class ListaServiciosComponent {
   }
 
 
-  
+
 
   seleccionarImagen(event: any): void {
     if (event.target.files.length > 0) {
@@ -121,20 +125,25 @@ export class ListaServiciosComponent {
     }
   }
 
-  guardarServicio(){
+  guardarServicio() {
 
-     if (!this.nombre?.trim() || !this.descripcion?.trim() || this.precio == null) {
-      alert('⚠️ Todos los campos son obligatorios.');
+    if (!this.nombre?.trim() || !this.descripcion?.trim() || this.precio == null) {
+      alert('⚠️ Debes completar todos los campos antes de guardar!');
       return;
     }
 
-   
+    // validar imagen solo al crear
+    if (!this.servicioActual && !this.imagenSeleccionada) {
+      alert("⚠️ Debes seleccionar una imagen para crear un servicio.");
+      return;
+    }
+
 
     //    if (!this.sucursalSeleccionada) {
     // alert("⚠️ Debes seleccionar una sucursal");
     // console.log('ver sucursal'+this.sucursalSeleccionada);
     // return;
-  //}
+    //}
 
 
     const formData = new FormData();
@@ -143,14 +152,14 @@ export class ListaServiciosComponent {
     formData.append('precio', this.precio.toString());
     // formData.append('sucursal', this.sucursalSeleccionada.toString());
 
-    
-   if (this.categoriaSeleccionada) {
+
+    if (this.categoriaSeleccionada) {
       formData.append('categoria', this.categoriaSeleccionada.toString());
     } else {
       alert("⚠️ Debes seleccionar una categoría");
       return;
     }
- 
+
 
     if (this.imagenSeleccionada) {
       formData.append('imagen', this.imagenSeleccionada);
@@ -160,44 +169,64 @@ export class ListaServiciosComponent {
       if (!window.confirm('Deseas actualizar este servicio?')) return;
 
       this.list.actualizarServicio(this.servicioActual.id, formData).subscribe({
-      next: () => {
-        alert('✅ Servicio actualizado con éxito');
-        this.listarServicios();
-        this.modalInstance.hide();
-      },
-      error: (error) => {
-        console.error(error);
-        alert('❌ Error al actualizar servicio.');
-      }
-    });
-  } else {
-    this.list.crearServicio(formData).subscribe({
-      next: () => {
-        alert('✅ Servicio creado con éxito');
-        this.listarServicios();
-        this.modalInstance.hide();
-      },
-      error: (error) => {
-        console.error(error);
-        alert('❌ Error al crear servicio.');
-      }
-    });
+        next: () => {
+          alert('✅ Servicio actualizado con éxito');
+          this.listarServicios();
+          this.modalInstance.hide();
+        },
+        error: (error) => {
+          console.error(error);
+          alert('❌ Error al actualizar servicio.');
+        }
+      });
+    } else {
+      this.list.crearServicio(formData).subscribe({
+        next: () => {
+          alert('✅ Servicio creado con éxito');
+          this.listarServicios();
+          this.modalInstance.hide();
+        },
+        error: (error) => {
+          console.error(error);
+          alert('❌ Error al crear servicio.');
+        }
+      });
+    }
   }
-}
 
   delete(item: any) {
-    if(window.confirm(`⚠️ Deseas eliminar el servicio :"${item.nombre}"?`)){
-    this.miList.forEach((servicio: any) => {
-      if (servicio.id == item.id) {
-        alert('✅ Servicio eliminado con éxito');
-        this.list.eliminarServicio(item.id).subscribe(
-          res => this.list.obtenerServicios().subscribe(
-            Response => this.miList = Response
-          )
-        );
-        console.log('borre el servicio numero :' + item.id);
-      }
-    });
+    if (window.confirm(`⚠️ Deseas eliminar el servicio :"${item.nombre}"?`)) {
+      this.miList.forEach((servicio: any) => {
+        if (servicio.id == item.id) {
+          alert('✅ Servicio eliminado con éxito');
+          this.list.eliminarServicio(item.id).subscribe(
+            res => this.list.obtenerServicios().subscribe(
+              Response => this.miList = Response
+            )
+          );
+          console.log('borre el servicio numero :' + item.id);
+        }
+      });
+    }
   }
+
+  // validaciones
+  campoInvalido(valor: any): boolean {
+    return !valor || valor.toString().trim().length === 0;
   }
+
+  precioInvalido(): boolean {
+    return !this.precio || this.precio <= 0;
+  }
+
+  formInvalido(): boolean {
+    return (
+      this.campoInvalido(this.nombre) ||
+      this.campoInvalido(this.descripcion) ||
+      this.precioInvalido() ||
+      !this.categoriaSeleccionada
+    );
+  }
+
 }
+
