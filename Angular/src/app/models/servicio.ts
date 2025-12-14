@@ -5,6 +5,7 @@ export class Servicio {
     nombre?: string;
     imagen?: string | File; // permitir string o File
     descripcion?: string;
+    categoria?: number;  
     precio: number;
     fecha_creacion?: string;
     sucursal?: Sucursal;   

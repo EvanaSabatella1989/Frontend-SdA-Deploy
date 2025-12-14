@@ -72,12 +72,16 @@
           <div class="mb-3">
             <label>Nombre</label>
             <input type="text" class="form-control" [(ngModel)]="nombre" name="nombre"
-              [ngClass]="{'is-invalid': campoInvalido(nombre)}">
+              [ngClass]="{'is-invalid': campoInvalido(nombre)|| nombreMuyLargo()}">
+            <div *ngIf="nombreMuyLargo()" class="text-danger small">
+              El nombre no debe superar los 25 caracteres.
+            </div>
           </div>
 
           <div class="mb-3">
             <label>Categoría</label>
-            <select class="form-select" [(ngModel)]="categoriaSeleccionada" name="categoria"  [ngClass]="{'is-invalid': !categoriaSeleccionada}" required>
+            <select class="form-select" [(ngModel)]="categoriaSeleccionada" name="categoria"
+              [ngClass]="{'is-invalid': !categoriaSeleccionada}" required>
               <option [ngValue]="null">-- Selecciona una categoría --</option>
               <option *ngFor="let cat of categorias" [value]="cat.id">
                 {{ cat.nombre }}
@@ -87,11 +91,13 @@
 
           <div class="mb-3">
             <label>Descripción</label>
-            <textarea class="form-control" [(ngModel)]="descripcion" name="descripcion"  [ngClass]="{'is-invalid': campoInvalido(descripcion)}"></textarea>
+            <textarea class="form-control" [(ngModel)]="descripcion" name="descripcion"
+              [ngClass]="{'is-invalid': campoInvalido(descripcion)}"></textarea>
           </div>
           <div class="mb-3">
             <label>Precio</label>
-            <input type="number" class="form-control" [(ngModel)]="precio" name="precio" placeholder="Ej: 30000"  [ngClass]="{'is-invalid': precioInvalido()}">
+            <input type="number" class="form-control" [(ngModel)]="precio" name="precio" placeholder="Ej: 30000"
+              [ngClass]="{'is-invalid': precioInvalido()}">
 
           </div>
           <div class="mb-3">
@@ -99,7 +105,8 @@
             <img *ngIf="servicioActual?.imagen" [src]="servicioActual?.imagen" alt="Imagen actual"
               class="img-fluid mb-2">
 
-            <input type="file" class="form-control" (change)="seleccionarImagen($event)"  [ngClass]="{'is-invalid': !imagenSeleccionada && !servicioActual}">
+            <input type="file" class="form-control" (change)="seleccionarImagen($event)"
+              [ngClass]="{'is-invalid': !imagenSeleccionada && !servicioActual}">
             <!-- <img *ngIf="servicioActual?.imagen" [src]="servicioActual.imagen" alt="Imagen actual" class="img-fluid mb-2">
  -->
           </div>

@@ -40,6 +40,7 @@ import { PanelAdminComponent } from './pages/panel-admin/panel-admin.component';
 import { ListaUsuariosComponent } from './pages/lista-usuarios/lista-usuarios.component';
 import { EditarVehiculoComponent } from './pages/editar-vehiculo/editar-vehiculo.component';
 import { AgregarSucursalesComponent } from './pages/agregar-sucursales/agregar-sucursales.component';
+import { ListaVentasComponent } from './pages/lista-ventas/lista-ventas.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -78,6 +79,7 @@ const routes: Routes = [
   {path:'panel',component:PanelAdminComponent},
   { path: 'vehiculo/editar/:id', component: EditarVehiculoComponent },
   {path:'lista-sucursales',component:AgregarSucursalesComponent},
+  {path:'lista-ventas',component:ListaVentasComponent},
 
 
   { path: '**', component: Pagina404Component }

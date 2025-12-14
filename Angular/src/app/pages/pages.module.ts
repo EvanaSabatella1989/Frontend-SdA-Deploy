@@ -40,6 +40,7 @@ import { ListaUsuariosComponent } from './lista-usuarios/lista-usuarios.componen
 import { EditarVehiculoComponent } from './editar-vehiculo/editar-vehiculo.component';
 
 import { AgregarSucursalesComponent } from './agregar-sucursales/agregar-sucursales.component';
+import { ListaVentasComponent } from './lista-ventas/lista-ventas.component';
 
 
 
@@ -81,9 +82,10 @@ import { AgregarSucursalesComponent } from './agregar-sucursales/agregar-sucursa
     ListaServiciosComponent,
     ListaUsuariosComponent,
     EditarVehiculoComponent,
-    
+
     AgregarSucursalesComponent,
- 
+    ListaVentasComponent,
+
 
 
   ],

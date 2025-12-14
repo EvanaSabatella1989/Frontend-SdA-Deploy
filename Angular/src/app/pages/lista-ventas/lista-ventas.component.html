@@ -1,0 +1,99 @@
+<main>
+<div class="container">
+  <h2>Lista de Ventas</h2>
+  <button (click)="abrirModal()" class="btn btn-success">Agregar Venta</button>
+
+  <table class="table table-bordered table-striped mt-3">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Factura</th>
+        <th scope="col">Cliente</th>
+        <th scope="col">Total</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let venta of ventas">
+        <td>{{ venta.id }}</td>
+        <td>{{ venta.numero_factura }}</td>
+        <td>{{ venta.cliente }}</td>
+        <td>{{ venta.total | currency }}</td>
+        <td>{{ venta.estado }}</td>
+        <td>
+          <button class="btn btn-primary" (click)="abrirModal(venta)">Editar</button>
+
+         <button class="btn btn-danger" (click)="eliminarVenta(venta)"></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal fade" id="modalVenta" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">
+          {{ ventaActual ? 'Editar Venta' : 'Nueva Venta' }}
+        </h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <form>
+
+          <div class="mb-3">
+            <label>N° Factura</label>
+            <input type="number" class="form-control"
+              [(ngModel)]="numero_factura" name="numero_factura">
+          </div>
+
+          <div class="mb-3">
+            <label>Total</label>
+            <input type="number" class="form-control"
+              [(ngModel)]="total" name="total">
+          </div>
+
+          <div class="mb-3">
+            <label>Tipo de pago</label>
+            <select class="form-select"
+              [(ngModel)]="tipo_pago" name="tipo_pago">
+              <option [ngValue]="null">-- Seleccionar --</option>
+              <option value="efectivo">Efectivo</option>
+              <option value="tarjeta">Tarjeta</option>
+              <option value="transferencia">Transferencia</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label>Estado</label>
+            <select class="form-select"
+              [(ngModel)]="estado" name="estado">
+              <option value="pendiente">Pendiente</option>
+              <option value="completada">Completada</option>
+              <option value="cancelada">Cancelada</option>
+            </select>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+        <button class="btn btn-primary"
+          (click)="guardarVenta()"
+          [disabled]="formInvalido()">
+          {{ ventaActual ? 'Actualizar' : 'Crear' }}
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</main>

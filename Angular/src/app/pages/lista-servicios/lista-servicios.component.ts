@@ -40,6 +40,13 @@ export class ListaServiciosComponent {
   ngOnInit(): void {
     this.listarServicios()
 
+    const modalEl = document.getElementById('modalServicio');
+    // para limpiar el modal
+    if (modalEl) {
+      modalEl.addEventListener('hidden.bs.modal', () => {
+        this.limpiarFormulario();
+      });
+    }
 
     //Traer categorías de servicio
     this.list.obtenerCategorias('servicio').subscribe({
@@ -63,6 +70,8 @@ export class ListaServiciosComponent {
         console.error("Error al traer categorías de servicios", error);
       }
     });
+
+    
   }
 
 
@@ -99,6 +108,7 @@ export class ListaServiciosComponent {
       this.nombre = servicio.nombre ?? '';
       this.descripcion = servicio.descripcion ?? '';
       this.precio = servicio.precio;
+      this.categoriaSeleccionada = servicio.categoria ?? null;
       this.sucursalSeleccionada = servicio.sucursal?.id ?? null;
       this.imagenSeleccionada = null; // para que no quede la imagen anterior cargada
     } else {
@@ -127,10 +137,29 @@ export class ListaServiciosComponent {
 
   guardarServicio() {
 
+    if (this.nombreMuyLargo()) {
+      alert("⚠️ El nombre es demasiado largo. Máximo 50 caracteres.");
+      return;
+    }
+
     if (!this.nombre?.trim() || !this.descripcion?.trim() || this.precio == null) {
       alert('⚠️ Debes completar todos los campos antes de guardar!');
       return;
     }
+
+    //validar duplicados
+    const nombreNormalizado = this.nombre.trim().toLowerCase();
+
+    const existe = this.miList.some((s: any) =>
+      s.nombre.trim().toLowerCase() === nombreNormalizado &&
+      s.id !== this.servicioActual?.id   // permite que el mismo servicio mantenga su nombre al editar
+    );
+
+    if (existe) {
+      alert(`⚠️ Ya existe un servicio con el nombre "${this.nombre}". Elige otro.`);
+      return;
+    }
+
 
     // validar imagen solo al crear
     if (!this.servicioActual && !this.imagenSeleccionada) {
@@ -227,6 +256,23 @@ export class ListaServiciosComponent {
       !this.categoriaSeleccionada
     );
   }
+
+  limpiarFormulario() {
+    this.servicioActual = null;
+    this.nombre = '';
+    this.descripcion = '';
+    this.precio = null;
+    this.categoriaSeleccionada = null;
+    this.sucursalSeleccionada = null;
+    this.imagenSeleccionada = null;
+  }
+
+  nombreMuyLargo(): boolean {
+    return this.nombre?.trim().length > 50;
+  }
+
+  
+
 
 }
 
