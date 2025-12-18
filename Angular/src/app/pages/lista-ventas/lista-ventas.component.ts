@@ -41,7 +41,7 @@ export class ListaVentasComponent {
     });
   }
 
-  abrirModal(venta?: Venta) {
+ abrirModal(venta?: Venta) {
   if (venta) {
     this.ventaActual = venta;
 
@@ -49,7 +49,6 @@ export class ListaVentasComponent {
     this.total = venta.total ?? 0;
     this.tipo_pago = venta.tipo_pago ?? null;
     this.estado = venta.estado ?? null;
-    this.cliente = venta.cliente ?? 0;
   } else {
     this.ventaActual = null;
     this.limpiarFormulario();
@@ -72,7 +71,7 @@ export class ListaVentasComponent {
       total: this.total,
       tipo_pago: this.tipo_pago,
       estado: this.estado,
-      cliente: this.cliente
+      // cliente: this.cliente
     };
 
     if (this.ventaActual?.id) {
@@ -103,7 +102,7 @@ export class ListaVentasComponent {
     this.total = 0;
     this.tipo_pago = null;
     this.estado = null;
-    this.cliente = 0;
+    // this.cliente = 0;
   }
 
 }

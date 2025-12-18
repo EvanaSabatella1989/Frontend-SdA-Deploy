@@ -1,7 +1,8 @@
 <main>
 <div class="container">
   <h2>Lista de Ventas</h2>
-  <button (click)="abrirModal()" class="btn btn-success">Agregar Venta</button>
+  <!-- <button (click)="abrirModal()" class="btn btn-success">Agregar Venta</button> -->
+
 
   <table class="table table-bordered table-striped mt-3">
     <thead class="thead-dark">
@@ -18,13 +19,13 @@
       <tr *ngFor="let venta of ventas">
         <td>{{ venta.id }}</td>
         <td>{{ venta.numero_factura }}</td>
-        <td>{{ venta.cliente }}</td>
+        <td>{{ venta.cliente?.nombre }}</td>
         <td>{{ venta.total | currency }}</td>
         <td>{{ venta.estado }}</td>
         <td>
           <button class="btn btn-primary" (click)="abrirModal(venta)">Editar</button>
 
-         <button class="btn btn-danger" (click)="eliminarVenta(venta)"></button>
+         <button class="btn btn-danger" (click)="eliminarVenta(venta)">Eliminar</button>
         </td>
       </tr>
     </tbody>
