@@ -14,7 +14,6 @@ export class ListaVentasComponent {
   ventas: Venta[] = [];
   ventaActual: Venta | null = null;
   modalInstance: any;
-
   numero_factura!: number;
   total!: number;
   tipo_pago: any = null;
@@ -26,12 +25,8 @@ export class ListaVentasComponent {
   ngOnInit(): void {
     this.listarVentas();
 
-    const modalEl = document.getElementById('modalVenta');
-    if (modalEl) {
-      modalEl.addEventListener('hidden.bs.modal', () => {
-        this.limpiarFormulario();
-      });
-    }
+  
+    
   }
 
   listarVentas() {
@@ -41,47 +36,46 @@ export class ListaVentasComponent {
     });
   }
 
- abrirModal(venta?: Venta) {
-  if (venta) {
-    this.ventaActual = venta;
+//  abrirModal(venta?: Venta) {
+//   if (venta) {
+//     this.ventaActual = venta;
+//     this.numero_factura = venta.numero_factura ?? 0;
+//     this.total = venta.total ?? 0;
+//     this.tipo_pago = venta.tipo_pago ?? null;
+//     this.estado = venta.estado ?? null;
+//   } else {
+//     this.ventaActual = null;
+//     this.limpiarFormulario();
+//   }
 
-    this.numero_factura = venta.numero_factura ?? 0;
-    this.total = venta.total ?? 0;
-    this.tipo_pago = venta.tipo_pago ?? null;
-    this.estado = venta.estado ?? null;
-  } else {
-    this.ventaActual = null;
-    this.limpiarFormulario();
-  }
-
-  const modalEl = document.getElementById('modalVenta');
-  this.modalInstance = new bootstrap.Modal(modalEl);
-  this.modalInstance.show();
-}
+//   const modalEl = document.getElementById('modalVenta');
+//   this.modalInstance = new bootstrap.Modal(modalEl);
+//   this.modalInstance.show();
+// }
 
 
-  guardarVenta() {
-    if (this.formInvalido()) {
-      alert('⚠️ Completa todos los campos');
-      return;
-    }
+  // guardarVenta() {
+  //   if (this.formInvalido()) {
+  //     alert('⚠️ Completa todos los campos');
+  //     return;
+  //   }
 
-    const ventaData = {
-      numero_factura: this.numero_factura,
-      total: this.total,
-      tipo_pago: this.tipo_pago,
-      estado: this.estado,
-      // cliente: this.cliente
-    };
+  //   const ventaData = {
+  //     numero_factura: this.numero_factura,
+  //     total: this.total,
+  //     tipo_pago: this.tipo_pago,
+  //     estado: this.estado,
+  //     // cliente: this.cliente
+  //   };
 
-    if (this.ventaActual?.id) {
-      this.ventaService.actualizarVenta(this.ventaActual.id, ventaData).subscribe(() => {
-        alert('✅ Venta actualizada');
-        this.listarVentas();
-        this.modalInstance.hide();
-      });
-    }
-  }
+  //   if (this.ventaActual?.id) {
+  //     this.ventaService.actualizarVenta(this.ventaActual.id, ventaData).subscribe(() => {
+  //       alert('✅ Venta actualizada');
+  //       this.listarVentas();
+  //       this.modalInstance.hide();
+  //     });
+  //   }
+  // }
 
   eliminarVenta(venta: Venta) {
     if (!window.confirm(`Eliminar venta N° ${venta.numero_factura}?`)) return;
@@ -92,17 +86,6 @@ export class ListaVentasComponent {
     });
   }
 
-  formInvalido(): boolean {
-    return !this.numero_factura || !this.total || !this.tipo_pago || !this.estado;
-  }
-
-  limpiarFormulario() {
-    this.ventaActual = null;
-    this.numero_factura = 0;
-    this.total = 0;
-    this.tipo_pago = null;
-    this.estado = null;
-    // this.cliente = 0;
-  }
+  
 
 }
