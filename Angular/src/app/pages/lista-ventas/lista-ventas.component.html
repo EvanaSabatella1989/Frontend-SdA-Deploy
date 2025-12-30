@@ -1,10 +1,11 @@
 <main>
 <div class="container">
   <h2>Lista de Ventas</h2>
-  <!-- <button (click)="abrirModal()" class="btn btn-success">Agregar Venta</button> -->
+
 
 
   <table class="table table-bordered table-striped mt-3">
+   
     <thead class="thead-dark">
       <tr>
         <th scope="col">id</th>
@@ -14,25 +15,42 @@
         <th scope="col">Total</th>
         <th scope="col">Tipo de pago</th>
         <th scope="col">Estado</th>
-        <th scope="col">Acciones</th>
+       
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let venta of ventas">
-        <td>{{ venta.id }}</td>
-        <td>{{ venta.numero_factura }}</td>
-        <td>{{ venta.cliente }}</td>
-        <td>{{ venta.fecha_pago | date:'dd/MM/yyyy HH:mm' }}</td>
-        <td>{{ venta.total | currency }}</td>
-        <td>{{ venta.tipo_pago }}</td>
-        <td>{{ venta.estado }}</td>
-        <td>
-          <!-- <button class="btn btn-primary" (click)="abrirModal(venta)">Editar</button> -->
+     
+   <tbody>
+  <ng-container *ngFor="let venta of ventas">
 
-         <button class="btn btn-danger" (click)="eliminarVenta(venta)">Eliminar</button>
-        </td>
-      </tr>
-    </tbody>
+    <!--fila principal -->
+    <tr>
+      <td>{{ venta.id }}</td>
+      <td>{{ venta.numero_factura }}</td>
+      <td>{{ venta.cliente_nombre }} {{ venta.cliente_apellido }} </td>
+      <td>{{ venta.fecha_pago | date:'dd/MM/yyyy HH:mm' }}</td>
+      <td>{{ venta.total | currency }}</td>
+      <td>{{ venta.tipo_pago }}</td>
+      <td>{{ venta.estado }}</td>
+    </tr>
+
+    <!-- fila productos -->
+    <tr *ngIf="venta.detalles?.length">
+      <td colspan="7" class="bg-light text-start">
+        <strong>Productos comprados:</strong>
+
+        <ul class="mb-0 mt-1">
+          <li *ngFor="let det of venta.detalles">
+            {{ det.producto_nombre }}
+            — Cant: {{ det.cantidad }}
+            — ${{ det.precio }}
+          </li>
+        </ul>
+      </td>
+    </tr>
+
+  </ng-container>
+</tbody>
+
   </table>
 </div>
 
