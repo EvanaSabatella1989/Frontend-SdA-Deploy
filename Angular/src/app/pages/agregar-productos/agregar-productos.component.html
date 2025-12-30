@@ -7,26 +7,43 @@
     
     <label class="form-label">Nombre del Producto</label>
     <input type="text" class="form-control" name="nombre" (change)="guardarNombre($event)">
+    <!-- 🔴 Error nombre -->
+    <div *ngIf="nombreError" class="text-danger mt-1">
+      {{ nombreError }}
+    </div>
   </div>
 
   <div class="mb-3">
     <label for="formFile" class="form-label">Imagen</label>
     <input class="form-control" type="file" name="imagen" (change)="enviarFoto($event)">
+
+    <!-- 🔴 Mensaje de error -->
+    <div *ngIf="imagenError" class="text-danger mt-1">
+      {{ imagenError }}
+    </div>
   </div>
 
   <div class="mb-3">
     <label class="form-label">Descripción</label>
-    <textarea class="form-control" rows="3" name="descripcion" (change)="guardarDescripcion($event)"></textarea>
+    <textarea class="form-control" rows="3" maxlength="400" name="descripcion" (change)="guardarDescripcion($event)"></textarea>
   </div>
 
   <div class="mb-3">
     <label class="form-label">Precio</label>
     <input type="number" class="form-control" name="precio" (change)="guardarPrecio($event)">
+    <!-- 🔴 Error precio -->
+    <div *ngIf="precioError" class="text-danger mt-1">
+      {{ precioError }}
+    </div>
   </div>
 
   <div class="mb-3">
     <label class="form-label">Cantidad</label>
-    <input type="number" class="form-control" name="cantidad" (change)="guardarCantidad($event)">
+    <input type="number" class="form-control" min="1" step="1" name="cantidad" (change)="guardarCantidad($event)">
+    <!-- 🔴 Error cantidad -->
+    <div *ngIf="cantidadError" class="text-danger mt-1">
+      {{ cantidadError }}
+    </div>
   </div>
 
   <!--<div class="mb-3">
@@ -39,9 +56,9 @@
     <input type="" class="form-control" name="categoria" [(ngModel)]="categoria">
   </div>-->
 
-  <div class="mb-3">
-
-    <div class="categoria row mb-3">
+  <!-- <div class="mb-3">
+  <div class="categoria row">
+    
       <label class="form-label">Categoría</label>
       
         <select class="form-control cat" id="catsel" name="categoria_sel" (change)="selectCategoria($event)">
@@ -51,13 +68,37 @@
       
       
         <a  class="catb" routerLink="/categorias"><button class="btn">+</button></a>
-
-
-    </div>
-
-
-
   </div>
+  </div> -->
+
+  <div class="mb-3">
+  <label class="form-label">Categoría</label>
+
+  <div class="d-flex align-items-center gap-2">
+    <select
+      class="form-control"
+      name="categoria_sel"
+      (change)="selectCategoria($event)"
+    >
+      <option value="">Seleccione una categoría</option>
+      <option *ngFor="let cat of categorias" [value]="cat.id">
+        {{ cat.nombre }}
+      </option>
+    </select>
+
+    <a routerLink="/categorias">
+      <button type="button" class="btn btn-outline-secondary">+</button>
+    </a>
+  </div>
+
+  <!-- 🔴 Error categoría -->
+  <div *ngIf="categoriaError" class="text-danger mt-1">
+    {{ categoriaError }}
+  </div>
+</div>
+
+
+
 
   <button class="btn" type="submit">Cargar Producto</button><button class="btn" routerLink="/lista-productos">Volver </button>
 

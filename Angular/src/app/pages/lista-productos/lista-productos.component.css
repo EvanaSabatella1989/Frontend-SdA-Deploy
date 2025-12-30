@@ -24,3 +24,14 @@ img{
     
     height:50px ;
 }
+
+.col-descripcion{
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.container {
+  min-height: 60vh;
+}

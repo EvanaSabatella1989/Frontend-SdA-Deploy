@@ -22,6 +22,9 @@ export class EditarProductosComponent {
   categoria: string = "";
   fecha_creacion: string = "";
 
+  categoriaSeleccionada!: number;
+
+
   constructor(private productoServicio: ProductoService, private activatedRouter: ActivatedRoute, private router: Router) {
 
     const id = this.activatedRouter.snapshot.params['id'];
@@ -29,7 +32,7 @@ export class EditarProductosComponent {
     this.productoServicio.detail(id).subscribe(
       data => {
         this.productos = data;
-        
+        this.categoriaSeleccionada = data.categoria; // 👈 ID de la categoría
         
       }, err => {
         alert("Error al cargar");
@@ -48,32 +51,32 @@ export class EditarProductosComponent {
     })
   }
 
-  guardarId(event: any) {
-    console.log(this.id = event.target.value)
-  }
+  // guardarId(event: any) {
+  //   console.log(this.id = event.target.value)
+  // }
 
-  guardarNombre(event: any) {
-    console.log(this.nombre = event.target.value)
-  }
+  // guardarNombre(event: any) {
+  //   console.log(this.nombre = event.target.value)
+  // }
 
-  guardarDescripcion(event: any) {
-    console.log(this.descripcion = event.target.value)
-  }
+  // guardarDescripcion(event: any) {
+  //   console.log(this.descripcion = event.target.value)
+  // }
 
-  guardarPrecio(event: any) {
-    console.log(this.precio = event.target.value)
-  }
+  // guardarPrecio(event: any) {
+  //   console.log(this.precio = event.target.value)
+  // }
 
-  guardarCantidad(event: any) {
-    console.log(this.cantidad = event.target.value)
-  }
+  // guardarCantidad(event: any) {
+  //   console.log(this.cantidad = event.target.value)
+  // }
 
-  guardarCategoria(event: any) {
-    console.log(this.categoria = event.target.value)
-  }
-  selectCategoria(event: any) {
-    console.log(this.categoria = event.target.value)
-  }
+  // guardarCategoria(event: any) {
+  //   console.log(this.categoria = event.target.value)
+  // }
+  // selectCategoria(event: any) {
+  //   console.log(this.categoria = event.target.value)
+  // }
 
   enviarFoto(event: any) {
     console.log(this.imagen = event.target.files[0])
@@ -137,8 +140,11 @@ export class EditarProductosComponent {
   }
 
   // Categoría
-  if (this.productos.categoria) {
-    formData.append('categoria', this.productos.categoria);
+  // if (this.productos.categoria) {
+  //   formData.append('categoria', this.productos.categoria);
+  // }
+  if (this.categoriaSeleccionada) {
+    formData.append('categoria', this.categoriaSeleccionada.toString());
   }
 
   this.productoServicio.update(this.productos.id,formData).subscribe(

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductoService } from 'src/app/service/producto.service'
 import { ActivatedRoute, Router } from '@angular/router';
+import { Producto } from 'src/app/models/producto';
+import { Categoria } from 'src/app/models/categoria';
 @Component({
   selector: 'app-lista-productos',
   templateUrl: './lista-productos.component.html',
@@ -8,16 +10,26 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ListaProductosComponent implements OnInit{
 
-  miProd:any;
-  categorias: any[] = [];
+  // miProd:any;
+  // categorias: any[] = [];
+  categoriaSeleccionada: number | 'todas' = 'todas';
+  // productosFiltrados: any[] = [];
+  miProd: Producto[] = [];
+  productosFiltrados: Producto[] = [];
+  categorias: Categoria[] = [];
+  busquedaNombre: string = '';
+
+
+
   constructor(private prod: ProductoService, private activatedRoute: ActivatedRoute, private router: Router) {
     
   }
 
   ngOnInit(): void {
     this.prod.traerProductos().subscribe({
-      next:(productosTodos)=>{
+      next:(productosTodos: Producto[])=>{
         this.miProd=productosTodos;
+        this.productosFiltrados = productosTodos; // 👈 importante
         console.log(" Exito se cargaron los productos");
       },
       error:(errorData)=> {
@@ -31,6 +43,8 @@ export class ListaProductosComponent implements OnInit{
     this.categorias = resp;
  
   });
+
+
 
   }
   // eliminar(produc:any){
@@ -47,24 +61,83 @@ export class ListaProductosComponent implements OnInit{
 
   // }
 
-  eliminar(produc: any) {
-    if (confirm(`¿Estás seguro de que deseas eliminar el producto "${produc.nombre}"?`)) {
-      this.prod.delete(produc.id).subscribe({
-        next: () => {
-          // Actualizamos la lista de productos después de eliminar
-          this.prod.traerProductos().subscribe((productosActualizados) => {
-            this.miProd = productosActualizados;
-          });
-          console.log(`El producto con ID ${produc.id} ha sido eliminado.`);
-        },
-        error: (errorData) => {
-          console.error('Error al eliminar el producto:', errorData);
-        }
-      });
+  getNombreCategoria(idCategoria?: number): string {
+    if (!idCategoria) {
+      return 'Sin categoría';
+    }
+
+    const cat = this.categorias.find(c => c.id === idCategoria);
+    return cat ? cat.nombre : 'Sin categoría';
+  }
+
+
+
+  // eliminar(produc: any) {
+  //   if (confirm(`¿Estás seguro de que deseas eliminar el producto "${produc.nombre}"?`)) {
+  //     this.prod.delete(produc.id).subscribe({
+  //       next: () => {
+  //         // Actualizamos la lista de productos después de eliminar
+  //         this.prod.traerProductos().subscribe((productosActualizados) => {
+  //           this.miProd = productosActualizados;
+  //         });
+  //         console.log(`El producto con ID ${produc.id} ha sido eliminado.`);
+  //       },
+  //       error: (errorData) => {
+  //         console.error('Error al eliminar el producto:', errorData);
+  //       }
+  //     });
+  //   } else {
+  //     console.log('Eliminación cancelada por el usuario.');
+  //   }
+  // }
+
+  eliminar(produc: Producto) {
+    if (!confirm(`¿Estás seguro de que deseas eliminar el producto "${produc.nombre}"?`)) {
+      return;
+    }
+
+    this.prod.delete(produc.id!).subscribe({
+      next: () => {
+
+        // 1️⃣ Actualizamos la lista base
+        this.miProd = this.miProd.filter(p => p.id !== produc.id);
+
+        // 2️⃣ Reaplicamos el filtro actual
+        this.filtrarPorCategoria();
+
+        console.log(`Producto ${produc.id} eliminado correctamente`);
+      },
+      error: (error) => {
+        console.error('Error al eliminar el producto', error);
+      }
+    });
+  }
+
+
+  filtrarPorCategoria() {
+    if (this.categoriaSeleccionada === 'todas') {
+      this.productosFiltrados = this.miProd;
     } else {
-      console.log('Eliminación cancelada por el usuario.');
+      this.productosFiltrados = this.miProd.filter(
+        (p: Producto) => p.categoria === this.categoriaSeleccionada
+      );
     }
   }
+
+  buscarPorNombre() {
+  this.categoriaSeleccionada = 'todas';
+
+  const texto = this.busquedaNombre.toLowerCase().trim();
+
+  this.productosFiltrados = this.miProd.filter(
+    (p: Producto) =>
+      p.nombre?.toLowerCase().includes(texto)
+  );
+}
+
+
+
+
 
   
 

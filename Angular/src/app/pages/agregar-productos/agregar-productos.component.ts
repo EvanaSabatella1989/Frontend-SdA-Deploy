@@ -13,6 +13,11 @@ export class AgregarProductosComponent {
   productos: any = {};
   categorias: any = {};
 
+  nombreError: string = '';
+  imagenError: string = '';
+  categoriaError: string = '';
+  precioError: string = '';
+  cantidadError: string = '';
 
   nombre: string = "";
   imagen!: File;
@@ -38,6 +43,7 @@ export class AgregarProductosComponent {
 
   guardarNombre(event: any) {
     console.log(this.nombre = event.target.value)
+    this.nombreError = '';
   }
 
   guardarDescripcion(event: any) {
@@ -45,15 +51,47 @@ export class AgregarProductosComponent {
   }
 
   guardarPrecio(event: any) {
-    console.log(this.precio = event.target.value)
+    this.precio = event.target.value;
+    this.precioError = '';
   }
 
   guardarCantidad(event: any) {
-    console.log(this.cantidad = event.target.value)
+    const valor = event.target.value;
+
+    // Limpiar error previo
+    this.cantidadError = '';
+
+    // Vacío
+    if (!valor) {
+      this.cantidadError = 'La cantidad es obligatoria';
+      this.cantidad = '';
+      return;
+    }
+
+    const numero = Number(valor);
+
+    // No número / decimal
+    if (!Number.isInteger(numero)) {
+      this.cantidadError = 'La cantidad debe ser un número entero';
+      this.cantidad = '';
+      return;
+    }
+
+    // Menor o igual a 0
+    if (numero <= 0) {
+      this.cantidadError = 'La cantidad debe ser mayor a 0';
+      this.cantidad = '';
+      return;
+    }
+
+    // ✔ Todo OK
+    this.cantidad = numero.toString();
   }
+
 
   guardarCategoria(event: any) {
     console.log(this.categoria = event.target.value)
+    this.categoriaError = '';
   }
   
   selectCategoria(event: any) {
@@ -63,6 +101,7 @@ export class AgregarProductosComponent {
 
   enviarFoto(event: any) {
     console.log(this.imagen = event.target.files[0])
+    this.imagenError = ''; // limpia el error al seleccionar imagen
   }
 
 
@@ -70,6 +109,55 @@ export class AgregarProductosComponent {
 
 
   create() {
+
+    let hayError = false;
+    const cantidadNum = Number(this.cantidad)
+
+    // 🔴 Nombre
+    if (!this.nombre || this.nombre.trim() === '') {
+      this.nombreError = 'El nombre del producto es obligatorio';
+      hayError = true;
+    } else {
+      this.nombreError = '';
+    }
+
+    // 🔴 Imagen
+    if (!this.imagen) {
+      this.imagenError = 'La imagen es obligatoria';
+      hayError = true;
+    } else {
+      this.imagenError = '';
+    }
+
+    // 🔴 Categoría
+    if (!this.categoria) {
+      this.categoriaError = 'Debe seleccionar una categoría';
+      hayError = true;
+    } else {
+      this.categoriaError = '';
+    }
+
+    if (!this.precio || Number(this.precio) <= 0) {
+      this.precioError = 'El precio debe ser mayor a 0';
+      hayError = true;
+    }
+
+    if (
+      !this.cantidad ||
+      !Number.isInteger(cantidadNum) ||
+      cantidadNum <= 0
+    ) {
+      this.cantidadError = 'La cantidad debe ser un número entero mayor a 0';
+      hayError = true;
+    } else {
+      this.cantidadError = '';
+    }
+
+    // 🚫 Si hay errores, no se envía
+    if (hayError) {
+      return;
+    }
+
     const produ = new FormData();
     produ.append('nombre', this.nombre);
     produ.append('descripcion', this.descripcion);
@@ -78,12 +166,17 @@ export class AgregarProductosComponent {
     produ.append('categoria', this.categoria);
     produ.append('fecha_creacion', this.fecha_creacion);
     produ.append('imagen', this.imagen, this.imagen!.name);
+    // this.productoServicio.create(produ).subscribe(
+    //   servicio => this.router.navigate(['/productos'])
+
+    //   ,
+    //   error => console.log(error)
+
+    // );
+
     this.productoServicio.create(produ).subscribe(
-      servicio => this.router.navigate(['/productos'])
-
-      ,
-      error => console.log(error)
-
+    () => this.router.navigate(['/productos']),
+    error => console.log(error)
     );
 
 
