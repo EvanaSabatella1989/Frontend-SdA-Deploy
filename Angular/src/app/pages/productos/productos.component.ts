@@ -27,9 +27,14 @@ export class ProductosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.isLoggedIn$.subscribe(resp => this.isLogged = resp);
+    this.authService.isLoggedIn$.subscribe(isLogged => {
+    this.isLogged = isLogged;
+    this.isAdmin = isLogged && this.tokenService.isAdmin();
+  });
 
-    this.isAdmin = this.tokenService.isAdmin();
+    // this.authService.isLoggedIn$.subscribe(resp => this.isLogged = resp);
+
+    // this.isAdmin = this.tokenService.isAdmin();
 
     // Traer todas las categorías
     this.miProductos.traerCategorias('producto').subscribe(resp => {
