@@ -21,6 +21,7 @@ export class ListaVentasComponent {
   cliente!: number;
   ventaSeleccionada: Venta | null = null;
   modalDetalle: any;
+  loading = true;
 
 
   constructor(private ventaService: VentaService) { }
@@ -33,12 +34,18 @@ export class ListaVentasComponent {
   }
 
   listarVentas() {
+    this.loading = true;
     this.ventaService.getVentas().subscribe({
       next: (resp) => {
         this.ventas = resp;
         console.log('Ventas:', resp); 
+        this.loading = false;
       },
-      error: (err) => console.error('Error al cargar ventas', err)
+      error: (err) =>{
+        console.error('Error al cargar ventas', err);
+        this.loading = false;
+      } 
+      
     });
   }
 

@@ -2,6 +2,9 @@
 <div class="container">
   <h2>Lista de Ventas</h2>
 
+  <div *ngIf="loading" class="text-center">
+  ⏳ Cargando ventas...
+</div>
 
 
   <table class="table table-bordered table-striped mt-3">
