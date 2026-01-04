@@ -20,8 +20,16 @@
             </div>
           </label>
         </div>
-        <button (click)="addQuality($event)"><span>+</span></button>
+        <!-- <button (click)="addQuality($event)"><span>+</span></button> -->
+
+        <button (click)="addQuality($event)" [disabled]="alcanzoStockMaximo"><span>+</span></button>
+
       </form>
+
+      <span *ngIf="ultimoDisponible" class="text-warning fw-bold">Último disponible</span>
+
+    <span *ngIf="alcanzoStockMaximo && !ultimoDisponible" class="text-danger fw-bold">Stock máximo alcanzado</span>
+
       <h3 class="fw-normal">${{ precio }}</h3>
     </div>
   </div>

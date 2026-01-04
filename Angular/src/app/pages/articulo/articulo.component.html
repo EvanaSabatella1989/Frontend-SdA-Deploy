@@ -28,7 +28,23 @@
 
           <p>{{ productos.descripcion }}</p>
 
-          <strong><p style="font-size: 20px">Stock disponible: {{productos.cantidad}}</p></strong>
+          <!-- <strong><p style="font-size: 20px">Stock disponible: {{productos.cantidad}}</p></strong> -->
+          
+          <strong>
+            <p style="font-size: 20px">
+              <ng-container *ngIf="sinStock; else conStock">
+                <span class="text-danger fw-bold">Sin stock</span>
+              </ng-container>
+
+              <ng-template #conStock>
+                Stock disponible: {{ productos.cantidad }}
+                <span *ngIf="ultimoDisponible" class="text-warning fw-bold ms-2">
+                  Último disponible
+                </span>
+              </ng-template>
+            </p>
+          </strong>
+          
           <br />
 
           <form class="d-flex justify-content-left">
@@ -38,12 +54,23 @@
               <!-- <div class="form-outline me-1" style="width: 100px">
                 <input type="number" [(ngModel)]="cantidad" (input)="guardarCantidad($event)" value="1" min="1" class="form-control" />
               </div> -->
-            <button *ngIf="!isAdmin"
+
+
+            <!-- <button *ngIf="!isAdmin"
               class="btn btn-primary shadow-0 me-1"
               (click)="agregarCarrito()"
             >
               Añadir al carrito
-            </button>
+            </button> -->
+
+            <button
+            *ngIf="!isAdmin && !isInCart(productos.id)"
+            class="btn btn-primary shadow-0 me-1"
+            (click)="agregarCarrito()"
+            [disabled]="sinStock">
+            Añadir al carrito
+          </button>
+
           </div>
           <div *ngIf="isInCart(productos.id)">
             <button 
