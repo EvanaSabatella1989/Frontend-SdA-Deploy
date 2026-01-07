@@ -6,14 +6,14 @@
     <div class="col-12">
       <label for="validationName" class="form-label">Nombre</label>
       <input type="text" class="form-control" placeholder="Juan" name="nombre" id="validationNombre" required
-        formControlName="nombre" [class.is-invalid]="nombreNoValido" />
+        formControlName="first_name" [class.is-invalid]="nombreNoValido" />
       <small *ngIf="nombreNoValido" class="text-danger">El nombre es un campo requerido</small>
     </div>
 
     <div class="col-12">
       <label for="validationApellido" class="form-label">Apellido</label>
       <input type="text" class="form-control" id="validationApellido" placeholder="Pérez" name="apellido"
-        formControlName="apellido" required [class.is-invalid]="apellidoNoValido" />
+        formControlName="last_name" required [class.is-invalid]="apellidoNoValido" />
       <small *ngIf="apellidoNoValido" class="text-danger">El apellido es un campo requerido</small>
     </div>
 
@@ -21,7 +21,7 @@
     <div class="col-12">
       <label for="validationEmail" class="form-label">Correo</label>
       <input type="email" class="form-control" id="validationEmail" placeholder="juanperez@gmail.com"
-        formControlName="correo" required [class.is-invalid]="correoNoValido" />
+        formControlName="email" required [class.is-invalid]="correoNoValido" />
       <small *ngIf="correoNoValido" class="text-danger">Ingrese un correo válido</small>
     </div>
 
@@ -53,8 +53,9 @@
 
 
     <div *ngIf="status === 'failed'" class="alert alert-danger" role="alert">
-     No has podido registrarte correctamente!! El correo ingresado ya está registrado, intenta con otro..
-    </div>
+  {{ errorMessage }}
+</div>
+
 
 
 

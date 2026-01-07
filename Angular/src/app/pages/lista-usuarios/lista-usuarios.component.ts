@@ -16,7 +16,8 @@ export class ListaUsuariosComponent {
   email?: string = '';
   first_name?: string = '';
   last_name?: string = '';
-  password?: string = '';
+  password1?: string = '';
+  password2?: string = '';
   direccion?: string = '';
   num_telefono?: string = '';
 
@@ -62,7 +63,8 @@ export class ListaUsuariosComponent {
       this.last_name = cliente.last_name;
       this.direccion = cliente.direccion;
       this.num_telefono = cliente.num_telefono;
-      this.password = '';
+      this.password1 = '';
+      this.password2 = '';
     } else {
 
       // crear cliente/usuario nuevo
@@ -70,7 +72,7 @@ export class ListaUsuariosComponent {
       this.email = '';
       this.first_name = '';
       this.last_name = '';
-      this.password = '';
+      this.password1= '';
       this.direccion = '';
       this.num_telefono = '';
     }
@@ -113,7 +115,7 @@ export class ListaUsuariosComponent {
     } else {
 
       // validar
-      if (!this.email || !this.password || !this.first_name || !this.last_name) {
+      if (!this.email || !this.password1 || !this.first_name || !this.last_name) {
         alert('Email, contraseña, nombre y apellido son obligatorios ❌');
         return;
       }
@@ -124,11 +126,12 @@ export class ListaUsuariosComponent {
         first_name: this.first_name,
         last_name: this.last_name,
         email: this.email,
-        password: this.password
+        password1: this.password1,
+        password2: this.password2
       });
 
       // crear usuario 
-      this.authService.register(this.first_name!, this.last_name!, this.email!, this.password!).subscribe({
+      this.authService.register(this.first_name!, this.last_name!, this.email!, this.password1!,this.password2!).subscribe({
         next: () => {
           alert('Usuario creado correctamente!!!☑️');
           this.cargarClientes();

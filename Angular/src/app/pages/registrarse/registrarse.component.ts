@@ -15,6 +15,8 @@ export class RegistrarseComponent implements OnInit {
   status: RequestStatus = 'init'
   showPassword1: boolean = false;
   showPassword2: boolean = false;
+  errorMessage: string = '';
+
 
   ngOnInit(): void {
   }
@@ -28,15 +30,15 @@ export class RegistrarseComponent implements OnInit {
   }
 
   get nombreNoValido() {
-    return this.registrar.get('nombre')?.invalid && this.registrar.get('nombre')?.touched;
+    return this.registrar.get('first_name')?.invalid && this.registrar.get('first_name')?.touched;
   }
 
   get apellidoNoValido() {
-    return this.registrar.get('apellido')?.invalid && this.registrar.get('apellido')?.touched;
+    return this.registrar.get('last_name')?.invalid && this.registrar.get('last_name')?.touched;
   }
 
   get correoNoValido() {
-    return this.registrar.get('correo')?.invalid && this.registrar.get('correo')?.touched;
+    return this.registrar.get('email')?.invalid && this.registrar.get('email')?.touched;
   }
 
   get password1NoValido() {
@@ -47,16 +49,24 @@ export class RegistrarseComponent implements OnInit {
     return this.registrar.get('password2')?.invalid && this.registrar.get('password2')?.touched;
   }
 
+  get passwordsNoCoinciden(): boolean {
+    const pass2 = this.registrar.get('password2');
+
+    return !!(pass2?.hasError('noEsIgual') && pass2?.touched);
+  }
+
+
+
   crearRegistro() {
     this.registrar = this.fb.group({
-      nombre: ['', [Validators.required, Validators.minLength(5)]],
-      apellido: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      first_name: ['', [Validators.required, Validators.minLength(5)]],
+      last_name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       password1: ['', [Validators.required, Validators.minLength(6)]],
       password2: ['', [Validators.required, Validators.minLength(6)]],
     }, {
 
-      Validators: this.passwordIguales('password1', 'password2')
+      validators: this.passwordIguales('password1', 'password2')
     }
     )
   }
@@ -90,7 +100,13 @@ export class RegistrarseComponent implements OnInit {
   // }
 
   guardar() {
-    this.passNoValido();
+    if (this.registrar.get('password2')?.hasError('noEsIgual')) {
+      this.errorMessage = 'Las contraseñas no coinciden';
+      this.status = 'failed';
+      return;
+    }
+
+
 
     if (this.registrar.invalid) {
       Object.values(this.registrar.controls).forEach(control => {
@@ -101,9 +117,9 @@ export class RegistrarseComponent implements OnInit {
 
     this.status = 'loading';
 
-    const { nombre, apellido, correo, password1, password2} = this.registrar.getRawValue();
+    const { first_name, last_name, email, password1, password2 } = this.registrar.getRawValue();
 
-    this.authService.register(nombre, apellido, correo, password1,password2)
+    this.authService.register(first_name, last_name, email, password1, password2)
       .subscribe({
         next: () => {
           // registro exitoso
@@ -113,7 +129,7 @@ export class RegistrarseComponent implements OnInit {
           setTimeout(() => {
             this.router.navigate(['/login'], {
               queryParams: {
-                email: correo,
+                email: email,
                 registrado: 'true'
               }
             });
@@ -123,10 +139,17 @@ export class RegistrarseComponent implements OnInit {
           //error 
           this.status = 'failed';
 
-          setTimeout(() => {
-            this.status = 'init';
-          }, 2000);
+          if (e.error?.email) {
+            this.errorMessage = e.error.email[0];
 
+          } else if (e.error?.errors?.email) {
+            this.errorMessage = e.error.errors.email[0];
+            
+          } else {
+            this.errorMessage = 'No se pudo completar el registro';
+          }
+
+          setTimeout(() => this.status = 'init', 2000);
           console.error('Error al registrar usuario', e);
         }
       });
@@ -146,16 +169,18 @@ export class RegistrarseComponent implements OnInit {
     }
   }
 
-  passNoValido() {
-    const pass1 = this.registrar.get('password1')?.value;
-    const pass2 = this.registrar.get('password2')?.value;
 
-    if (pass1 !== pass2) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+
+  // passNoValido() {
+  //   const pass1 = this.registrar.get('password1')?.value;
+  //   const pass2 = this.registrar.get('password2')?.value;
+
+  //   if (pass1 !== pass2) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   //para ver la contraseña
   togglePassword1() {
