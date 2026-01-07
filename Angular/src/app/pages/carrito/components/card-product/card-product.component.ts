@@ -45,8 +45,14 @@ export class CardProductComponent {
 
   addQuality(e: Event) {
     e.preventDefault()
-    this.quality += 1
-    this.storeService.updateQuantity(this.product.id, this.quality)
+    // this.quality += 1
+    // this.storeService.updateQuantity(this.product.id, this.quality)
+
+    // 🚫 No permitir superar el stock
+    if (this.alcanzoStockMaximo) return;
+
+    this.quality += 1;
+    this.storeService.updateQuantity(this.product.id, this.quality);
   }
   subtractQuality(e: Event) {
     e.preventDefault()
@@ -54,4 +60,28 @@ export class CardProductComponent {
     this.quality -= 1
     this.storeService.updateQuantity(this.product.id, this.quality)
   }
+
+  get sinStock(): boolean {
+    return this.product.cantidad === 0;
+  }
+
+  // get ultimoDisponible(): boolean {
+  //   return this.product.cantidad === 1;
+  // }
+
+  get stockMaximo(): number {
+    return this.product.cantidad ?? 0;
+  }
+
+  get alcanzoStockMaximo(): boolean {
+    return this.quality >= this.stockMaximo;
+  }
+
+  get ultimoDisponible(): boolean {
+    return this.stockMaximo === 1;
+  }
+
+
+
+
 }

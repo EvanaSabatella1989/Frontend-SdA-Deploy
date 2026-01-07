@@ -62,7 +62,7 @@ export class PagoExitosoComponent implements OnInit {
   confirmarPago(paymentId: string) {
     const body = { status: 'approved', payment_id: paymentId };
 
-    this.http.post(this.apiUrl+'/venta/confirmar-pago', body, { headers: this.getHeaders()}).subscribe({
+    this.http.post(this.apiUrl+'/venta/confirmar-pago/', body, { headers: this.getHeaders()}).subscribe({
       next: (response: any) => {
         console.log('Pago confirmado con éxito', response);
         // ✅ Vaciar carrito en frontend después de confirmar pago

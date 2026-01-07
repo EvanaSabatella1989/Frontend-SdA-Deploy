@@ -88,16 +88,20 @@ export class ArticuloComponent implements OnInit {
 
   agregarCarrito() {
 
+    if (this.sinStock) return;
+
       // se verfica si el usuario está logueado
-  if (!this.tokenService.getToken()) {
-    // Si no esta logueado, redirigimos a la página de login
-    this.router.navigate(['/login']);
-    alert("Debes iniciar sesión para continuar con la compra");
-    return; // Salimos de la función para evitar agregar el producto al carrito
-  }
+    if (!this.tokenService.getToken()) {
+      // Si no esta logueado, redirigimos a la página de login
+      this.router.navigate(['/login']);
+      alert("Debes iniciar sesión para continuar con la compra");
+      return; // Salimos de la función para evitar agregar el producto al carrito
+    }
 
 
-    this.productos.cantidad = this.cantidad;
+    // this.productos.cantidad = this.cantidad;
+    // 🔥 Si queda 1 solo, fuerza cantidad = 1
+    this.productos.cantidad = this.ultimoDisponible ? 1 : this.cantidad;
     console.log(this.productos.id);
     console.log(this.productos.nombre);
     console.log(this.productos.descripcion);
@@ -108,6 +112,8 @@ export class ArticuloComponent implements OnInit {
     // let producto = this.productos;
     // producto.id = this.productos.id;
 
+    
+
     this.miCarrito.addProduct(this.productos);
     this.router.navigate(['/carrito'])
 
@@ -116,5 +122,14 @@ export class ArticuloComponent implements OnInit {
   isInCart(productId: number): boolean {
     return this.productosEnCarrito.includes(productId);
   }
+
+  get sinStock(): boolean {
+    return this.productos?.cantidad === 0;
+  }
+
+  get ultimoDisponible(): boolean {
+    return this.productos?.cantidad === 1;
+  }
+
   
 }
