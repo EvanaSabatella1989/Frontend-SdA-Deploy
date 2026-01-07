@@ -61,33 +61,77 @@ export class RegistrarseComponent implements OnInit {
     )
   }
 
+  // guardar() {
+  //   this.passNoValido();
+
+  //   if (this.registrar.invalid) {
+  //     return Object.values(this.registrar.controls).forEach(control => {
+  //       control.markAllAsTouched();
+  //     })
+  //   }
+
+  //   this.status = 'loading'
+  //   const { nombre, apellido, correo, password1 } = this.registrar.getRawValue()
+  //   this.authService.register(nombre, apellido, correo, password1)
+  //     .subscribe({
+  //       next: () => {
+  //         this.status = 'success'
+  //           this.router.navigate(['/login'], { queryParams: { email: correo } }) //para llevar el correo al login
+  //       },
+  //       error: (e) => {
+  //         this.status = 'failed'
+  //         setTimeout(() => {
+  //           this.status = 'init'
+  //         }, 2000)
+  //         console.log('error')
+  //       }
+  //     })
+
+  // }
+
   guardar() {
     this.passNoValido();
 
     if (this.registrar.invalid) {
-      return Object.values(this.registrar.controls).forEach(control => {
+      Object.values(this.registrar.controls).forEach(control => {
         control.markAllAsTouched();
-      })
+      });
+      return;
     }
 
-    this.status = 'loading'
-    const { nombre, apellido, correo, password1 } = this.registrar.getRawValue()
-    this.authService.register(nombre, apellido, correo, password1)
+    this.status = 'loading';
+
+    const { nombre, apellido, correo, password1, password2} = this.registrar.getRawValue();
+
+    this.authService.register(nombre, apellido, correo, password1,password2)
       .subscribe({
         next: () => {
-          this.status = 'success'
-            this.router.navigate(['/login'], { queryParams: { email: correo } }) //para llevar el correo al login
+          // registro exitoso
+          this.status = 'success';
+
+          // tiempo para que vea el mensaje
+          setTimeout(() => {
+            this.router.navigate(['/login'], {
+              queryParams: {
+                email: correo,
+                registrado: 'true'
+              }
+            });
+          }, 1500);
         },
         error: (e) => {
-          this.status = 'failed'
-          setTimeout(() => {
-            this.status = 'init'
-          }, 2000)
-          console.log('error')
-        }
-      })
+          //error 
+          this.status = 'failed';
 
+          setTimeout(() => {
+            this.status = 'init';
+          }, 2000);
+
+          console.error('Error al registrar usuario', e);
+        }
+      });
   }
+
 
   passwordIguales(pass1Name: string, pass2Name: string) {
     return (formGroup: FormGroup) => {

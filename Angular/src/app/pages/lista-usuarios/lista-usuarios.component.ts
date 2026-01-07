@@ -33,18 +33,20 @@ export class ListaUsuariosComponent {
   }
 
 
-  eliminarCliente(id: number) {
-    if (!window.confirm('⚠️ Deseas eliminar este cliente?'))
-      return;
+  eliminarCliente(cliente: Cliente) {
+    const nombre = `${cliente.first_name} ${cliente.last_name}`;
 
-    this.clienteService.deleteCliente(id).subscribe({
+    if (!window.confirm(`⚠️ ¿Deseas eliminar al cliente "${nombre}"?`)){
+      return;
+}
+    this.clienteService.deleteCliente(cliente.id!).subscribe({
       next: () => {
-        alert('✅ Cliente eliminado con éxito');
+        alert(`✅ Cliente "${nombre}" eliminado con éxito`);
         this.cargarClientes();
       },
       error: (err) => {
         console.error("Error al eliminar cliente:", err);
-        alert('❌ Error al eliminar cliente.');
+        alert(`❌ Error al eliminar al cliente "${nombre}"`);
       }
     });
   }
@@ -98,13 +100,13 @@ export class ListaUsuariosComponent {
 
       this.clienteService.updateCliente(this.clienteActual.id!, updatedCliente).subscribe({
         next: () => {
-          alert('✅ Cliente actualizado con éxito');
+          alert('Cliente actualizado con éxito ☑️');
           this.cargarClientes();
           this.cerrarModal();
         },
         error: (err) => {
           console.error("Error al actualizar cliente:", err);
-          alert('❌ Error al actualizar cliente.');
+          alert('Error al actualizar cliente. ❌');
         }
       });
 
