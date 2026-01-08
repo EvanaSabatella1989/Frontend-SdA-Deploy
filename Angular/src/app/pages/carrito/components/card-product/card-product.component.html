@@ -4,7 +4,7 @@
   >
     <div class="d-flex col-12 col-md-6 gap-5 align-items-md-center">
       <img src="{{product.imagen}}" alt="{{product.nombre}}" style="height: 50px; width: 50px" />
-      <h5 class="text-center fw-semilbold">{{ product.nombre }}</h5>
+      <h5 class="text-center fw-semilbold">{{product.nombre}}</h5>
     </div>
 
     <div
@@ -12,17 +12,17 @@
     >
       <form class="btn-quality">
         <input type="hidden" name="" id="" />
-        <button (click)="subtractQuality($event)"><span>-</span></button>
+        <button type="button" (click)="subtractQuality($event)"><span>-</span></button>
         <div class="andes-form-control">
           <label>
             <div class="andes-form-control__control">
-              <input value="{{ quality }}" />
+              <input value="{{ quality }}" readonly />
             </div>
           </label>
         </div>
         <!-- <button (click)="addQuality($event)"><span>+</span></button> -->
 
-        <button (click)="addQuality($event)" [disabled]="alcanzoStockMaximo"><span>+</span></button>
+        <button type="button" (click)="addQuality($event)" [disabled]="alcanzoStockMaximo"><span>+</span></button>
 
       </form>
 
@@ -38,7 +38,7 @@
     <span class="text-primary cursor-pointer" (click)="deleteOfCart()"
       >Eliminar</span
     >
-    <span class="text-primary">Comprar ahora</span>
-    <span class="text-primary">Detalle</span>
+    <!-- <span class="text-primary">Comprar ahora</span> -->
+    <span class="text-primary" [routerLink]="'/articulo/' + product.id">Detalle</span>
   </div>
 </div>
