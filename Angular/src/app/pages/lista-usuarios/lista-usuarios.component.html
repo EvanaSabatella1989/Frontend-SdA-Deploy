@@ -24,7 +24,7 @@
         <td>{{ cliente.num_telefono }}</td>
         <td>
           <button class="btn btn-primary btn-sm me-2" (click)="abrirModal(cliente)">Editar</button>
-          <button class="btn btn-danger btn-sm" (click)="eliminarCliente(cliente.id!)">Eliminar</button>
+          <button class="btn btn-danger btn-sm" (click)="eliminarCliente(cliente)">Eliminar</button>
         </td>
       </tr>
     </tbody>
@@ -45,6 +45,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
+        <div class="alert alert-info">
+          <strong>Campos obligatorios:</strong> Email, Contraseña, Nombre y Apellido.
+        </div>
         <form>
           <div class="mb-3" *ngIf="!clienteActual">
             <label>Email</label>
@@ -52,7 +55,7 @@
           </div>
           <div class="mb-3" *ngIf="!clienteActual">
             <label>Contraseña</label>
-            <input type="password" class="form-control" [(ngModel)]="password" name="password">
+            <input type="password" class="form-control" [(ngModel)]="password1" name="password">
           </div>
           <div class="mb-3">
             <label>Nombre</label>

@@ -19,73 +19,38 @@ export class ListaVentasComponent {
   tipo_pago: any = null;
   estado: any = null;
   cliente!: number;
+  ventaSeleccionada: Venta | null = null;
+  modalDetalle: any;
+  loading = true;
+
 
   constructor(private ventaService: VentaService) { }
 
   ngOnInit(): void {
     this.listarVentas();
 
-  
-    
+
+
   }
 
   listarVentas() {
+    this.loading = true;
     this.ventaService.getVentas().subscribe({
-      next: (resp) => this.ventas = resp,
-      error: (err) => console.error(err)
-    });
-  }
-
-//  abrirModal(venta?: Venta) {
-//   if (venta) {
-//     this.ventaActual = venta;
-//     this.numero_factura = venta.numero_factura ?? 0;
-//     this.total = venta.total ?? 0;
-//     this.tipo_pago = venta.tipo_pago ?? null;
-//     this.estado = venta.estado ?? null;
-//   } else {
-//     this.ventaActual = null;
-//     this.limpiarFormulario();
-//   }
-
-//   const modalEl = document.getElementById('modalVenta');
-//   this.modalInstance = new bootstrap.Modal(modalEl);
-//   this.modalInstance.show();
-// }
-
-
-  // guardarVenta() {
-  //   if (this.formInvalido()) {
-  //     alert('⚠️ Completa todos los campos');
-  //     return;
-  //   }
-
-  //   const ventaData = {
-  //     numero_factura: this.numero_factura,
-  //     total: this.total,
-  //     tipo_pago: this.tipo_pago,
-  //     estado: this.estado,
-  //     // cliente: this.cliente
-  //   };
-
-  //   if (this.ventaActual?.id) {
-  //     this.ventaService.actualizarVenta(this.ventaActual.id, ventaData).subscribe(() => {
-  //       alert('✅ Venta actualizada');
-  //       this.listarVentas();
-  //       this.modalInstance.hide();
-  //     });
-  //   }
-  // }
-
-  eliminarVenta(venta: Venta) {
-    if (!window.confirm(`Eliminar venta N° ${venta.numero_factura}?`)) return;
-
-    this.ventaService.eliminarVenta(venta.id!).subscribe(() => {
-      alert('✅ Venta eliminada');
-      this.listarVentas();
+      next: (resp) => {
+        this.ventas = resp;
+        console.log('Ventas:', resp); 
+        this.loading = false;
+      },
+      error: (err) =>{
+        console.error('Error al cargar ventas', err);
+        this.loading = false;
+      } 
+      
     });
   }
 
   
+
+
 
 }

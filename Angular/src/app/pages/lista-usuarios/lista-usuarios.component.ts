@@ -16,7 +16,8 @@ export class ListaUsuariosComponent {
   email?: string = '';
   first_name?: string = '';
   last_name?: string = '';
-  password?: string = '';
+  password1?: string = '';
+  password2?: string = '';
   direccion?: string = '';
   num_telefono?: string = '';
 
@@ -33,21 +34,23 @@ export class ListaUsuariosComponent {
   }
 
 
-eliminarCliente(id: number) {
-  if (!window.confirm('⚠️ Deseas eliminar este cliente?'))
-       return;
+  eliminarCliente(cliente: Cliente) {
+    const nombre = `${cliente.first_name} ${cliente.last_name}`;
 
-  this.clienteService.deleteCliente(id).subscribe({
-    next: () => {
-      alert('✅ Cliente eliminado con éxito');
-      this.cargarClientes();
-    },
-    error: (err) => {
-      console.error("Error al eliminar cliente:", err);
-      alert('❌ Error al eliminar cliente.');
-    }
-  });
+    if (!window.confirm(`⚠️ ¿Deseas eliminar al cliente "${nombre}"?`)){
+      return;
 }
+    this.clienteService.deleteCliente(cliente.id!).subscribe({
+      next: () => {
+        alert(`✅ Cliente "${nombre}" eliminado con éxito`);
+        this.cargarClientes();
+      },
+      error: (err) => {
+        console.error("Error al eliminar cliente:", err);
+        alert(`❌ Error al eliminar al cliente "${nombre}"`);
+      }
+    });
+  }
 
 
   abrirModal(cliente?: Cliente) {
@@ -60,7 +63,8 @@ eliminarCliente(id: number) {
       this.last_name = cliente.last_name;
       this.direccion = cliente.direccion;
       this.num_telefono = cliente.num_telefono;
-      this.password = '';
+      this.password1 = '';
+      this.password2 = '';
     } else {
 
       // crear cliente/usuario nuevo
@@ -68,7 +72,7 @@ eliminarCliente(id: number) {
       this.email = '';
       this.first_name = '';
       this.last_name = '';
-      this.password = '';
+      this.password1= '';
       this.direccion = '';
       this.num_telefono = '';
     }
@@ -80,64 +84,72 @@ eliminarCliente(id: number) {
   }
 
   guardarCliente() {
-  if (this.clienteActual) {
- 
-    if (!window.confirm('Quieres actualizar este cliente?')) 
-      
+    if (this.clienteActual) {
+
+      if (!window.confirm('Quieres actualizar este cliente?'))
+
         return;
 
-    // actualizar usuario
-    const updatedCliente: Cliente = {
-      ...this.clienteActual,
-      direccion: this.direccion,
-      num_telefono: this.num_telefono,
-      first_name: this.first_name,
-      last_name: this.last_name
-    };
-    console.log("datos actualizados:", updatedCliente);
+      // actualizar usuario
+      const updatedCliente: Cliente = {
+        ...this.clienteActual,
+        direccion: this.direccion,
+        num_telefono: this.num_telefono,
+        first_name: this.first_name,
+        last_name: this.last_name
+      };
+      console.log("datos actualizados:", updatedCliente);
 
-    this.clienteService.updateCliente(this.clienteActual.id!, updatedCliente).subscribe({
-      next: () => {
-        alert('✅ Cliente actualizado con éxito');
-        this.cargarClientes();
-        this.cerrarModal();
-      },
-      error: (err) => {
-        console.error("Error al actualizar cliente:", err);
-        alert('❌ Error al actualizar cliente.');
+      this.clienteService.updateCliente(this.clienteActual.id!, updatedCliente).subscribe({
+        next: () => {
+          alert('Cliente actualizado con éxito ☑️');
+          this.cargarClientes();
+          this.cerrarModal();
+        },
+        error: (err) => {
+          console.error("Error al actualizar cliente:", err);
+          alert('Error al actualizar cliente. ❌');
+        }
+      });
+
+    } else {
+
+      // validar
+      if (!this.email || !this.password1 || !this.first_name || !this.last_name) {
+        alert('Email, contraseña, nombre y apellido son obligatorios ❌');
+        return;
       }
-    });
 
-  } else {
-    
-    if (!window.confirm('Quieres registrar este cliente?')) return;
+      if (!window.confirm('Quieres registrar este cliente?')) return;
 
-    console.log("datos enviados al backend para registrarse:", {
-      first_name: this.first_name,
-      last_name: this.last_name,
-      email: this.email,
-      password: this.password
-    });
+      console.log("datos enviados al backend para registrarse:", {
+        first_name: this.first_name,
+        last_name: this.last_name,
+        email: this.email,
+        password1: this.password1,
+        password2: this.password2
+      });
 
-    // crear usuario 
-    this.authService.register(
-      this.first_name!,
-      this.last_name!,
-      this.email!,
-      this.password!
-    ).subscribe({
-      next: () => {
-        alert('✅ Usuario registrado con éxito');
-        this.cargarClientes();
-        this.cerrarModal();
-      },
-      error: (err) => {
-        console.error("Error al registrar usuario:", err);
-        alert('❌ Error al registrar usuario.');
-      }
-    });
+      // crear usuario 
+      this.authService.register(this.first_name!, this.last_name!, this.email!, this.password1!,this.password2!).subscribe({
+        next: () => {
+          alert('Usuario creado correctamente!!!☑️');
+          this.cargarClientes();
+          this.cerrarModal();
+        },
+        error: (err) => {
+          console.log('Error backend:', err.error);
+
+          if (err.error?.email) {
+            alert(err.error.email[0]);
+          } else {
+            alert('Error al registrar usuario❌');
+          }
+
+        }
+      });
+    }
   }
-}
 
   // editarCliente(id: number, cliente: Cliente) {
   //   this.clienteService.updateCliente(id, cliente).subscribe({
