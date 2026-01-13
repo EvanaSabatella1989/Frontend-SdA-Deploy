@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
     this.productoService.traerProductos().subscribe({
       next: (todosProductos) => {
         this.productos = todosProductos;
-        this.chunkedProductos = this.chunkArray(this.productos, 3);
+        this.chunkedProductos = this.chunkArray(this.productos, 5);
       },
       error: (errorData) => {
         console.error('error al cargar los productos', errorData)

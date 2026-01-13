@@ -36,3 +36,10 @@
 a{
     text-decoration: none;
 }
+
+.producto-img {
+  height: 160px;
+  object-fit: contain;  /* NO recorta la imagen */
+  padding: 5px;
+  /* background-color: #f8f9fa; */
+}

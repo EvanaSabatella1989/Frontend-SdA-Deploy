@@ -22,7 +22,7 @@ export class ProductoService {
     }
 
   public traerProductos():Observable<any>{
-    return this.http.get(this.url +"/producto/");
+    return this.http.get(this.url +"/productos/");
 
   };
   
@@ -51,23 +51,38 @@ export class ProductoService {
     return this.http.get<any>(this.url + '/categoria/'+ Id);
   };
 
-  //alta de una producto
-public create(data:any):Observable<any>{
-  //return this.http.post(this.url,data);
-  console.log('producto ' + data.nombre)
-  //return this.http.post(this.url +'producto/',data );
-  return this.http.post(`${this.url}/producto/`, data);
 
- } 
+  // public create(data:any):Observable<any>{
+  //   console.log('producto ' + data.nombre)
+  //   return this.http.post(`${this.url}/productos/`, data,{ headers: this.getHeaders() });
+  // } 
+
+  public create(data: FormData): Observable<any> {
+  return this.http.post(
+    `${this.url}/productos/`,
+    data,
+    {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      })
+    }
+  );
+}
+
+
  
  //actualizar producto
  public update(id:any,data:any): Observable<any>{
-  return this.http.put(`${this.url}/producto/${id}/`,data);
+  return this.http.put(`${this.url}/producto/${id}/`,data,{
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      })
+    });
  }
  
  //eliminar producto
  public delete(id:any):Observable<any>{
-  return this.http.delete(`${this.url}/producto/${id}/`);
+  return this.http.delete(`${this.url}/producto/${id}/`,{ headers: this.getHeaders() });
  }
 
 }

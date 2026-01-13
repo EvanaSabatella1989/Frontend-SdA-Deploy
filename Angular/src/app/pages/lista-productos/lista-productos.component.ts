@@ -107,9 +107,13 @@ export class ListaProductosComponent implements OnInit{
 
         console.log(`Producto ${produc.id} eliminado correctamente`);
       },
-      error: (error) => {
-        console.error('Error al eliminar el producto', error);
+       error: (error) => {
+      if (error.status === 400) {
+        alert(error.error.detail);
+      } else {
+        alert('Error al eliminar el producto');
       }
+    }
     });
   }
 

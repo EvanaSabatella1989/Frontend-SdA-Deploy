@@ -175,9 +175,9 @@
          [class.active]="i === 0">
 
       <div class="row justify-content-center">
-        <div class="col-md-4" *ngFor="let producto of grupo">
+        <div class="col-md-3" *ngFor="let producto of grupo">
           <div class="card shadow-sm border-0 rounded-3 h-100">
-            <img [src]="producto.imagen" [alt]="producto.nombre" class="card-img-top" style="height: 300px; object-fit: cover;">
+            <img [src]="producto.imagen" [alt]="producto.nombre" class="card-img-top producto-img">
             <div class="card-body text-center">
               <h5 class="fw-bold">{{ producto.nombre }}</h5>
             </div>
@@ -197,6 +197,7 @@
     <span class="carousel-control-next-icon"></span>
   </button>
 </div>
+<br>
     <h4><a routerLink="/productos" style="color: #F5C057;">Ver todos ></a></h4>
   </div>
 </div>

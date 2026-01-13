@@ -43,8 +43,8 @@ export class AuthInterceptor implements HttpInterceptor {
       req.url.includes('/login') ||
       req.url.includes('/registro') ||
       req.url.includes('/home') ||
-      req.url.includes('/producto/') ||
-      req.url.includes('/servicio/') && !req.url.includes('/admin/')
+      req.url.includes('/productos/') ||
+      req.url.includes('/servicios/') && !req.url.includes('/admin/')
     ) {
       return next.handle(req);
     }
