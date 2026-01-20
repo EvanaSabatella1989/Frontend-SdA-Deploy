@@ -53,10 +53,35 @@
             <label>Email</label>
             <input type="email" class="form-control" [(ngModel)]="email" name="email">
           </div>
+
           <div class="mb-3" *ngIf="!clienteActual">
-            <label>Contraseña</label>
-            <input type="password" class="form-control" [(ngModel)]="password1" name="password">
+            <label class="form-label">Contraseña</label>
+
+            <div class="input-group">
+              <input [type]="showPassword1 ? 'text' : 'password'" class="form-control" [(ngModel)]="password1"
+                name="password1">
+
+              <button class="btn btn-outline-secondary" type="button" (click)="togglePassword1()">
+                <i class="bi" [ngClass]="showPassword1 ? 'bi-eye-slash' : 'bi-eye'"></i>
+              </button>
+            </div>
           </div>
+
+
+          <div class="mb-3" *ngIf="!clienteActual">
+            <label class="form-label">Confirmar Contraseña</label>
+
+            <div class="input-group">
+              <input [type]="showPassword2 ? 'text' : 'password'" class="form-control" [(ngModel)]="password2"
+                name="password2">
+
+              <button class="btn btn-outline-secondary" type="button" (click)="togglePassword2()">
+                <i class="bi" [ngClass]="showPassword2 ? 'bi-eye-slash' : 'bi-eye'"></i>
+              </button>
+            </div>
+          </div>
+
+
           <div class="mb-3">
             <label>Nombre</label>
             <input type="text" class="form-control" [(ngModel)]="first_name" name="first_name">

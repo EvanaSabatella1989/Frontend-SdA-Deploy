@@ -20,6 +20,9 @@ export class ListaUsuariosComponent {
   password2?: string = '';
   direccion?: string = '';
   num_telefono?: string = '';
+  showPassword1: boolean = false;
+  showPassword2: boolean = false;
+
 
   constructor(private clienteService: ClienteService, private authService: AuthService) { }
 
@@ -120,6 +123,19 @@ export class ListaUsuariosComponent {
         return;
       }
 
+      const erroresPassword = this.validarPassword(
+        this.password1!,
+        this.first_name!,
+        this.last_name!,
+        this.email!
+      );
+
+if (erroresPassword.length > 0) {
+  alert('❌ Contraseña inválida:\n\n' + erroresPassword.join('\n'));
+  return;
+}
+
+
       if (!window.confirm('Quieres registrar este cliente?')) return;
 
       console.log("datos enviados al backend para registrarse:", {
@@ -151,6 +167,52 @@ export class ListaUsuariosComponent {
     }
   }
 
+   cerrarModal() {
+    const modalEl = document.getElementById('modalCliente');
+    const modal = bootstrap.Modal.getInstance(modalEl!);
+    modal?.hide();
+  }
+
+  validarPassword(
+  password: string,
+  firstName: string,
+  lastName: string,
+  email: string
+): string[] {
+
+  const errores: string[] = [];
+
+  if (password.length < 8) {
+    errores.push('Debe tener al menos 8 caracteres');
+  }
+
+  if (/^\d+$/.test(password)) {
+    errores.push('No puede ser solo números');
+  }
+
+  const lower = password.toLowerCase();
+
+  if (
+    lower.includes(firstName.toLowerCase()) ||
+    lower.includes(lastName.toLowerCase()) ||
+    lower.includes(email.split('@')[0].toLowerCase())
+  ) {
+    errores.push('No debe contener nombre, apellido o correo');
+  }
+
+  return errores;
+}
+
+togglePassword1() {
+  this.showPassword1 = !this.showPassword1;
+}
+
+togglePassword2() {
+  this.showPassword2 = !this.showPassword2;
+}
+
+}
+
   // editarCliente(id: number, cliente: Cliente) {
   //   this.clienteService.updateCliente(id, cliente).subscribe({
   //     next: () => {
@@ -165,9 +227,4 @@ export class ListaUsuariosComponent {
   //   });
   // }
 
-  cerrarModal() {
-    const modalEl = document.getElementById('modalCliente');
-    const modal = bootstrap.Modal.getInstance(modalEl!);
-    modal?.hide();
-  }
-}
+ 

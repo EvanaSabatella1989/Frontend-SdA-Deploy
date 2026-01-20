@@ -35,7 +35,23 @@
           <i class="bi" [ngClass]="showPassword1 ? 'bi-eye-slash' : 'bi-eye'"></i>
         </button>
       </div>
-      <small *ngIf="password1NoValido" class="text-danger">Ingrese una contraseña con el mínimo de 6 caracteres</small>
+      <ul class="text-danger small mt-1"
+        *ngIf="registrar.get('password1')?.touched && registrar.get('password1')?.errors">
+
+        <li *ngIf="registrar.get('password1')?.hasError('minLength')">
+          Debe tener al menos 8 caracteres
+        </li>
+
+        <li *ngIf="registrar.get('password1')?.hasError('onlyNumbers')">
+          No puede ser solo números
+        </li>
+
+        <li *ngIf="registrar.get('password1')?.hasError('similarData')">
+          No debe contener tu nombre, apellido o correo
+        </li>
+
+      </ul>
+      <!-- <small *ngIf="password2NoValido && !passwordsNoCoinciden" class="text-danger">La contraseña debe tener al menos 6 caracteres</small> -->
     </div>
 
 
@@ -48,24 +64,24 @@
           <i class="bi" [ngClass]="showPassword2 ? 'bi-eye-slash' : 'bi-eye'"></i>
         </button>
       </div>
-      <small *ngIf="password2NoValido" class="text-danger">Las contraseñas no coinciden</small>
+      <small *ngIf="passwordsNoCoinciden" class="text-danger">Las contraseñas no coinciden</small>
     </div>
 
 
     <div *ngIf="status === 'failed'" class="alert alert-danger" role="alert">
-  {{ errorMessage }}
-</div>
+      {{ errorMessage }}
+    </div>
 
 
 
 
-<div *ngIf="status === 'success'" class="alert alert-success text-center" role="alert">
-   Registro exitoso.✅ Te redirigimos para iniciar sesión...
-</div>
+    <div *ngIf="status === 'success'" class="alert alert-success text-center" role="alert">
+      Registro exitoso.✅ Te redirigimos para iniciar sesión...
+    </div>
 
 
     <div class="col-12">
-      <button class="col-12 btn btn-primary" type="submit">
+      <button class="col-12 btn btn-primary" type="submit" [disabled]="status === 'loading'">
         <div *ngIf="status === 'loading'" class="spinner-border" role="status" style="height: 20px; width: 20px">
           <span class="visually-hidden">Loading...</span>
         </div>
