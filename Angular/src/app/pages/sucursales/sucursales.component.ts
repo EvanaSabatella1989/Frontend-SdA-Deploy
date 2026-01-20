@@ -3,7 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Sucursal } from '../../models/sucursal';
 import { ServicioService } from 'src/app/service/servicio.service';
 import { AuthService } from 'src/app/service/auth.service';
-import { TokenService } from 'src/app/service/token.service';
+// import { TokenService } from 'src/app/service/token.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 declare var bootstrap: any;
 import { ReactiveFormsModule } from '@angular/forms';
@@ -24,13 +24,19 @@ export class SucursalesComponent implements OnInit {
   modalInstance: any;
 
 
-  constructor(private sucursaleService: ServicioService,private sanitizer: DomSanitizer,
-    private authService:AuthService,private tokenService:TokenService, private fb: FormBuilder,private servicioService:ServicioService) { }
+  constructor(
+    private sucursaleService: ServicioService,
+    private sanitizer: DomSanitizer,
+    private authService:AuthService,
+    // private tokenService:TokenService, 
+    private fb: FormBuilder,
+    private servicioService:ServicioService) { }
 
   // cargamos las sucursales, verificamos si es admin e inicializamos el form
   ngOnInit():void {
    this.cargarSucursales();
-   this.isAdmin = this.tokenService.isAdmin();
+  //  this.isAdmin = this.tokenService.isAdmin();
+  this.isAdmin = this.authService.getIsAdmin();
    this.formSucursal = this.fb.group({
       nombre: ['', Validators.required],
       direccion: ['', Validators.required],

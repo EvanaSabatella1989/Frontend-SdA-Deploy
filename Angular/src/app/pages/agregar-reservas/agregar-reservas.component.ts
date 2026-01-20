@@ -26,7 +26,10 @@ export class AgregarReservasComponent {
 
 
   ngOnInit(): void {
-    this.isAdmin = this.authService.isAdmin();
+    // this.isAdmin = this.authService.isAdmin();
+    this.authService.isAdmin$.subscribe(isAdmin => {
+    this.isAdmin = isAdmin;
+  });
     console.log('isAdmin:', this.isAdmin);
 
     this.reservaForm = this.fb.group({

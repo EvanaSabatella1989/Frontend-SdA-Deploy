@@ -62,7 +62,7 @@ export class ServicioService {
 
   // ---------RESERVA---------------
   crearReserva(reserva: any): Observable<any> {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('access_token');
     if (!token) {
       console.error('No hay token guardado');
     }
@@ -73,7 +73,7 @@ export class ServicioService {
   }
 
    obtenerReservas(): Observable<any[]> {
-    const token = localStorage.getItem('token'); // o como tengas tu JWT
+    const token = sessionStorage.getItem('access_token'); // o como tengas tu JWT
     return this.http.get<any[]>(`${this.apiUrl}/reservas/`,{
         headers: { Authorization: `Bearer ${token}` }
     });
@@ -82,7 +82,7 @@ export class ServicioService {
   }
   // actualizar reserva
   actualizarReserva(id: number, reserva: any): Observable<any> {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('access_token');
     return this.http.put(`${this.apiUrl}/reservas/${id}/`, reserva, {
       headers: { Authorization: `Bearer ${token}` }
     });
@@ -90,7 +90,7 @@ export class ServicioService {
 
   // eliminar reserva
   eliminarReserva(id: number): Observable<any> {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('access_token');
     return this.http.delete(`${this.apiUrl}/reservas/${id}/`, {
       headers: { Authorization: `Bearer ${token}` }
     });

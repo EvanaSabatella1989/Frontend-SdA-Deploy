@@ -7,7 +7,7 @@ import { PagesModule } from './pages/pages.module';
 import { LayoutModule } from './layout/layout.module';
 import { NgModule } from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import { TokenService } from './service/token.service';
+// import { TokenService } from './service/token.service';
 import { AuthService } from './service/auth.service';
 import { AuthInterceptor } from './service/auth.interceptor';
 
@@ -32,11 +32,11 @@ import { AuthInterceptor } from './service/auth.interceptor';
 export class AppModule { 
 
   constructor(
-    private tokenService: TokenService,
+    // private tokenService: TokenService,
     private authService: AuthService
   ){
-    if(this.tokenService.isValidToken()){
-      this.authService.isLogged()
-    }
+    // if(this.tokenService.isValidToken()){
+    //   // this.authService.isLogged()
+    // }
   }
 }

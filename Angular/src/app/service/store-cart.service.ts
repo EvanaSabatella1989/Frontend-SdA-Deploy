@@ -33,7 +33,7 @@ export class StoreCartService {
   }
 
   private getHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token'); // Recuperar el token JWT
+    const token = sessionStorage.getItem('access_token'); // Recuperar el token JWT
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`, // Agregar el token al header
       'Content-Type': 'application/json'
@@ -70,7 +70,7 @@ export class StoreCartService {
 
   clearCart() {
   this.carrito.next([]); // ✅ Reinicia el carrito vacío
-  localStorage.removeItem('carrito'); // ✅ Limpia el almacenamiento local (si lo usás)
+  sessionStorage.removeItem('carrito'); // ✅ Limpia el almacenamiento local (si lo usás)
 }
 
 emptyCart() {

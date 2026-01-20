@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/service/auth.service';
-import { TokenService } from 'src/app/service/token.service';
+// import { TokenService } from 'src/app/service/token.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -19,7 +19,7 @@ export class NavComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private tokenService: TokenService,
+    // private tokenService: TokenService,
     private router: Router
   ) { }
 
@@ -45,7 +45,7 @@ export class NavComponent implements OnInit, OnDestroy {
 
   logout(): void{
     this.authService.logout();
-    this.tokenService.removeToken()
+    // this.tokenService.removeToken()
     //window.location.reload()   //evitar recargar la página.
     this.router.navigate(['/']);
     

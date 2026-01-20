@@ -3,9 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Servicio } from 'src/app/models/servicio';
 import { AuthService } from 'src/app/service/auth.service';
-
 import { ServicioService } from 'src/app/service/servicio.service';
-import { TokenService } from 'src/app/service/token.service';
+// import { TokenService } from 'src/app/service/token.service';
 declare var bootstrap: any;
 
 @Component({
@@ -32,7 +31,13 @@ export class ServiciosComponent implements OnInit {
   sucursales: any[] = [];         // todas las sucursales
 sucursalSeleccionada: any = { id: 0, nombre: 'Todas' };
 
-  constructor(private tokenService: TokenService, private authService: AuthService, private serv: ServicioService, private activatedRouter: ActivatedRoute, private router: Router, private fb: FormBuilder) {
+  constructor(
+    // private tokenService: TokenService, 
+    private authService: AuthService, 
+    private serv: ServicioService, 
+    private activatedRouter: ActivatedRoute, 
+    private router: Router, 
+    private fb: FormBuilder) {
 
   }
 
