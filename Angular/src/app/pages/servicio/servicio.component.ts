@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServicioService } from 'src/app/service/servicio.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TokenService } from 'src/app/service/token.service';
+// import { TokenService } from 'src/app/service/token.service';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef } from '@angular/core';
 
@@ -23,7 +23,7 @@ export class ServicioComponent implements OnInit {
     private activatedRouter: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    private tokenService: TokenService,
+    // private tokenService: TokenService,
     private http: HttpClient,
     private cdr: ChangeDetectorRef
   ) { 

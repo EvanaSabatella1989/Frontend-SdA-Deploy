@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { ProductoService } from 'src/app/service/producto.service';
 import { StoreCartService } from 'src/app/service/store-cart.service';
-import { TokenService } from 'src/app/service/token.service';
+// import { TokenService } from 'src/app/service/token.service';
 
 import {  Producto, Rating } from 'src/app/models/product.model';
 
@@ -30,7 +30,14 @@ export class ArticuloComponent implements OnInit {
   
 
 
-  constructor(private tokenService: TokenService, private authService: AuthService, private miCarrito: StoreCartService, private miProductos: ProductoService, private activatedRouter: ActivatedRoute, private router: Router) {
+  constructor(
+    // private tokenService: TokenService, 
+    private authService: AuthService, 
+    private miCarrito: StoreCartService, 
+    private miProductos: ProductoService, 
+    private activatedRouter: ActivatedRoute, 
+    private router: Router
+  ) {
     const id = this.activatedRouter.snapshot.params['id'];
     let datos: any = {};
     this.miProductos.detail(id).subscribe(
@@ -91,7 +98,8 @@ export class ArticuloComponent implements OnInit {
     if (this.sinStock) return;
 
       // se verfica si el usuario está logueado
-    if (!this.tokenService.getToken()) {
+    // if (!this.tokenService.getToken()) {
+    if (!this.authService.getIsAdmin()) {
       // Si no esta logueado, redirigimos a la página de login
       this.router.navigate(['/login']);
       alert("Debes iniciar sesión para continuar con la compra");

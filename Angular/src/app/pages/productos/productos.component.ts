@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { ProductoService } from 'src/app/service/producto.service';
 import { StoreCartService } from 'src/app/service/store-cart.service';
-import { TokenService } from 'src/app/service/token.service';
+// import { TokenService } from 'src/app/service/token.service';
 @Component({
   selector: 'app-productos',
   templateUrl: './productos.component.html',
@@ -18,7 +18,7 @@ export class ProductosComponent implements OnInit {
   isAdmin: boolean = false;  
 
   constructor(
-    private tokenService: TokenService,
+    // private tokenService: TokenService,
     private authService: AuthService,
     private miCarrito: StoreCartService,
     private miProductos: ProductoService,
@@ -29,7 +29,8 @@ export class ProductosComponent implements OnInit {
   ngOnInit(): void {
     this.authService.isLoggedIn$.subscribe(isLogged => {
     this.isLogged = isLogged;
-    this.isAdmin = isLogged && this.tokenService.isAdmin();
+    // this.isAdmin = isLogged && this.tokenService.isAdmin();
+    this.isAdmin = isLogged && this.authService.getIsAdmin();
   });
 
     // this.authService.isLoggedIn$.subscribe(resp => this.isLogged = resp);

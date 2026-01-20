@@ -1,21 +1,23 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { TokenService } from '../service/token.service';
+import { AuthService } from '../service/auth.service';
+// import { TokenService } from '../service/token.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthRedirectGuard implements CanActivate {
   constructor(
-    private tokenService: TokenService,
-    private route: Router
+    // private tokenService: TokenService,
+    private route: Router,
+    private authService: AuthService,
   ){}
 
   canActivate(): boolean {
-    const token = this.tokenService.isValidToken()
+    const token = this.authService.isValidToken()
     console.log('tokenValid', token)
-    const is_admin = this.tokenService.isAdmin()
+    const is_admin = this.authService.getIsAdmin()
     if(token){
       if(is_admin){
         this.route.navigate(["/cms"])

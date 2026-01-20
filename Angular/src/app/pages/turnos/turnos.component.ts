@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Sucursal } from 'src/app/models/sucursal';
 import { Turno } from 'src/app/models/turno';
 import { ServicioService } from 'src/app/service/servicio.service';
-import { TokenService } from 'src/app/service/token.service';
+// import { TokenService } from 'src/app/service/token.service';
+import { AuthService } from 'src/app/service/auth.service';
 declare var bootstrap: any;
 
 @Component({
@@ -25,11 +26,13 @@ export class TurnosComponent {
     private turnoService: ServicioService,
     private sucursalService: ServicioService,
     private fb: FormBuilder,
-    private tokenService: TokenService
+    // private tokenService: TokenService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void{
-    this.isAdmin=this.tokenService.isAdmin();
+    // this.isAdmin=this.tokenService.isAdmin();
+    this.isAdmin=this.authService.getIsAdmin();
     if(!this.isAdmin)
       return;
  

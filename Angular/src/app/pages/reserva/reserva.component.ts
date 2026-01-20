@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { ServicioService } from 'src/app/service/servicio.service';
-import { TokenService } from 'src/app/service/token.service';
+// import { TokenService } from 'src/app/service/token.service';
 import { UsuarioService } from 'src/app/service/usuario.service';
 import { VehiculoService } from 'src/app/service/vehiculo.service';
 import { forkJoin } from 'rxjs';
@@ -29,9 +29,14 @@ export class ReservaComponent {
   isAdmin: boolean = false;
   vehiculosFiltrados: any[] = [];  //  los que coinciden con la categoría del servicio
 
-  constructor(private authService: AuthService, private servicioService: ServicioService,
-    private fb: FormBuilder, private route: ActivatedRoute,
-    private router: Router, private tokenService: TokenService, private usuarioService: UsuarioService) { }
+  constructor(
+    private authService: AuthService, 
+    private servicioService: ServicioService,
+    private fb: FormBuilder, 
+    private route: ActivatedRoute,
+    private router: Router, 
+    // private tokenService: TokenService, 
+    private usuarioService: UsuarioService) { }
 
 ngOnInit(): void {
   const servicioId = this.route.snapshot.params['id'];
@@ -114,7 +119,8 @@ ngOnInit(): void {
       this.router.navigate(['/agregar-vehiculo']);
     }
 
-    const clienteId = this.authService.obtenerIdUsuario2();
+    // const clienteId = this.authService.obtenerIdUsuario2();
+    const clienteId = this.authService.getUserId()
     const servicioId = this.servicio.id;
     console.log(clienteId + "saberl el id del cliente")
     // if (this.reservaForm.invalid) return;

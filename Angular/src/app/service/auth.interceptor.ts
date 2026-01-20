@@ -24,6 +24,56 @@
 //   }
 // }
 
+// import { Injectable } from '@angular/core';
+// import {
+//   HttpInterceptor,
+//   HttpRequest,
+//   HttpHandler,
+//   HttpEvent
+// } from '@angular/common/http';
+// import { Observable } from 'rxjs';
+
+// @Injectable()
+// export class AuthInterceptor implements HttpInterceptor {
+
+//   intercept(
+//     req: HttpRequest<any>,
+//     next: HttpHandler
+//   ): Observable<HttpEvent<any>> {
+
+//     // 🔓 ENDPOINTS PÚBLICOS (NO TOKEN)
+//     const publicEndpoints = [
+//       '/login/',
+//       '/registro/',
+//       '/productos/',
+//       '/servicios/'
+//     ];
+
+//     const isPublic = publicEndpoints.some(endpoint =>
+//       req.url.includes(endpoint)
+//     );
+
+//     if (isPublic) {
+//       return next.handle(req);
+//     }
+
+//     const token = sessionStorage.getItem('access_token');
+
+//     if (token) {
+//       const authReq = req.clone({
+//         setHeaders: {
+//           Authorization: `Bearer ${token}`
+//         }
+//       });
+
+//       return next.handle(authReq);
+//     }
+
+//     return next.handle(req);
+//   }
+// }
+
+
 import { Injectable } from '@angular/core';
 import {
   HttpInterceptor,
@@ -32,35 +82,45 @@ import {
   HttpEvent
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+// import { TokenService } from '../service/token.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
 
-    // 🔓 ENDPOINTS PÚBLICOS (NO TOKEN)
-    if (
-      req.url.includes('/login') ||
-      req.url.includes('/registro') ||
-      req.url.includes('/home') ||
-      req.url.includes('/productos/') ||
-      req.url.includes('/servicios/') && !req.url.includes('/admin/')
-    ) {
+    const publicEndpoints = [
+      '/login/',
+      '/registro/',
+      '/productos/',
+      '/servicios/'
+    ];
+
+    const isPublic = publicEndpoints.some(endpoint =>
+      req.url.includes(endpoint)
+    );
+
+    if (isPublic) {
       return next.handle(req);
     }
 
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('access_token'); // 🔥 ACÁ
 
     if (token) {
-      const cloned = req.clone({
+      const authReq = req.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`
         }
       });
-      return next.handle(cloned);
+
+      return next.handle(authReq);
     }
 
     return next.handle(req);
   }
 }
+
 

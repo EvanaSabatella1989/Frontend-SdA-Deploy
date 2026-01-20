@@ -14,7 +14,7 @@ export class ProductoService {
   constructor(private http: HttpClient) { }
 
   private getHeaders(): HttpHeaders {
-      const token = localStorage.getItem('token'); // Recuperar el token JWT
+      const token = sessionStorage.getItem('access_token'); // Recuperar el token JWT
       return new HttpHeaders({
         'Authorization': `Bearer ${token}`, // Agregar el token al header
         'Content-Type': 'application/json'
@@ -63,7 +63,7 @@ export class ProductoService {
     data,
     {
       headers: new HttpHeaders({
-        Authorization: `Bearer ${localStorage.getItem('token')}`
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`
       })
     }
   );
@@ -75,7 +75,7 @@ export class ProductoService {
  public update(id:any,data:any): Observable<any>{
   return this.http.put(`${this.url}/producto/${id}/`,data,{
       headers: new HttpHeaders({
-        Authorization: `Bearer ${localStorage.getItem('token')}`
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`
       })
     });
  }

@@ -16,7 +16,7 @@ export class PayService {
   ) { }
 
   private getHeaders(): HttpHeaders {
-      const token = localStorage.getItem('token'); // Recuperar el token JWT
+      const token = sessionStorage.getItem('access_token'); // Recuperar el token JWT
       return new HttpHeaders({
         'Authorization': `Bearer ${token}`, // Agregar el token al header
         'Content-Type': 'application/json'
