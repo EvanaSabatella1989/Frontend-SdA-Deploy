@@ -99,7 +99,7 @@ export class ArticuloComponent implements OnInit {
 
       // se verfica si el usuario está logueado
     // if (!this.tokenService.getToken()) {
-    if (!this.authService.getIsAdmin()) {
+    if (!this.authService.getAccessToken()) {
       // Si no esta logueado, redirigimos a la página de login
       this.router.navigate(['/login']);
       alert("Debes iniciar sesión para continuar con la compra");

@@ -96,7 +96,9 @@ export class AuthInterceptor implements HttpInterceptor {
       '/login/',
       '/registro/',
       '/productos/',
-      '/servicios/'
+      '/servicios/',
+      '/sucursal/',
+      '/categorias/'
     ];
 
     const isPublic = publicEndpoints.some(endpoint =>

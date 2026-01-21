@@ -63,7 +63,7 @@ export class ProductoService {
     data,
     {
       headers: new HttpHeaders({
-        Authorization: `Bearer ${sessionStorage.getItem('token')}`
+        Authorization: `Bearer ${sessionStorage.getItem('access_token')}`
       })
     }
   );
@@ -75,14 +75,18 @@ export class ProductoService {
  public update(id:any,data:any): Observable<any>{
   return this.http.put(`${this.url}/producto/${id}/`,data,{
       headers: new HttpHeaders({
-        Authorization: `Bearer ${sessionStorage.getItem('token')}`
+        Authorization: `Bearer ${sessionStorage.getItem('access_token')}`
       })
     });
  }
  
  //eliminar producto
- public delete(id:any):Observable<any>{
-  return this.http.delete(`${this.url}/producto/${id}/`,{ headers: this.getHeaders() });
+//  public delete(id:any):Observable<any>{
+//   return this.http.delete(`${this.url}/producto/${id}/`,{ headers: this.getHeaders() });
+//  }
+
+public delete(id:any):Observable<any>{
+  return this.http.delete(`${this.url}/producto/${id}/`);
  }
 
 }

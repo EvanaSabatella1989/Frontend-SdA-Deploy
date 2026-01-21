@@ -18,7 +18,6 @@ export class StoreCartService {
   
   // private apiUrl = "https://backend-sda-deploy.onrender.com/api/carrito"
   private apiUrl = environment.apiUrl
-  //private carrito = new BehaviorSubject<Producto[]>([]);
   private carrito = new BehaviorSubject<CarritoItem[]>([]);
   myCart$ = this.carrito.asObservable();
 
@@ -40,26 +39,41 @@ export class StoreCartService {
     });
   }
 
-  getCarrito(): void {
-    this.http.get<{ items: CarritoItem[] }>(`${this.apiUrl}/carrito/`, { headers: this.getHeaders()}).subscribe(response => {
+  // getCarrito(): void {
+  //   this.http.get<{ items: CarritoItem[] }>(`${this.apiUrl}/carrito/`, { headers: this.getHeaders()}).subscribe(response => {
+  //     this.carrito.next(response.items);
+  //   });
+  // }
+
+    getCarrito(): void {
+    this.http.get<{ items: CarritoItem[] }>(`${this.apiUrl}/carrito/`).subscribe(response => {
       this.carrito.next(response.items);
     });
   }
 
+  // addProduct(producto: Producto): void {
+  //   this.http.post(`${this.apiUrl}/carrito/agregar/`, { producto_id: producto.id, cantidad: 1 }, { headers: this.getHeaders()})
+  //     .subscribe(() => this.getCarrito());
+  // }
+
   addProduct(producto: Producto): void {
-    this.http.post(`${this.apiUrl}/carrito/agregar/`, { producto_id: producto.id, cantidad: 1 }, { headers: this.getHeaders()})
+    this.http.post(`${this.apiUrl}/carrito/agregar/`, { producto_id: producto.id, cantidad: 1 })
       .subscribe(() => this.getCarrito());
   }
 
+  // removeProduct(itemId: number): void {
+  //   this.http.delete(`${this.apiUrl}/carrito/eliminar/${itemId}/`, { headers: this.getHeaders()})
+  //     .subscribe(() => this.getCarrito());
+  // }
+
   removeProduct(itemId: number): void {
-    this.http.delete(`${this.apiUrl}/carrito/eliminar/${itemId}/`, { headers: this.getHeaders()})
+    this.http.delete(`${this.apiUrl}/carrito/eliminar/${itemId}/`)
       .subscribe(() => this.getCarrito());
   }
 
   updateQuantity(productoId: number, cantidad: number): void {
     this.http.put(`${this.apiUrl}/carrito/modificar/`, 
-      { producto_id: productoId, cantidad: cantidad }, 
-      { headers: this.getHeaders() }
+      { producto_id: productoId, cantidad: cantidad }
     ).subscribe(() => this.getCarrito());
   }
 
@@ -73,8 +87,12 @@ export class StoreCartService {
   sessionStorage.removeItem('carrito'); // ✅ Limpia el almacenamiento local (si lo usás)
 }
 
+// emptyCart() {
+//   return this.http.delete(`${this.apiUrl}/carrito/vaciar_carrito/`, { headers: this.getHeaders() });
+// }
+
 emptyCart() {
-  return this.http.delete(`${this.apiUrl}/carrito/vaciar_carrito/`, { headers: this.getHeaders() });
+  return this.http.delete(`${this.apiUrl}/carrito/vaciar_carrito/`);
 }
 
 syncCarrito() {

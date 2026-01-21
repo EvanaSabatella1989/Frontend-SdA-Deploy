@@ -17,7 +17,7 @@ export class ServiciosComponent implements OnInit {
   miServi: any[] = [];
   serviciosFiltrados: any[] = [];
   isLogged: boolean = false;
-  isAdmin: boolean = false;  // verifica si el usuario es admin
+  isAdmin: boolean = false;  
   servicioActual: Servicio | null = null;
   servicioForm!: FormGroup;
   imagenSeleccionada?: File | null = null;
@@ -43,7 +43,7 @@ sucursalSeleccionada: any = { id: 0, nombre: 'Todas' };
 
    ngOnInit(): void {
     this.authService.isLoggedIn$.subscribe(resp => this.isLogged = resp);
-
+    this.isAdmin = this.authService.getIsAdmin();
     // Traer categorías
     this.serv.obtenerCategorias('servicio').subscribe({
       next: (resp) => {
@@ -73,6 +73,10 @@ sucursalSeleccionada: any = { id: 0, nombre: 'Todas' };
         this.router.navigate(['']);
       }
     });
+  }
+
+  irAAgregarTurnos(servicioId: number): void {
+    this.router.navigate(['/admin/turnos', servicioId]);
   }
 
   filtrarPorCategoria(cat: any) {

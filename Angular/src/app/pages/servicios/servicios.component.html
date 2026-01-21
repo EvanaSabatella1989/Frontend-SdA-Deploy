@@ -52,11 +52,31 @@
                 </h6>
                 <p class="mb-2">Precio: ${{servicio.precio}}</p>
 
-                <div class="mt-auto">
+                <!-- <div class="mt-auto">
                   <button class="btn btn-primary w-100" (click)="irAReservar(servicio.id)" *ngIf="!isAdmin">
                     Reservar
                   </button>
-                </div>
+                </div> -->
+                <div class="mt-auto">
+
+                  <!-- BOTÓN CLIENTE -->
+                  <button
+                    class="btn btn-primary w-100"
+                    (click)="irAReservar(servicio.id)"
+                    *ngIf="!isAdmin">
+                    Reservar
+                  </button>
+
+                  <!-- BOTÓN ADMIN -->
+                  <!-- <button
+                    class="btn btn-success w-100"
+                    (click)="irAAgregarTurnos(servicio.id)"
+                    *ngIf="isAdmin">
+                    Agregar turnos
+                  </button> -->
+
+</div>
+
               </div>
             </div>
           </div>
