@@ -20,13 +20,23 @@ export class DashboardComponent implements OnInit {
   marcasPublicidad: any[] = [];
   chunkedMarcasPublicidad: any[][] = [];
 
+  promos: any[] = [];
+
   constructor(private servicioService: ServicioService, private productoService: ProductoService) { }
 
   ngOnInit(): void {
+    // this.cargarServicios();
+    // this.cargarProductos();
+    this.cargarMarcas();
+    this.cargarPromos();
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
     this.cargarServicios();
     this.cargarProductos();
-    this.cargarMarcas();
-  }
+    }, 0);
+    }
 
   cargarServicios(): void {
   this.servicioService.obtenerServicios().subscribe({
@@ -44,7 +54,7 @@ export class DashboardComponent implements OnInit {
     this.productoService.traerProductos().subscribe({
       next: (todosProductos) => {
         this.productos = todosProductos;
-        this.chunkedProductos = this.chunkArray(this.productos, 5);
+        this.chunkedProductos = this.chunkArray(this.productos, 4);
       },
       error: (errorData) => {
         console.error('error al cargar los productos', errorData)
@@ -119,6 +129,21 @@ private chunkArray(arr: any[], size: number): any[][] {
   }
   return result;
 }
+
+trackByIndex(index: number) {
+  return index;
+  }
+
+cargarPromos(): void {
+  this.promos = [
+    { alt: 'Promo1', img: 'assets/pagina/envio.jpeg' },
+    { alt: 'Promo4', img: 'assets/pagina/naranja.png' },
+    { alt: 'Promo2', img: 'assets/pagina/promo2.png' },
+    { alt: 'Promo3', img: 'assets/pagina/promo3.png' },
+    
+      
+  ];
   
 
+}
 }

@@ -1,7 +1,7 @@
 /* ayuda a que el footer se mantenga abajo */
 
 
-header.fondo {
+/* header.fondo {
     padding-top: 12rem;
     padding-bottom: 6rem;
     padding-right: 2rem;
@@ -13,12 +13,54 @@ header.fondo {
  
     background-size: cover;
     height: 400px;
-  }
+  } */
+
+  header.fondo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  color: goldenrod;
+  background-image: url("../src/assets/pagina/bannerPrincipal.jpg");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+
+  height: 85vh;      /* 👈 fuerza pantalla completa */
+  min-height: 600px;  /* 👈 mínimo real en desktop */
+  padding: 2rem;
+}
+
   
   h1.mensaje-bienvenida {
     line-height: 1.5rem;
     margin-bottom: 25px;
   }
+
+@media (max-width: 480px) {
+  header.fondo {
+    min-height: 40vh;      /* más bajo en mobile */
+    padding: 1.5rem;
+    height: 50vh;
+  }
+
+  h1.mensaje-bienvenida {
+    font-size: 1.9rem;
+    /* font-size: 16px; */
+    line-height: 2rem;
+  }
+}
+
+@media (min-width: 992px) {
+  header.fondo {
+    min-height: 60vh;
+  }
+
+  h1.mensaje-bienvenida {
+    font-size: 2.8rem;
+  }
+}
 
   p, h1, h2, h3, h4, h5, h6 {
     margin: 0;
