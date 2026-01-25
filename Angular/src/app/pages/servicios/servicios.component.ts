@@ -79,11 +79,17 @@ sucursalSeleccionada: any = { id: 0, nombre: 'Todas' };
     this.router.navigate(['/admin/turnos', servicioId]);
   }
 
+  // filtrarPorCategoria(cat: any) {
+  //   this.catSelec = cat;
+  //   this.serviciosFiltrados = cat.id === 0
+  //     ? [...this.miServi]
+  //     : this.miServi.filter(s => s.categoria === cat.id);
+  // }
+
   filtrarPorCategoria(cat: any) {
     this.catSelec = cat;
-    this.serviciosFiltrados = cat.id === 0
-      ? [...this.miServi]
-      : this.miServi.filter(s => s.categoria === cat.id);
+    this.aplicarFiltros();
+    this.cerrarFiltrosMobile();
   }
 
   irAReservar(servicioId: number) {
@@ -106,16 +112,22 @@ sucursalSeleccionada: any = { id: 0, nombre: 'Todas' };
 }
 
 // Filtrar por sucursal
+// filtrarPorSucursal(suc: any) {
+//   this.sucursalSeleccionada = suc;
+//   if (suc.id === 0) {
+//     this.serviciosFiltrados = [...this.miServi];  
+//   } else {
+//     this.serv.obtenerServiciosPorSucursal(suc.id).subscribe({
+//       next: (resp) => this.serviciosFiltrados = resp,
+//       error: (err) => console.error(err)
+//     });
+//   }
+// }
+
 filtrarPorSucursal(suc: any) {
   this.sucursalSeleccionada = suc;
-  if (suc.id === 0) {
-    this.serviciosFiltrados = [...this.miServi];  
-  } else {
-    this.serv.obtenerServiciosPorSucursal(suc.id).subscribe({
-      next: (resp) => this.serviciosFiltrados = resp,
-      error: (err) => console.error(err)
-    });
-  }
+  this.aplicarFiltros();
+  this.cerrarFiltrosMobile();
 }
 
 
@@ -133,5 +145,67 @@ filtrarPorSucursal(suc: any) {
   //     });
   //   }
   // }
+
+  onCategoriaClick(cat: any, event: MouseEvent) {
+  // Si hace click en la ya seleccionada → no permitir des-check
+  if (this.catSelec.id === cat.id) {
+    event.preventDefault();
+    return;
+  }
+
+  // Cambiar selección
+  this.catSelec = cat;
+  this.aplicarFiltros();
+  this.cerrarFiltrosMobile();
+}
+
+onSucursalClick(suc: any, event: MouseEvent) {
+  if (this.sucursalSeleccionada.id === suc.id) {
+    event.preventDefault();
+    return;
+  }
+
+  this.sucursalSeleccionada = suc;
+  this.aplicarFiltros();
+  this.cerrarFiltrosMobile();
+}
+
+
+  aplicarFiltros() {
+
+    let servicios = [...this.miServi];
+
+    // 🔹 Filtro por categoría
+    if (this.catSelec.id !== 0) {
+      servicios = servicios.filter(
+        s => s.categoria === this.catSelec.id
+      );
+    }
+
+    // 🔹 Filtro por sucursal
+    if (this.sucursalSeleccionada.id !== 0) {
+
+      const idsServiciosSucursal = this.sucursalSeleccionada.servicios
+        .map((s: any) => s.id);
+
+      servicios = servicios.filter(
+        s => idsServiciosSucursal.includes(s.id)
+      );
+    }
+
+    this.serviciosFiltrados = servicios;
+    
+}
+
+cerrarFiltrosMobile() {
+  const filtros = document.getElementById('filtrosMobile');
+
+  if (filtros && window.innerWidth < 768) {
+    const bsCollapse = bootstrap.Collapse.getInstance(filtros)
+      || new bootstrap.Collapse(filtros);
+
+    bsCollapse.hide();
+  }
+}
 
 }

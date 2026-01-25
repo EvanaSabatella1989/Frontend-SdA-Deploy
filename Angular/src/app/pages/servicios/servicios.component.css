@@ -1,4 +1,4 @@
-:root {
+/* :root {
     ---color-principal: #060818;
     ---color-secundario: #F5C057;
     ---color-card: #FFFFFF;
@@ -15,7 +15,6 @@ h5 {
 }
 
 
-/*style cards*/
 .card-body {
     background-color: #060818;
     color: #FFFFFF;
@@ -54,5 +53,97 @@ h5 {
      float: right;
      margin-right: 30px;
      margin-bottom: 15px;
+} */
+
+/* VARIABLES */
+:root {
+  --color-principal: #060818;
+  --color-secundario: #F5C057;
+  --color-card: #ffffff;
+  --color-background: #efefef;
 }
-    /*box-shadow:5px 5px 10px #565656, -5px -5px 10px #8a8a8a;*/
+
+/* TITULOS */
+h2 {
+  font-weight: 600;
+}
+
+/* CARDS */
+.servicio-card {
+  border: none;
+  overflow: hidden;
+}
+
+.card-body {
+  background-color: #060818;
+  color: #ffffff;
+}
+
+.card-body h5 {
+  color: #ffffff;
+  font-size: 1.1rem;
+}
+
+.card-body h6 {
+  font-size: 0.9rem;
+}
+
+.card-body p {
+  font-size: 0.95rem;
+}
+
+/* IMAGEN */
+.card-img-top {
+  height: 220px;
+  object-fit: cover;
+}
+
+@media (max-width: 576px) {
+  .card-img-top {
+    height: 160px;
+  }
+}
+
+/* BOTONES */
+.btn-warning {
+  background-color: #F5C057;
+  border: none;
+}
+
+.btn-warning:hover {
+  background-color: #e0ab3f;
+  color: #060818;
+}
+
+/* FILTROS */
+.list-group-item {
+  padding: 0.25rem 0;
+}
+
+.list-group-item button {
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+/* MOBILE AJUSTES */
+@media (max-width: 576px) {
+
+  .card-body h5 {
+    font-size: 1rem;
+  }
+
+  .card-body h6 {
+    font-size: 0.85rem;
+  }
+
+  .card-body p {
+    font-size: 0.9rem;
+  }
+
+}
+
+.form-check-input:checked {
+background-color: #0d6efd;
+border-color: #0d6efd;
+}
+    
