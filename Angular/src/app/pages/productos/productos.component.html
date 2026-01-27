@@ -1,13 +1,22 @@
 <section>
 
     <div class="container my-5">
-      <div class=" agregar">
+      <!-- <div class=" agregar">
 
         <button class="btn btn-light " routerLink="/agregar-productos" *ngIf="isAdmin">Agregar</button>
         <button class="btn btn-light " routerLink="/lista-productos" *ngIf="isAdmin">Lista</button>
+      </div> -->
+
+      <div class="agregar mb-3" *ngIf="isAdmin">
+        <button class="btn btn-outline-primary btn-sm" routerLink="/agregar-productos">
+          Agregar
+        </button>
+        <button class="btn btn-outline-secondary btn-sm" routerLink="/lista-productos">
+          Lista
+        </button>
       </div>
       
-    <header class="mb-4">
+    <!-- <header class="mb-4">
       <h3>Productos <span class="cat-selec">{{catSelec.nombre}}</span></h3>
       <div class="categorias">
         <div class="dropdown">
@@ -24,12 +33,46 @@
           </ul>
         </div>
       </div>
-    </header>
+    </header> -->
+
+    <header class="mb-4 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+  <h3 class="m-0">
+    Productos <span class="cat-selec">{{ catSelec.nombre }}</span>
+  </h3>
+
+  <div class="d-flex gap-2">
+    <div class="dropdown">
+      <button class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
+        Categorías
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <button class="dropdown-item" (click)="filtrarPorCategoria({id:0, nombre:''})">
+            Todas
+          </button>
+        </li>
+        <li *ngFor="let cat of categorias">
+          <button class="dropdown-item" (click)="filtrarPorCategoria(cat)">
+            {{ cat.nombre }}
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<div *ngIf="productosFiltrados.length === 0" class="col-12">
+<div class="alert alert-warning text-center py-4">
+No hay productos para la categoría seleccionada
+</div>
+</div>
   
-      <div class="row">
-      <div *ngFor="let prod of productosFiltrados" class="col-lg-3 col-md-6 col-sm-6 d-flex">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+      <div *ngFor="let prod of productosFiltrados" class="col d-flex">
         <div class="card w-100 my-2 shadow-2-strong">
+          <div class="card-img-wrapper">
           <img [src]="prod.imagen" class="card-img-top" style="aspect-ratio: 1 / 1" />
+          </div>
           <div class="card-body d-flex flex-column">
             <h5 class="card-title">{{prod.nombre}}</h5>
             <p class="card-text">${{prod.precio}}</p>
@@ -42,3 +85,4 @@
         </div>
       </div>
     </div> 
+  

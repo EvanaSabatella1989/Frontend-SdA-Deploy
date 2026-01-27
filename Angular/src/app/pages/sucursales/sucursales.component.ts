@@ -88,6 +88,7 @@ export class SucursalesComponent implements OnInit {
         this.modalInstance.hide();
       });
     }
+    console.log('Datos enviados:', datos);
   }
 
    eliminarSucursal(id: number) {

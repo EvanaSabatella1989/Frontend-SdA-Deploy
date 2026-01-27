@@ -21,10 +21,27 @@ iframe {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.card-text {
+font-size: 0.9rem;
+}
+
+@media (max-width: 576px) {
+.card-title {
+font-size: 1.1rem;
+}
+}
+
 .card:hover {
    transform: translateY(-3px);
   box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
   transition: all 0.2s ease;
+}
+
+@media (hover: hover) {
+.card:hover {
+transform: translateY(-3px);
+box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
+}
 }
 
   

@@ -1,6 +1,5 @@
-import { FormBuilder,FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { Contacto } from 'src/app/models/contacto';
 import { ContactoService } from 'src/app/service/contacto.service';
 
 @Component({
@@ -10,38 +9,44 @@ import { ContactoService } from 'src/app/service/contacto.service';
 })
 export class ContactoComponent  implements OnInit {
 form: FormGroup;
-isLoading = false; 
+cargando: boolean = false;
+enviado: boolean = false;
 
 
   constructor(private contactoService: ContactoService) {
     this.form = new FormGroup({
-      nombre: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      nombre: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
       email: new FormControl('', [Validators.required, Validators.email]),
       mensaje: new FormControl('', [Validators.required, Validators.minLength(10)])
     });
   }
 
   enviarFormulario() {
-    if (this.form.invalid) {
-      alert('Por favor, complete todos los campos correctamente.');
-      return;
-    }
 
-    this.isLoading = true;
-
-    this.contactoService.enviarContacto(this.form.value).subscribe({
-      next: () => {
-        alert('✅ Mensaje enviado con éxito. ¡Gracias por contactarnos!');
-        this.form.reset();
-        this.isLoading = false;
-      },
-      error: (err) => {
-        console.error(err);
-        alert('❌ Error al enviar el mensaje. Intente nuevamente.');
-        this.isLoading = false;
-      }
-    });
+  if (this.form.invalid) {
+    alert('Por favor, complete todos los campos correctamente.');
+    return;
   }
+
+  this.cargando = true;
+  this.enviado = false;
+
+  this.contactoService.enviarContacto(this.form.value).subscribe({
+    next: () => {
+      this.cargando = false;
+      this.enviado = true;
+
+      this.form.reset();
+    },
+    error: (err) => {
+      console.error(err);
+      this.cargando = false;
+      this.enviado = false;
+
+      alert('❌ Error al enviar el mensaje. Intente nuevamente.');
+    }
+  });
+}
 
   ngOnInit(): void {}
 }
