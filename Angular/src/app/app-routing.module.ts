@@ -41,6 +41,8 @@ import { ListaUsuariosComponent } from './pages/lista-usuarios/lista-usuarios.co
 import { EditarVehiculoComponent } from './pages/editar-vehiculo/editar-vehiculo.component';
 import { AgregarSucursalesComponent } from './pages/agregar-sucursales/agregar-sucursales.component';
 import { ListaVentasComponent } from './pages/lista-ventas/lista-ventas.component';
+import { RestablecerPasswordComponent } from './pages/restablecer-password/restablecer-password.component';
+import { ConfirmarRestablecerPasswordComponent } from './pages/confirmar-restablecer-password/confirmar-restablecer-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -80,6 +82,8 @@ const routes: Routes = [
   { path: 'vehiculo/editar/:id', component: EditarVehiculoComponent },
   {path:'lista-sucursales',component:AgregarSucursalesComponent},
   {path:'lista-ventas',component:ListaVentasComponent},
+  {path:'restablecer-password',component:RestablecerPasswordComponent},
+  {path:'password-reset-confirm/:uid/:token',component:ConfirmarRestablecerPasswordComponent},
 
 
   { path: '**', component: Pagina404Component }
@@ -89,7 +93,7 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, 
     { 
       // useHash: true,
-      scrollPositionRestoration: 'top', 
+      scrollPositionRestoration: 'top', useHash: true ,
     })],
   exports: [RouterModule]
 })

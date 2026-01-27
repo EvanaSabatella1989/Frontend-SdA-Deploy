@@ -41,6 +41,8 @@ import { EditarVehiculoComponent } from './editar-vehiculo/editar-vehiculo.compo
 
 import { AgregarSucursalesComponent } from './agregar-sucursales/agregar-sucursales.component';
 import { ListaVentasComponent } from './lista-ventas/lista-ventas.component';
+import { RestablecerPasswordComponent } from './restablecer-password/restablecer-password.component';
+import { ConfirmarRestablecerPasswordComponent } from './confirmar-restablecer-password/confirmar-restablecer-password.component';
 
 
 
@@ -85,6 +87,8 @@ import { ListaVentasComponent } from './lista-ventas/lista-ventas.component';
 
     AgregarSucursalesComponent,
     ListaVentasComponent,
+    RestablecerPasswordComponent,
+    ConfirmarRestablecerPasswordComponent,
 
 
 
@@ -100,7 +104,7 @@ import { ListaVentasComponent } from './lista-ventas/lista-ventas.component';
     SucursalesComponent, ContactoComponent, RegistrarseComponent, LoginComponent,
     CarritoComponent, ServicioComponent, CategoriasComponent,
     ListaProductosComponent,
-    AgregarCategoriasComponent, AgregarProductosComponent, EditarCategoriasComponent
+    AgregarCategoriasComponent, AgregarProductosComponent, EditarCategoriasComponent,RestablecerPasswordComponent,ConfirmarRestablecerPasswordComponent
 
   ]
 
