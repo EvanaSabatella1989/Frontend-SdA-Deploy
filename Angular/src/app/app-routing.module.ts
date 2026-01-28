@@ -84,6 +84,8 @@ const routes: Routes = [
   {path:'lista-ventas',component:ListaVentasComponent},
   {path:'restablecer-password',component:RestablecerPasswordComponent},
   {path:'password-reset-confirm/:uid/:token',component:ConfirmarRestablecerPasswordComponent},
+//  {path: 'password-reset-confirm',component: ConfirmarRestablecerPasswordComponent} ,
+
 
 
   { path: '**', component: Pagina404Component }
