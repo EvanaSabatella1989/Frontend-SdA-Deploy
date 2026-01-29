@@ -1,4 +1,4 @@
-.table{
+/* .table{
     margin-top: 25px;
 }
 
@@ -22,7 +22,7 @@
 
 .btn-volver{
     margin: auto;
-    /* margin-bottom: 15px; */
+    
 }
 
 h4{
@@ -54,17 +54,17 @@ img{
 
 .btn-amarillo {
   background-color: #F5C057;
-  color: #000; /* texto oscuro para buen contraste */
+  color: #000; 
   border: none;
 }
 
 .btn-amarillo:hover {
-  background-color: #e0ac45; /* un tono más oscuro al pasar el mouse */
+  background-color: #e0ac45; 
   color: #000;
 }
 
 .boton-activo {
-  background-color: #e0ac45 !important; /* tono más oscuro */
+  background-color: #e0ac45 !important; 
   color: #000 !important;
 }
 
@@ -72,4 +72,85 @@ img{
   background-color: #F5C057 !important;
   color: #000 !important;
   opacity: 0.8;
+} */
+
+/* PANEL ADMIN */
+.admin-panel {
+  background-color: #121212;
+  min-height: 100vh;
+}
+
+/* TITULO */
+.admin-title {
+  color: #f0ad00;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* BOTONES */
+.btn-warning {
+  background-color: #f0ad00;
+  border: none;
+  color: #000;
+  font-weight: 700;
+}
+
+.btn-warning:hover {
+  background-color: #d99700;
+}
+
+.btn-outline-warning {
+  border-color: #f0ad00;
+  color: #f0ad00;
+}
+
+.btn-outline-warning:hover {
+  background-color: #f0ad00;
+  color: #000;
+}
+
+/* TABLA */
+.table-dark {
+  background-color: #1e1e1e;
+}
+
+.table-dark th {
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(240, 173, 0, 0.1);
+}
+
+/* MODAL */
+.modal-content {
+  background-color: #1e1e1e;
+  color: #f1f1f1;
+}
+
+.modal-header {
+  border-bottom: 1px solid #333;
+}
+
+.form-control {
+  background-color: #2a2a2a;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+.form-control:focus {
+  background-color: #2a2a2a;
+  color: #fff;
+  border-color: #f0ad00;
+  box-shadow: none;
+}
+
+/* ALERTA */
+.alert-info {
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+  border: none;
 }

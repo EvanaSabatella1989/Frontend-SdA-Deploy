@@ -17,4 +17,11 @@ export class PanelAdminComponent {
     { titulo: 'Ventas', descripcion: 'Ver ventas realizadas', ruta: '/lista-ventas', icono: 'bi bi-receipt' }
   ];
 
+  stats = {
+    reservasHoy: 12,
+    enTaller: 5,
+    pendientes: 8,
+    finalizados: 23
+  };
+
 }

@@ -1,12 +1,12 @@
-<h4>Lista de Productos</h4>
+<!-- <h4>Lista de Productos</h4>
 <div class="container"> 
 
-<!-- MENSAJE SIN PRODUCTOS -->
+
   <div *ngIf="miProd.length === 0" class="alert alert-info text-center">
     No hay productos cargados.
   </div>
 
-  <!-- BOTÓN AGREGAR -->
+  
   <div class="row mb-3">
     <div class="col text-center">
       <a routerLink="/agregar-productos" class="btn btn-info">
@@ -50,10 +50,7 @@
   No se encontraron productos.
 </div>
 
-  
 
-
-<!-- TABLA CUANDO HAY PRODUCTOS -->
 <div class="row" *ngIf="productosFiltrados.length > 0">
 
  
@@ -64,13 +61,13 @@
 <table class="table">
     <thead>
       <tr>
-        <!-- <th scope="col">Id</th> -->
+        
         <th scope="col">Nombre</th>
         <th scope="col">Imagen</th>
         <th scope="col" class="col-descripcion">Descripción</th>
         <th scope="col">Precio</th>
         <th scope="col">Cantidad</th>
-        <!-- <th scope="col">Fecha Creación</th> -->
+        
         <th scope="col">Categoria</th>
         <th scope="col">Editar</th>
         <th scope="col">Eliminar</th>
@@ -78,14 +75,13 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of productosFiltrados">
-        <!-- <th scope="row">{{item.id}}</th> -->
+       
         <td>{{item.nombre}}</td>
         <td><img src="{{item.imagen}}" alt="{{item.imagen}}"></td>
         <td class="col-descripcion" title="{{ item.descripcion }}">{{item.descripcion}}</td>
         <td>${{item.precio}}</td>
         <td>{{item.cantidad}}</td>
-        <!-- <td>{{item.fecha_creacion}}</td> -->
-        <!-- <td>{{ getNombreCategoria(item.categoria) }}</td> -->
+        
         <td>{{ getNombreCategoria(item.categoria) }}</td>
         <td><a ><i class="bi bi-pencil-fill" id="edit" routerLink="/editar-productos/{{item.id}}"></i></a></td>
         <td><a (click)=eliminar(item) ><i class="bi bi-trash-fill" id="borrar"></i></a></td>
@@ -100,8 +96,7 @@
   </div>
 </div>
 
-<!-- <a routerLink="/productos" class="btn btn-info">Volver</a> -->
- <!-- BOTÓN VOLVER -->
+
   <div class="row mt-4">
     <div class="col text-center">
       <a routerLink="/productos" class="btn btn-info">
@@ -110,4 +105,206 @@
     </div>
   </div>
   
-</div>  
+</div>   -->
+
+
+<main class="admin-panel py-4">
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h4 class="admin-title m-0">Productos</h4>
+
+      <!-- <a routerLink="/agregar-productos" class="btn btn-warning fw-bold">
+        + Agregar Producto
+      </a> -->
+      <a (click)="abrirModal()" class="btn btn-warning fw-bold">
+        + Agregar Producto
+      </a>
+    </div>
+
+    <!-- FILTROS -->
+    <div class="row g-3 mb-4">
+
+      <div class="col-12 col-md-4">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Buscar producto por nombre..."
+          [(ngModel)]="busquedaNombre"
+          (input)="buscarPorNombre()"
+        />
+      </div>
+
+      <div class="col-12 col-md-4">
+        <select
+          class="form-select"
+          [(ngModel)]="categoriaSeleccionada"
+          (change)="filtrarPorCategoria()"
+        >
+          <option [ngValue]="'todas'">Todas las categorías</option>
+          <option *ngFor="let cat of categorias" [ngValue]="cat.id">
+            {{ cat.nombre }}
+          </option>
+        </select>
+      </div>
+
+    </div>
+
+    <!-- MENSAJES -->
+    <div *ngIf="miProd.length === 0" class="alert alert-info text-center">
+      No hay productos cargados.
+    </div>
+
+    <div *ngIf="productosFiltrados.length === 0 && miProd.length > 0"
+         class="alert alert-warning text-center">
+      No se encontraron productos.
+    </div>
+
+    <!-- TABLA -->
+    <div class="table-responsive" *ngIf="productosFiltrados.length > 0">
+      <table class="table table-dark table-hover align-middle">
+
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th class="text-center">Imagen</th>
+            <th class="d-none d-lg-table-cell">Descripción</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Categoría</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let item of productosFiltrados">
+
+            <td class="fw-bold">{{ item.nombre }}</td>
+
+            <td class="text-center">
+              <img
+                [src]="item.imagen"
+                alt="{{ item.nombre }}"
+                class="img-producto"
+              />
+            </td>
+
+            <td class="d-none d-lg-table-cell descripcion"
+                title="{{ item.descripcion }}">
+              {{ item.descripcion }}
+            </td>
+
+            <td>${{ item.precio }}</td>
+            <td>{{ item.cantidad }}</td>
+            <td>{{ getNombreCategoria(item.categoria) }}</td>
+
+            <!-- <td class="text-center">
+              <a
+                class="btn btn-sm btn-outline-warning me-2"
+                routerLink="/editar-productos/{{ item.id }}">
+                <i class="bi bi-pencil-fill"></i>
+              </a>
+
+              <button
+                class="btn btn-sm btn-outline-danger"
+                (click)="eliminar(item)">
+                <i class="bi bi-trash-fill"></i>
+              </button>
+            </td> -->
+            <td class="text-center">
+              <div class="acciones-btns">
+                <button
+                  class="btn btn-sm btn-outline-warning"
+                  
+                  (click)="abrirModal(item)"
+                  >
+                  <i class="bi bi-pencil-fill"></i>
+                </button>
+
+                <button
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="eliminar(item)">
+                  <i class="bi bi-trash-fill"></i>
+                </button>
+              </div>
+            </td>
+
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+
+    <!-- VOLVER -->
+    <div class="d-flex justify-content-center mt-4">
+      <a routerLink="/panel" class="btn btn-warning fw-bold">
+        Volver al Panel
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<div class="modal fade" id="modalProducto" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark text-light">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold text-uppercase">{{productoActual ? 'Editar Producto' : 'Agregar Producto'}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+
+          
+          <div class="mb-3">
+            <label>Nombre</label>
+            <input type="text" class="form-control" [(ngModel)]="nombre" name="nombre"
+              [ngClass]="{'is-invalid': campoInvalido(nombre)|| nombreMuyLargo()}">
+            <div *ngIf="nombreMuyLargo()" class="text-danger small">
+              El nombre no debe superar los 25 caracteres.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label>Categoría</label>
+            <select class="form-select" [(ngModel)]="categoriaSeleccionada" name="categoria"
+              [ngClass]="{'is-invalid': !categoriaSeleccionada}" required>
+              <option [ngValue]="null">-- Selecciona una categoría --</option>
+              <option *ngFor="let cat of categorias" [value]="cat.id">
+                {{ cat.nombre }}
+              </option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label>Descripción</label>
+            <textarea class="form-control" [(ngModel)]="descripcion" name="descripcion"
+              [ngClass]="{'is-invalid': campoInvalido(descripcion)}"></textarea>
+          </div>
+          <div class="mb-3">
+            <label>Precio</label>
+            <input type="number" class="form-control" [(ngModel)]="precio" name="precio" placeholder="Ej: 30000"
+              [ngClass]="{'is-invalid': precioInvalido()}">
+
+          </div>
+          <div class="mb-3">
+            <label>Imagen</label>
+            <img *ngIf="productoActual?.imagen" [src]="productoActual?.imagen" alt="Imagen actual"
+              class="img-fluid mb-2">
+
+            <input type="file" class="form-control" (change)="seleccionarImagen($event)"
+              [ngClass]="{'is-invalid': !imagenSeleccionada && !productoActual}">
+            
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button class="btn btn-primary" (click)="guardarProducto()" [disabled]="formInvalido()">
+          {{productoActual ? 'Actualizar' : 'Crear'}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div> 

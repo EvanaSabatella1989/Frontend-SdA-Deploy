@@ -1,10 +1,9 @@
 
-<h4>Categorías</h4>
+<!-- <h4>Categorías</h4>
 
 <div class="container">
     
-<!-- <button class="btn btn-agregar btn-success" (click)="abrirModal()">+ Nueva Categoría</button> -->
- <!-- Botón para agregar -->
+
 <button class="btn btn-agregar btn-success" (click)="abrirModal()">+ Nueva Categoría</button>
 
 <br>
@@ -27,35 +26,6 @@
   Agregue aquí los tipos de vehículos que manejará el taller.
 </p>
 
-
-<!-- <table class="table">
-
-    <thead>
-      <tr>
-        
-        <th scope="col">Nombre</th>
-        
-        <th scope="col">Editar</th>
-        <th scope="col">Eliminar</th>
-      </tr>
-    </thead>
-    <tbody  *ngFor="let item of miCat" >
-      <tr>
-        
-        <td>{{item.nombre}}</td>
-        
-        <td><button routerLink="/editar-categorias/{{item.id}}" class="bi bi-pencil-fill"></button></td>
-        <td><button (click)=delete(item) class="bi bi-trash-fill"></button></td>
-        
-        
-        
-      </tr>
-      
-      
-    </tbody>
-  </table> -->
-
-  <!-- Tabla -->
 <table class="table">
   <thead>
     <tr>
@@ -84,9 +54,7 @@
 
   </div>
 
-  
 
-<!-- Modal reutilizable -->
 <div class="modal fade" id="modalCategoria" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -99,7 +67,7 @@
       <div class="modal-body">
         <form (ngSubmit)="guardarCategoria()" #formCategoria="ngForm">
 
-          <!-- Nombre -->
+         
           <div class="mb-3">
             <label class="form-label">Nombre de la Categoría</label>
             <input
@@ -112,7 +80,7 @@
               required
               (ngModelChange)="verificarDuplicado()"
             />
-            <!-- Mensaje de error -->
+            
             <small *ngIf="nombre.length > 50" class="text-danger">
               El nombre no puede superar los 50 caracteres.
             </small>
@@ -121,7 +89,6 @@
             </small>
           </div>
 
-          <!-- Tipo (solo lectura) -->
           <div class="mb-3">
             <label class="form-label">Tipo de Categoría</label>
             <input
@@ -140,6 +107,142 @@
 
         </form>
       </div>
+    </div>
+  </div>
+</div> -->
+
+
+<main class="admin-panel py-4">
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h4 class="admin-title m-0">Categorías</h4>
+
+      <button class="btn btn-success fw-bold" (click)="abrirModal()">
+        + Nueva Categoría
+      </button>
+    </div>
+
+    <!-- FILTROS -->
+    <div class="btn-group mb-3" role="group">
+      <button
+        class="btn"
+        [ngClass]="tipoCategoria === 'producto' ? 'btn-warning' : 'btn-outline-warning'"
+        (click)="tipoCategoria='producto'; cargarCategorias()">
+        Productos
+      </button>
+
+      <button
+        class="btn"
+        [ngClass]="tipoCategoria === 'servicio' ? 'btn-warning' : 'btn-outline-warning'"
+        (click)="tipoCategoria='servicio'; cargarCategorias()">
+        Servicios
+      </button>
+    </div>
+
+    <!-- INFO -->
+    <p *ngIf="tipoCategoria === 'servicio'" class="alert alert-info small">
+      Aquí podés cargar los tipos de vehículos que maneja el taller
+    </p>
+
+    <!-- TABLA -->
+    <div class="table-responsive">
+      <table class="table table-dark table-hover align-middle">
+
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let item of miCat">
+            <td>{{ item.nombre }}</td>
+
+            <td class="text-center">
+              <button
+                class="btn btn-sm btn-outline-warning me-2"
+                (click)="abrirModal(item)">
+                <i class="bi bi-pencil-fill"></i>
+              </button>
+
+              <button
+                class="btn btn-sm btn-outline-danger"
+                (click)="delete(item)">
+                <i class="bi bi-trash-fill"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+
+    <!-- VOLVER -->
+    <div class="d-flex justify-content-center mt-4">
+      <a routerLink="/panel" class="btn btn-warning fw-bold">
+        Volver al Panel
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<!-- MODAL -->
+<div class="modal fade" id="modalCategoria" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title text-uppercase fw-bold">
+          {{ editando ? 'Editar Categoría' : 'Nueva Categoría' }}
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <form (ngSubmit)="guardarCategoria()" #formCategoria="ngForm">
+
+          <div class="mb-3">
+            <label class="form-label">Nombre de la categoría</label>
+            <input
+              type="text"
+              class="form-control"
+              name="nombre"
+              [(ngModel)]="nombre"
+              maxlength="50"
+              required
+              (ngModelChange)="verificarDuplicado()"
+            />
+
+            <small *ngIf="nombreDuplicado" class="text-danger">
+              Ya existe una categoría con este nombre
+            </small>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Tipo</label>
+            <input
+              type="text"
+              class="form-control"
+              name="tipo"
+              [(ngModel)]="tipo"
+              readonly
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-warning fw-bold"
+            [disabled]="formCategoria.invalid || nombreDuplicado">
+            {{ editando ? 'Actualizar' : 'Guardar' }}
+          </button>
+
+        </form>
+      </div>
+
     </div>
   </div>
 </div>
