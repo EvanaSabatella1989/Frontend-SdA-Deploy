@@ -1,4 +1,4 @@
-<main>
+<!-- <main>
     <div class="container my-5">
   <h2 class="text-center mb-4">Panel de Administración</h2>
     <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -14,4 +14,89 @@
   </div>
 </div>
     </div>
+</main> -->
+
+<main class="admin-panel py-5">
+  <div class="container">
+
+    <h2 class="text-center mb-5 admin-title">
+      Panel de Administración
+    </h2>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 mb-5">
+
+  <div class="col">
+    <div class="kpi-card">
+      <i class="bi bi-calendar-check"></i>
+      <div>
+        <h3>{{ stats.reservasHoy }}</h3>
+        <p>Reservas hoy</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="kpi-card">
+      <i class="bi bi-tools"></i>
+      <div>
+        <h3>{{ stats.enTaller }}</h3>
+        <p>Vehículos en taller</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="kpi-card">
+      <i class="bi bi-clock-history"></i>
+      <div>
+        <h3>{{ stats.pendientes }}</h3>
+        <p>Servicios pendientes</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="kpi-card">
+      <i class="bi bi-check-circle"></i>
+      <div>
+        <h3>{{ stats.finalizados }}</h3>
+        <p>Finalizados</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+
+      <div class="col" *ngFor="let modulo of modulosAdmin">
+        <div class="card admin-card h-100 text-center">
+
+          <div class="card-body d-flex flex-column justify-content-center">
+
+            <i 
+              [class]="modulo.icono + ' admin-icon mb-3'">
+            </i>
+
+            <h5 class="card-title text-uppercase fw-bold">
+              {{ modulo.titulo }}
+            </h5>
+
+            <p class="card-text small text-muted">
+              {{ modulo.descripcion }}
+            </p>
+
+            <button 
+              class="btn btn-warning mt-auto fw-bold text-uppercase"
+              [routerLink]="[modulo.ruta]">
+              Acceder
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
 </main>

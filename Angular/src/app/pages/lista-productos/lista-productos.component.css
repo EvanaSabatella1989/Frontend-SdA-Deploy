@@ -1,4 +1,4 @@
-.table{
+/* .table{
     margin-top: 25px;
 }
 
@@ -34,4 +34,113 @@ img{
 
 .container {
   min-height: 60vh;
+} */
+
+
+/* PANEL ADMIN */
+.admin-panel {
+  background-color: #0b1022; /* combina con footer #060818 */
+  min-height: calc(100vh - 200px);
+  color: #e5e7eb;
+}
+
+/* TITULOS */
+.admin-title {
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* BOTONES */
+.btn-warning {
+  background-color: #ffc107;
+  border: none;
+  color: #000;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+  color: #000;
+}
+
+/* TABLAS */
+.table-dark {
+  background-color: #111827;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table-dark thead {
+  background-color: #060818; /* mismo color que footer */
+}
+
+.table-dark th {
+  color: #ffc107;
+  font-weight: 600;
+  border-bottom: 1px solid #1f2937;
+}
+
+.table-dark td {
+  color: #e5e7eb;
+  border-color: #1f2937;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #1f2937;
+}
+
+/* INPUTS Y SELECT */
+.form-control,
+.form-select {
+  background-color: #111827;
+  border: 1px solid #1f2937;
+  color: #e5e7eb;
+}
+
+.form-control::placeholder {
+  color: #9ca3af;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: #111827;
+  border-color: #ffc107;
+  box-shadow: none;
+  color: #ffffff;
+}
+
+/* ALERTAS */
+.alert-info {
+  background-color: #0e162e;
+  color: #93c5fd;
+  border: 1px solid #1f2937;
+}
+
+.alert-warning {
+  background-color: #2a1f00;
+  color: #ffc107;
+  border: 1px solid #3f2f00;
+}
+
+/* IMAGEN PRODUCTO */
+.img-producto {
+  /* min-width: 60px;
+  max-width: 70px;
+  max-height: 50px; */
+  width: 65px;
+  height: 50px;
+  border-radius: 6px;
+  border: 1px solid #1f2937;
+}
+
+/* BOTONES ACCIONES MOBILE */
+.acciones-btns {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: nowrap;
+}
+
+.acciones-btns .btn {
+  min-width: 38px;
 }
