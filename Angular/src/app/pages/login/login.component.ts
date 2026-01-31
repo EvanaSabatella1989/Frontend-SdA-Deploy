@@ -1,8 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestStatus } from 'src/app/models/statusrequest';
 import { AuthService } from 'src/app/service/auth.service';
+declare const google: any;
 
 @Component({
   selector: 'app-login',
@@ -26,7 +28,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private formBuilders: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
@@ -36,6 +39,19 @@ export class LoginComponent implements OnInit {
         this.form.patchValue({ email }); // trae el correo de registro
       }
     });
+
+    // 👇 GOOGLE LOGIN
+  google.accounts.id.initialize({
+    client_id: '301610184752-v5e8ajeavgokqk99eu2cf7r358k8f8ud.apps.googleusercontent.com301610184752-v5e8ajeavgokqk99eu2cf7r358k8f8ud.apps.googleusercontent.com',
+    callback: (response: any) => {
+      this.handleGoogleLogin(response);
+    }
+  });
+
+  google.accounts.id.renderButton(
+    document.getElementById('google-btn'),
+    { theme: 'outline', size: 'large' }
+  );
   }
   
 
@@ -79,5 +95,28 @@ export class LoginComponent implements OnInit {
   togglePassword() {
     this.showPassword = !this.showPassword;
 }
+
+handleGoogleLogin(response: any) {
+  const idToken = response.credential;
+
+  this.http.post<any>('https://tu-backend/api/auth/google/', {
+    token: idToken
+  }).subscribe({
+    next: (resp) => {
+      
+      this.authService.saveSession(resp);
+
+      if (resp.is_admin) {
+        this.router.navigate(['/cms']);
+      } else {
+        this.router.navigate(['/home']);
+      }
+    },
+    error: () => {
+      console.error('Error login con Google');
+    }
+  });
+}
+
 
 }

@@ -143,7 +143,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   // =========================
-  // 🔐 LOGIN
+  //  LOGIN
   // =========================
   login(email: string, password: string) {
     return this.http.post<LoginResponse>(`${this.apiUrl}/login/`, {
@@ -167,7 +167,7 @@ export class AuthService {
   }
 
   // =========================
-  // 🚪 LOGOUT
+  //  LOGOUT
   // =========================
   logout(): void {
     sessionStorage.clear();
@@ -180,7 +180,7 @@ export class AuthService {
   }
 
   // =========================
-  // 🚪 REGISTER
+  //  REGISTER
   // =========================
   register(
     first_name: string,
@@ -200,7 +200,7 @@ export class AuthService {
 
 
   // =========================
-  // 🔎 HELPERS
+  // HELPERS
   // =========================
   hasToken(): boolean {
     return !!sessionStorage.getItem('access_token');
@@ -223,7 +223,7 @@ export class AuthService {
   }
 
   // =========================
-// 🔐 TOKEN HELPERS
+// TOKEN HELPERS
 // =========================
 
 decodeToken(token: string): any | null {
@@ -250,11 +250,18 @@ isValidToken(): boolean {
 
 
   // =========================
-  // 👤 ADMIN
+  //  ADMIN
   // =========================
   obtenerClientes(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/clientes/`);
   }
+
+  // para loguearse con google
+  saveSession(resp: any) {
+  localStorage.setItem('access', resp.access);
+  localStorage.setItem('refresh', resp.refresh);
+}
+
 }
 
 
