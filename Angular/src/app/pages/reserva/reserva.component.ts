@@ -28,51 +28,55 @@ export class ReservaComponent {
   modalInstance: any;
   isAdmin: boolean = false;
   vehiculosFiltrados: any[] = [];  //  los que coinciden con la categoría del servicio
+ 
+
 
   constructor(
-    private authService: AuthService, 
+    private authService: AuthService,
     private servicioService: ServicioService,
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router, 
+    private router: Router,
     // private tokenService: TokenService, 
     private usuarioService: UsuarioService) { }
 
-ngOnInit(): void {
-  const servicioId = this.route.snapshot.params['id'];
+  ngOnInit(): void {
+    const servicioId = this.route.snapshot.params['id'];
 
-  // inicializar el formulario vacío para evitar error NG01052
-  this.reservaForm = this.fb.group({
-    sucursal: [''],
-    servicio: [''],
-    turno: [''],
-    vehiculo: [''],
-  });
+    // inicializar el formulario vacío para evitar error NG01052
+    this.reservaForm = this.fb.group({
+      sucursal: [''],
+      servicio: [''],
+      turno: [''],
+      vehiculo: [''],
+    });
 
-  // obtener perfil y servicio
-  forkJoin({
-    perfil: this.usuarioService.obtenerPerfilReserva(),
-    servicio: this.servicioService.obtenerServicio(servicioId)
-  }).subscribe(({ perfil, servicio }) => {
-    this.clienteId = perfil.cliente?.id;
-    this.vehiculos = perfil.vehiculos || [];
-    this.servicio = servicio;
+    // obtener perfil y servicio
+    forkJoin({
+      perfil: this.usuarioService.obtenerPerfilReserva(),
+      servicio: this.servicioService.obtenerServicio(servicioId)
+    }).subscribe(({ perfil, servicio }) => {
+      this.clienteId = perfil.cliente?.id;
+      this.vehiculos = perfil.vehiculos || [];
+      this.servicio = servicio;
 
-    // filtrar vehículos por categoría del servicio
-    this.vehiculosFiltrados = this.vehiculos.filter(v => String(v.categoria) === String(this.servicio.categoria));
+      // filtrar vehículos por categoría del servicio
+      this.vehiculosFiltrados = this.vehiculos.filter(v => String(v.categoria) === String(this.servicio.categoria));
 
-    // ahora obtenemos solo las sucursales que tienen este servicio
-    this.servicioService.obtenerSucursalesPorServicio(servicioId).subscribe(sucursales => {
-      console.log("Sucursales recibidas del backend:", sucursales); // <--- debug
-      this.sucursales = sucursales;
+      // ahora obtenemos solo las sucursales que tienen este servicio
+      this.servicioService.obtenerSucursalesPorServicio(servicioId).subscribe(sucursales => {
+        console.log("Sucursales recibidas del backend:", sucursales); // <--- debug
+        this.sucursales = sucursales;
 
-      // parchear formulario con datos del servicio
-      this.reservaForm.patchValue({
-        servicio: this.servicio.id
+        // parchear formulario con datos del servicio
+        this.reservaForm.patchValue({
+          servicio: this.servicio.id
+        });
       });
     });
-  });
-}
+
+   
+  }
 
 
 
@@ -126,7 +130,7 @@ ngOnInit(): void {
     // if (this.reservaForm.invalid) return;
     // const clienteId = this.tokenService.getToken();
 
-    
+
     // envia los datos al back
     const reserva = {
       cliente: clienteId,
@@ -136,6 +140,9 @@ ngOnInit(): void {
       vehiculo: parseInt(this.reservaForm.value.vehiculo, 10),
 
     };
+
+
+
     console.log(this.reservaForm);
     this.servicioService.crearReserva(reserva).subscribe(
       res => {

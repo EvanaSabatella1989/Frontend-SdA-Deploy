@@ -108,6 +108,27 @@ export class ServicioService {
     return this.http.get<any[]>(`${this.apiUrl}/turnos/disponibles-por-sucursal/?sucursal=${sucursalId}`);
   }
 
+
+  cancelarReserva(reservaId: number) {
+  return this.http.put(
+    this.apiUrl+`/reservas/${reservaId}/cancelar/`,
+    {}
+  );
+}
+
+liberarTurno(reservaId: number) {
+  return this.http.post(
+    `${this.apiUrl}/reservas/${reservaId}/liberar-turno/`,
+    {}
+  );
+}
+
+
+
+
+
+
+
   // --------FIN RESERVA------
 
 // ---------SUCURSAL------------
