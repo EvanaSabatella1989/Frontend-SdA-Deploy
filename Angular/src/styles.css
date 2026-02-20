@@ -15,13 +15,13 @@
     height: 400px;
   } */
 
-  header.fondo {
+header.fondo {
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
 
-  color: goldenrod;
+  color: #f0ad00;
   background-image: url("../src/assets/pagina/bannerPrincipal.jpg");
   background-repeat: no-repeat;
   background-position: center top;
@@ -30,24 +30,42 @@
   height: 85vh;      /* 👈 fuerza pantalla completa */
   min-height: 600px;  /* 👈 mínimo real en desktop */
   padding: 2rem;
+
+  position: relative;
 }
 
-  
-  h1.mensaje-bienvenida {
-    line-height: 1.5rem;
-    margin-bottom: 25px;
-  }
+/* overlay oscuro para mejorar contraste */
+header.fondo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* asegura que el texto quede encima del overlay */
+header.fondo > * {
+  position: relative;
+  z-index: 1;
+}
+
+h1.mensaje-bienvenida {
+  line-height: 1.5rem;
+  margin-bottom: 25px;
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
 
 @media (max-width: 480px) {
   header.fondo {
-    min-height: 40vh;      /* más bajo en mobile */
+    min-height: 40vh;
     padding: 1.5rem;
     height: 50vh;
   }
 
   h1.mensaje-bienvenida {
     font-size: 1.9rem;
-    /* font-size: 16px; */
     line-height: 2rem;
   }
 }
@@ -62,14 +80,16 @@
   }
 }
 
-  p, h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-    padding: 0;
-  }
 
-  main {
-    min-height: 100vh;
-  }
+
+p, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  min-height: 100vh;
+}
 
   
   

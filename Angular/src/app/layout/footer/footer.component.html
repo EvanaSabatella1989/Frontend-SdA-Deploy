@@ -1,8 +1,8 @@
-
+<!-- 
 
 <footer class="py-5 border-top">
   <div class="container">
-    <!-- <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5"> -->
+
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5">
   <div class="col mb-3 text-center text-md-start">
     <a
@@ -100,5 +100,99 @@ servicedelautomotor.com.ar
     </ul>
   </div>
     </div>
+  </div>
+</footer> -->
+<footer class="admin-footer py-5 border-top">
+  <div class="container">
+
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5">
+
+      <div class="col mb-3 text-center text-md-start">
+        <a
+          routerLink="/quienes-somos"
+          class="d-flex justify-content-center justify-content-md-start align-items-center mb-3 admin-footer-logo"
+        >
+          <img
+            src="assets/otros/logoSdA.png"
+            width="100"
+            height="40"
+            alt="Logo"
+          />
+        </a>
+        <p class="admin-footer-copy">
+          &copy; {{ currentYear }}
+        </p>
+      </div>
+
+      <div class="col mb-3 text-center text-md-start">
+        <h5 class="admin-footer-title">Más info</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2">
+            <a routerLink="/quienes-somos" class="nav-link p-0 admin-footer-link">
+              Quienes somos
+            </a>
+          </li>
+          <li class="nav-item mb-2">
+            <a routerLink="/preguntas-frecuentes" class="nav-link p-0 admin-footer-link">
+              Preguntas frecuentes
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col mb-3 text-center text-md-start">
+        <h5 class="admin-footer-title">Servicios y Productos</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2" *ngFor="let servicio of serviciosRandom">
+            <a routerLink="/servicios" class="nav-link p-0 admin-footer-link">
+              {{ servicio.nombre }}
+            </a>
+          </li>
+          <li class="nav-item mb-2" *ngFor="let categoria of categoriasRandom">
+            <a [routerLink]="['/productos']" class="nav-link p-0 admin-footer-link">
+              {{ categoria }}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col mb-3 text-center text-md-start">
+        <h5 class="admin-footer-title">Sucursales</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2" *ngFor="let sucursal of sucursalesRandom">
+            <a [routerLink]="['/sucursales']" class="nav-link p-0 admin-footer-link">
+              {{ sucursal.nombre }}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col mb-3 text-center text-md-start">
+        <h5 class="admin-footer-title">Contacto</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2">
+            <a href="mailto:service@gmail.com" class="nav-link p-0 admin-footer-link">
+              service@gmail.com
+            </a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="tel:+593816900309" class="nav-link p-0 admin-footer-link">
+              +54 9 381 690-0309
+            </a>
+          </li>
+          <li class="nav-item mb-2">
+            <a
+              href="https://www.servicedelautomotor.com.ar"
+              target="_blank"
+              class="nav-link p-0 admin-footer-link"
+            >
+              servicedelautomotor.com.ar
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
   </div>
 </footer>

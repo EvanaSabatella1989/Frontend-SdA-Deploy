@@ -1,0 +1,24 @@
+
+
+.admin-simple-header {
+  background-color: #121212;
+  padding: 4rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid #1f1f1f;
+}
+
+.admin-header-title {
+  color: #f0ad00;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin: 0;
+  font-size: 2.2rem;
+}
+
+@media (max-width: 576px) {
+  .admin-header-title {
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+  }
+}

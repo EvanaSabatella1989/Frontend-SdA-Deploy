@@ -1,4 +1,4 @@
-<section class="w-100 vh-100 d-flex align-items-center bg-color">
+<!-- <section class="w-100 vh-100 d-flex align-items-center bg-color">
   <form class="col shadow p-3 d-flex flex-column gap-3 bg-white" [formGroup]="registrar" (ngSubmit)="guardar()">
     <h2>Registro</h2>
 
@@ -51,7 +51,6 @@
         </li>
 
       </ul>
-      <!-- <small *ngIf="password2NoValido && !passwordsNoCoinciden" class="text-danger">La contraseña debe tener al menos 6 caracteres</small> -->
     </div>
 
 
@@ -93,5 +92,143 @@
     <div class="col-12">
       <p>¿Ya tienes una cuenta? <a routerLink="/login">Ingresa</a></p>
     </div>
+  </form>
+</section> -->
+<section class="registro-panel d-flex align-items-center justify-content-center">
+  <form
+    class="registro-card col-12 col-sm-10 col-md-8 col-lg-5 p-4 shadow"
+    [formGroup]="registrar"
+    (ngSubmit)="guardar()"
+  >
+
+    <h2 class="registro-title text-center mb-4">
+      Registro
+    </h2>
+
+    <div class="col-12 mb-3">
+      <label class="form-label">Nombre</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Juan"
+        id="validationNombre"
+        formControlName="first_name"
+        [class.is-invalid]="nombreNoValido"
+      />
+      <small *ngIf="nombreNoValido" class="text-danger">
+        El nombre es un campo requerido
+      </small>
+    </div>
+
+    <div class="col-12 mb-3">
+      <label class="form-label">Apellido</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Pérez"
+        id="validationApellido"
+        formControlName="last_name"
+        [class.is-invalid]="apellidoNoValido"
+      />
+      <small *ngIf="apellidoNoValido" class="text-danger">
+        El apellido es un campo requerido
+      </small>
+    </div>
+
+    <div class="col-12 mb-3">
+      <label class="form-label">Correo</label>
+      <input
+        type="email"
+        class="form-control"
+        placeholder="juanperez@gmail.com"
+        id="validationEmail"
+        formControlName="email"
+        [class.is-invalid]="correoNoValido"
+      />
+      <small *ngIf="correoNoValido" class="text-danger">
+        Ingrese un correo válido
+      </small>
+    </div>
+
+    <div class="col-12 mb-3">
+      <label class="form-label">Contraseña</label>
+      <div class="input-group">
+        <input
+          [type]="showPassword1 ? 'text' : 'password'"
+          class="form-control"
+          id="validationPassword1"
+          formControlName="password1"
+          [class.is-invalid]="password1NoValido"
+        />
+        <button
+          type="button"
+          class="btn btn-outline-warning"
+          (click)="showPassword1 = !showPassword1"
+        >
+          <i class="bi" [ngClass]="showPassword1 ? 'bi-eye-slash' : 'bi-eye'"></i>
+        </button>
+      </div>
+
+      <ul
+        class="text-danger small mt-1"
+        *ngIf="registrar.get('password1')?.touched && registrar.get('password1')?.errors"
+      >
+        <li *ngIf="registrar.get('password1')?.hasError('minLength')">
+          Debe tener al menos 8 caracteres
+        </li>
+        <li *ngIf="registrar.get('password1')?.hasError('onlyNumbers')">
+          No puede ser solo números
+        </li>
+        <li *ngIf="registrar.get('password1')?.hasError('similarData')">
+          No debe contener tu nombre, apellido o correo
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-12 mb-3">
+      <label class="form-label">Confirmar Contraseña</label>
+      <div class="input-group">
+        <input
+          [type]="showPassword2 ? 'text' : 'password'"
+          class="form-control"
+          id="validationPassword2"
+          formControlName="password2"
+          [class.is-invalid]="password2NoValido"
+        />
+        <button
+          type="button"
+          class="btn btn-outline-warning"
+          (click)="showPassword2 = !showPassword2"
+        >
+          <i class="bi" [ngClass]="showPassword2 ? 'bi-eye-slash' : 'bi-eye'"></i>
+        </button>
+      </div>
+      <small *ngIf="passwordsNoCoinciden" class="text-danger">
+        Las contraseñas no coinciden
+      </small>
+    </div>
+
+    <div *ngIf="status === 'failed'" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="status === 'success'" class="alert alert-success text-center">
+      Registro exitoso. ✅ Te redirigimos para iniciar sesión...
+    </div>
+
+    <button
+      class="btn btn-warning w-100 fw-bold text-uppercase mt-3"
+      type="submit"
+      [disabled]="status === 'loading'"
+    >
+      <span *ngIf="status === 'loading'" class="spinner-border spinner-border-sm"></span>
+      Registrar
+    </button>
+
+    <p class="text-center mt-3 small">
+      ¿Ya tienes una cuenta?
+      <a routerLink="/login" class="registro-link">Ingresa</a>
+    </p>
+
   </form>
 </section>

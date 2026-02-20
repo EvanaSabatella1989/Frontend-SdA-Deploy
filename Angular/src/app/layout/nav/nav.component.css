@@ -1,6 +1,4 @@
-/* .div-logo{
-    background-image: url("/src/assets/pagina/logo.png");
-} */
+/* 
 header{
     background-color: #060818;
    
@@ -13,4 +11,66 @@ header{
 
 .nav-link{
     color: aliceblue;
+} */
+/* NAVBAR ADMIN */
+
+.admin-header {
+  background-color: #121212;
+}
+
+.admin-navbar {
+  background-color: #121212;
+  border-bottom: 1px solid #1f1f1f;
+}
+
+.admin-nav-links .nav-link {
+  color: #f1f1f1;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.admin-nav-links .nav-link:hover {
+  color: #f0ad00;
+}
+
+.navbar-toggler {
+  border-color: #333;
+}
+
+.admin-cart {
+  color: #f0ad00;
+  transition: transform 0.2s ease;
+}
+
+.admin-cart:hover {
+  transform: scale(1.1);
+}
+
+.admin-avatar {
+  border: 2px solid #f0ad00;
+}
+
+.admin-user-btn {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  color: #f1f1f1;
+}
+
+.admin-user-btn:hover {
+  background-color: #f0ad00;
+  color: #121212;
+}
+
+.admin-dropdown {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+}
+
+.admin-dropdown .dropdown-item {
+  color: #f1f1f1;
+}
+
+.admin-dropdown .dropdown-item:hover {
+  background-color: #f0ad00;
+  color: #121212;
 }

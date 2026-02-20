@@ -1,4 +1,4 @@
-.bg-color {
+/* .bg-color {
     background-color: #060818;  
 }
 
@@ -84,4 +84,70 @@ p {
   font-size: 0.95rem;
   color: #333;
   margin-top: 1rem;
+} */
+ /* LOGIN - ESTILO ADMIN */
+
+.login-panel {
+  min-height: 100vh;
+  background-color: #121212;
+}
+
+.login-card {
+  background-color: #1e1e1e;
+  color: #f1f1f1;
+  border-radius: 6px;
+  padding: 2rem 2.5rem;
+}
+
+.login-title {
+  color: #f0ad00;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.form-label {
+  color: #bdbdbd;
+}
+
+.form-control {
+  background-color: #121212;
+  border: 1px solid #333;
+  color: #f1f1f1;
+}
+
+.form-control:focus {
+  background-color: #121212;
+  color: #fff;
+  border-color: #f0ad00;
+  box-shadow: none;
+}
+
+.btn-outline-warning {
+  border-color: #f0ad00;
+  color: #f0ad00;
+}
+
+.btn-outline-warning:hover {
+  background-color: #f0ad00;
+  color: #121212;
+}
+
+.login-link {
+  color: #f0ad00;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+.alert-danger {
+  border-radius: 4px;
+}
+
+.google-login-wrapper {
+  display: flex;
+  justify-content: center;
 }

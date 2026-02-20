@@ -1,4 +1,4 @@
-footer{
+/* footer{
     background-color: #060818;
 }
 
@@ -14,7 +14,7 @@ color: #b5b5c3;
 }
 
 footer a:hover {
-color: #ffc107; /* mismo amarillo que usás */
+color: #ffc107;
 text-decoration: none;
 }
 
@@ -23,4 +23,43 @@ text-decoration: none;
 footer h5 {
 margin-top: 1rem;
 }
+} */
+
+
+
+.admin-footer {
+  background-color: #121212;
+  border-top: 1px solid #1f1f1f;
+}
+
+.admin-footer-title {
+  font-size: 1rem;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.admin-footer-link {
+  font-size: 0.9rem;
+  color: #b5b5c3;
+  transition: color 0.2s ease;
+}
+
+.admin-footer-link:hover {
+  color: #f0ad00;
+  text-decoration: none;
+}
+
+.admin-footer-copy {
+  font-size: 0.85rem;
+  color: #7a7a8c;
+}
+
+.admin-footer-logo img {
+  filter: brightness(0) invert(1);
+}
+
+@media (max-width: 576px) {
+  .admin-footer-title {
+    margin-top: 1rem;
+  }
 }

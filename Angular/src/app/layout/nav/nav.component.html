@@ -1,89 +1,16 @@
-<!-- <header class="p-3">
-  <div class="container">
-    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-      <a routerLink="/home" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-        <img
-          src="https://github.com/EvanaSabatella1989/Proyecto-Integrador-Full-Stack-ISPC/blob/main/maqueta/frontend/image/logo.png?raw=true"
-          width="100" height="40" class="d-inline-block align-top" alt="" />
-      </a>
-
-      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a routerLink="/home" class="nav-link px-2">Home</a></li>
-        <li>
-          <a routerLink="/servicios" class="nav-link px-2">Servicios</a>
-        </li>
-        <li>
-          <a routerLink="/productos" class="nav-link px-2 text-white">Productos</a>
-        </li>
-        <li>
-          <a routerLink="/sucursales" class="nav-link px-2">Sucursales</a>
-        </li>
-        <li>
-          <a routerLink="/contacto" class="nav-link px-2">Contacto</a>
-        </li>
-        <li>
-          <a routerLink="/quienes-somos" class="nav-link px-2">Nosotros</a>
-        </li>
-      </ul>
-
-      <div class="text-end" *ngIf="!isLogged">
-        <button routerLink="/login" r type="button" class="btn btn-outline-light me-2">
-          Ingresar
-        </button>
-        <button routerLink="/registrarse" type="button" class="btn btn-outline-light me-2"
-          style="background-color: #f5c057">
-          Registrarse
-        </button>
-      </div>
-
-      <div class="d-flex gap-2" *ngIf="isLogged">
-        <a *ngIf="!isAdmin" routerLink="/carrito" class="icon-link" style="color: yellow; margin-left: 10px"><svg
-            xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-cart3"
-            viewBox="0 0 16 16">
-            <path
-              d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-          </svg></a>
 
 
-        <div class="avatar">
-          <img
-            src="https://github.com/EvanaSabatella1989/Proyecto-Integrador-Full-Stack-ISPC/blob/prueba/maqueta/frontend/image/avatar.png?raw=true"
-            alt="Avatar" class="rounded-circle" width="40" height="40" />
-        </div>
-
-        <div class="dropdown">
-          <a class="btn text-white dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-          </a>
-          <span style="color: antiquewhite;">{{userName}}</span>
-          <ul class="dropdown-menu">
-
-            <li *ngIf="isAdmin">
-              <a class="dropdown-item" routerLink="/panel">Panel Admin</a>
-            </li>
-
-            <li><a class="dropdown-item" href="" routerLink="/perfil">Perfil</a></li>
-            <li>
-              <button class="dropdown-item" type="button" (click)="logout()">
-                Cerrar sesión
-              </button>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</header> -->
-
-<header>
-  <nav class="navbar navbar-expand-lg navbar-dark p-3">
+<header class="admin-header">
+  <nav class="navbar navbar-expand-lg navbar-dark admin-navbar p-3">
     <div class="container">
 
       <!-- LOGO -->
       <a routerLink="/home" class="navbar-brand">
         <img
           src="assets/otros/logoSdA.png"
-          width="100" height="40" alt="Logo">
+          width="100"
+          height="40"
+          alt="Logo">
       </a>
 
       <!-- BOTÓN HAMBURGUESA -->
@@ -102,50 +29,88 @@
       <div class="collapse navbar-collapse" id="navbarContent">
 
         <!-- LINKS -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a routerLink="/home" class="nav-link" data-bs-toggle="collapse" data-bs-target="#navbarContent">Home</a></li>
-          <li class="nav-item"><a routerLink="/servicios" class="nav-link" data-bs-toggle="collapse" data-bs-target="#navbarContent">Servicios</a></li>
-          <li class="nav-item"><a routerLink="/productos" class="nav-link" data-bs-toggle="collapse" data-bs-target="#navbarContent">Productos</a></li>
-          <li class="nav-item"><a routerLink="/sucursales" class="nav-link" data-bs-toggle="collapse" data-bs-target="#navbarContent">Sucursales</a></li>
-          <li class="nav-item"><a routerLink="/contacto" class="nav-link" data-bs-toggle="collapse" data-bs-target="#navbarContent">Contacto</a></li>
-          <li class="nav-item"><a routerLink="/quienes-somos" class="nav-link" data-bs-toggle="collapse" data-bs-target="#navbarContent">Nosotros</a></li>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 admin-nav-links">
+          <li class="nav-item">
+            <a routerLink="/home" class="nav-link" data-bs-toggle="collapse" data-bs-target="#navbarContent">Home</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/servicios" class="nav-link" data-bs-toggle="collapse" data-bs-target="#navbarContent">Servicios</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/productos" class="nav-link" data-bs-toggle="collapse" data-bs-target="#navbarContent">Productos</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/sucursales" class="nav-link" data-bs-toggle="collapse" data-bs-target="#navbarContent">Sucursales</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/contacto" class="nav-link" data-bs-toggle="collapse" data-bs-target="#navbarContent">Contacto</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/quienes-somos" class="nav-link" data-bs-toggle="collapse" data-bs-target="#navbarContent">Nosotros</a>
+          </li>
         </ul>
 
         <!-- USUARIO NO LOGUEADO -->
         <div class="d-flex gap-2" *ngIf="!isLogged">
-          <button routerLink="/login" class="btn btn-outline-light" data-bs-toggle="collapse" data-bs-target="#navbarContent">Ingresar</button>
-          <button routerLink="/registrarse" class="btn btn-warning" data-bs-toggle="collapse" data-bs-target="#navbarContent" >Registrarse</button>
+          <button
+            routerLink="/login"
+            class="btn btn-outline-warning"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarContent">
+            Ingresar
+          </button>
+          <button
+            routerLink="/registrarse"
+            class="btn btn-warning fw-bold"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarContent">
+            Registrarse
+          </button>
         </div>
 
         <!-- USUARIO LOGUEADO -->
-        <div class="d-flex align-items-center gap-2" *ngIf="isLogged">
+        <div class="d-flex align-items-center gap-3" *ngIf="isLogged">
 
           <!-- CARRITO -->
-          <a *ngIf="!isAdmin" routerLink="/carrito" class="text-warning" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-            <i class="bi bi-cart3 fs-4" ></i>
+          <a
+            *ngIf="!isAdmin"
+            routerLink="/carrito"
+            class="admin-cart"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarContent">
+            <i class="bi bi-cart3 fs-4"></i>
           </a>
 
           <!-- AVATAR -->
           <img
             src="assets/otros/avatar.png"
-            class="rounded-circle"
-            width="50"
-            height="50">
+            class="rounded-circle admin-avatar"
+            width="44"
+            height="44">
 
           <!-- DROPDOWN -->
           <div class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+            <a
+              class="btn btn-secondary admin-user-btn dropdown-toggle"
+              data-bs-toggle="dropdown">
               {{ userName }}
             </a>
-            <ul class="dropdown-menu dropdown-menu-end">
+
+            <ul class="dropdown-menu dropdown-menu-end admin-dropdown">
               <li *ngIf="isAdmin">
-                <a class="dropdown-item" routerLink="/panel" data-bs-toggle="collapse" data-bs-target="#navbarContent">Panel Admin</a>
+                <a class="dropdown-item" routerLink="/panel" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                  Panel Admin
+                </a>
               </li>
               <li>
-                <a class="dropdown-item" routerLink="/perfil" data-bs-toggle="collapse" data-bs-target="#navbarContent">Perfil</a>
+                <a class="dropdown-item" routerLink="/perfil" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                  Perfil
+                </a>
               </li>
               <li>
-                <button class="dropdown-item" (click)="logout()" data-bs-toggle="collapse" data-bs-target="#navbarContent">Cerrar sesión</button>
+                <button class="dropdown-item" (click)="logout()" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                  Cerrar sesión
+                </button>
               </li>
             </ul>
           </div>
@@ -156,4 +121,5 @@
     </div>
   </nav>
 </header>
+
 
