@@ -1,175 +1,152 @@
-/* :root {
-    ---color-principal: #060818;
-    ---color-secundario: #F5C057;
-    ---color-card: #FFFFFF;
-    ---color-background: #efefef;
-}
-
-h1{
-    text-align: center;
-}
-
-h5 {
-    color: #efefef;
-    font-size: 1em;
-}
-
-
-.card-body {
-    background-color: #060818;
-    color: #FFFFFF;
-    
-}
-
-.card-img-top{
-    height: 41vh;
-    
-}
-
-.card-body h5 {
-    color: #FFFFFF;
-
-}
-#ver-mas{
-    color: #F5C057;
-}
-
-
-
-.btn {
-    background-color: #F5C057;
-
-}
-
-.row ul li{
-    list-style: none;
-}
-
-.btn:hover{
-    color: #060818;
-}
-
-#list{
-     float: right;
-     margin-right: 30px;
-     margin-bottom: 15px;
-} */
 
 /* VARIABLES */
 :root {
-  --color-principal: #060818;
-  --color-secundario: #F5C057;
-  --color-card: #ffffff;
-  --color-background: #efefef;
+  --color-principal: #121212; 
+  --color-secundario: #f0ad00; 
+  --color-card: #1e1e1e; 
+  --color-texto: #f1f1f1; 
+  --color-muted: #bdbdbd; 
+}
+
+/* CONTENEDOR PRINCIPAL */
+main.admin-panel {
+  background-color: var(--color-principal);
+  min-height: 100vh;
+  color: var(--color-texto);
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 /* TITULOS */
 h2 {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-secundario);
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+/* SIDEBAR FILTROS */
+.card {
+  background-color: var(--color-card);
+  color: var(--color-texto);
+  border: none;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+.btn-outline-secondary {
+  border-color: var(--color-secundario);
+  color: var(--color-secundario);
   font-weight: 600;
 }
 
-/* CARDS */
-.servicio-card {
-  border: none;
-  overflow: hidden;
+.btn-outline-secondary:hover {
+  background-color: var(--color-secundario);
+  color: var(--color-principal);
 }
 
+.list-group-item {
+  padding: 0.5rem 0;
+  background-color: transparent;
+  border: none;
+}
+
+.form-check-label {
+  color: var(--color-texto);
+  font-size: 0.95rem;
+}
+
+.form-check-input:checked {
+  background-color: var(--color-secundario);
+  border-color: var(--color-secundario);
+}
+
+/* ALERTS */
+.alert-info {
+  background-color: rgba(240,173,0,0.1);
+  color: var(--color-texto);
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+}
+
+/* TARJETAS SERVICIOS ESTILO INDUSTRIAL */
+.servicio-card {
+  background-color: var(--color-card);
+  color: var(--color-texto);
+  border-left: 4px solid var(--color-secundario);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.servicio-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px rgba(240,173,0,0.3);
+}
+
+/* Imagen */
+.card-img-top {
+  height: 180px;
+  object-fit: cover;
+}
+
+/* Card Body */
 .card-body {
-  background-color: #060818;
-  color: #ffffff;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1rem;
 }
 
 .card-body h5 {
-  color: #ffffff;
-  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--color-texto);
+  margin-bottom: 0.25rem;
 }
 
 .card-body h6 {
+  font-weight: 500;
   font-size: 0.9rem;
+  color: var(--color-muted);
+  margin-bottom: 0.5rem;
 }
 
 .card-body p {
   font-size: 0.95rem;
+  color: var(--color-texto);
+  margin-bottom: 1rem;
 }
 
-/* IMAGEN */
-.card-img-top {
-  height: 220px;
-  object-fit: cover;
-}
-
-@media (max-width: 576px) {
-  .card-img-top {
-    height: 160px;
-  }
-}
-
-/* BOTONES */
+/* Botones */
 .btn-warning {
-  background-color: #F5C057;
+  background-color: var(--color-secundario);
   border: none;
+  border-radius: 0.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .btn-warning:hover {
   background-color: #e0ab3f;
-  color: #060818;
+  color: var(--color-principal);
 }
 
-/* FILTROS */
-.list-group-item {
-  padding: 0.25rem 0;
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .card-img-top { height: 160px; }
+  .card-body h5 { font-size: 1rem; }
+  .card-body h6 { font-size: 0.85rem; }
+  .card-body p { font-size: 0.9rem; }
 }
 
-.list-group-item button {
-  padding: 0.5rem 0;
-  font-size: 0.9rem;
-}
-
-/* MOBILE AJUSTES */
 @media (max-width: 576px) {
-
-  .card-body h5 {
-    font-size: 1rem;
-  }
-
-  .card-body h6 {
-    font-size: 0.85rem;
-  }
-
-  .card-body p {
-    font-size: 0.9rem;
-  }
-
+  .card-img-top { height: 140px; }
 }
 
-.form-check-input:checked {
-background-color: #0d6efd;
-border-color: #0d6efd;
-}
-
-.hero-industrial {
-  min-height: 90vh;
-  background:
-    linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
-    url('../../../assets/pagina/taller-industrial.jpg');
-  background-size: cover;
-  background-position: center;
-}
-
-.hero-title {
-  font-size: clamp(2.2rem, 5vw, 3.5rem);
-  font-weight: 900;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-.hero-title span {
-  color: #f0ad00;
-}
-
-.hero-subtitle {
-  font-size: 1.1rem;
-  max-width: 600px;
-  color: #e0e0e0;
-}
-    

@@ -94,4 +94,10 @@ main {
   
   
 
-  
+  :root {
+  --color-principal: #121212; /* Fondo oscuro principal */
+  --color-secundario: #f0ad00; /* Dorado */
+  --color-card: #1e1e1e; /* Fondo de tarjetas */
+  --color-texto: #f1f1f1; /* Texto principal */
+  --color-muted: #bdbdbd; /* Texto secundario */
+}

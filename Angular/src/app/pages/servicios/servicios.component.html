@@ -1,90 +1,12 @@
-<!-- <main>
+<main class="admin-panel py-5">
   <div class="container my-5">
-    <h2 class="text-center mb-4">Nuestros Servicios</h2>
-
-    <div class="row">
-     
-      <div class="col-md-3">
-        <div class="card shadow-sm rounded-3 p-3 mb-4">
-          <h5 class="mb-3">Filtros</h5>
-
-          <h6 class="mb-2">Categoría</h6>
-          <ul class="list-group list-group-flush mb-3">
-            <li class="list-group-item">
-              <button class="btn btn-link w-100 text-start" (click)="filtrarPorCategoria({id:0, nombre:''})">
-                Todas
-              </button>
-            </li>
-            <li class="list-group-item" *ngFor="let cat of categorias">
-              <button class="btn btn-link w-100 text-start" (click)="filtrarPorCategoria(cat)">
-                {{cat.nombre}}
-              </button>
-            </li>
-          </ul>
-
-          <h6 class="mb-2">Sucursal</h6>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-              <button class="btn btn-link w-100 text-start" (click)="filtrarPorSucursal({id:0,nombre:'Todas'})">
-                Todas
-              </button>
-            </li>
-            <li class="list-group-item" *ngFor="let suc of sucursales">
-              <button class="btn btn-link w-100 text-start" (click)="filtrarPorSucursal(suc)">
-                {{suc.nombre}}
-              </button>
-            </li>
-          </ul>
-
-        </div>
-      </div>
-
-      
-      <div class="col-md-9">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-          <div *ngFor="let servicio of serviciosFiltrados" class="col">
-            <div class="card h-100 shadow-sm">
-              <img [src]="servicio.imagen" class="card-img-top" alt="imagen servicio">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title">{{servicio.nombre}}</h5>
-                <h6 class="card-subtitle text-muted mb-2">
-                  Tipo de vehículo: {{servicio.categoriaNombre}}
-                </h6>
-                <p class="mb-2">Precio: ${{servicio.precio}}</p>
-
-                
-                <div class="mt-auto">
-
-                  
-                  <button
-                    class="btn btn-primary w-100"
-                    (click)="irAReservar(servicio.id)"
-                    *ngIf="!isAdmin">
-                    Reservar
-                  </button>
-
-                
-
-</div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> 
-    </div> 
-  </div>
-</main> -->
-
-<main>
-  <div class="container my-5">
-    <h2 class="text-center mb-4">Nuestros Servicios</h2>
+    <!-- TITULO SECCIÓN -->
+    <h2>Nuestros Servicios</h2>
 
     <div class="row">
       <!-- SIDEBAR FILTROS -->
       <div class="col-md-3 mb-4">
         <div class="card shadow-sm rounded-3 p-3">
-
           <!-- Botón filtros SOLO mobile -->
           <button
             class="btn btn-outline-secondary d-md-none w-100 mb-3"
@@ -93,143 +15,107 @@
             Filtrar servicios
           </button>
 
-
           <!-- Contenedor colapsable -->
           <div id="filtrosMobile" class="collapse d-md-block">
 
             <h5 class="mb-3">Filtros</h5>
 
             <h6 class="mb-2">Categoría</h6>
-              <ul class="list-group list-group-flush mb-3">
+            <ul class="list-group list-group-flush mb-3">
+              <li class="list-group-item">
+                <div class="form-check">
+                  <input
+                    class="form-check-input" 
+                    type="checkbox"
+                    id="cat-todas"
+                    [checked]="catSelec.id === 0"
+                    (change)="filtrarPorCategoria({id:0, nombre:'Todas'})">
+                  <label class="form-check-label" for="cat-todas">Todas</label>
+                </div>
+              </li>
 
-                <!-- Todas -->
-                <li class="list-group-item">
-                  <div class="form-check">
-                    <input
-                      class="form-check-input" 
-                      type="checkbox"
-                      id="cat-todas"
-                      [checked]="catSelec.id === 0"
-                      (change)="filtrarPorCategoria({id:0, nombre:'Todas'})"
-                      >
-
-                    <label class="form-check-label" for="cat-todas">
-                      Todas
-                    </label>
-                  </div>
-                </li>
-
-                <!-- Categorías -->
-                <li class="list-group-item" *ngFor="let cat of categorias">
-                  <div class="form-check">
-                    <input
-                      class="form-check-input" 
-                      type="checkbox"
-                      [id]="'cat-' + cat.id"
-                      [checked]="catSelec.id === cat.id"
-                      (click)="onCategoriaClick(cat, $event)">
-
-                    <label class="form-check-label" [for]="'cat-' + cat.id">
-                      {{ cat.nombre }}
-                    </label>
-                  </div>
-                </li>
-
-              </ul>
+              <li class="list-group-item" *ngFor="let cat of categorias">
+                <div class="form-check">
+                  <input
+                    class="form-check-input" 
+                    type="checkbox"
+                    [id]="'cat-' + cat.id"
+                    [checked]="catSelec.id === cat.id"
+                    (click)="onCategoriaClick(cat, $event)">
+                  <label class="form-check-label" [for]="'cat-' + cat.id">
+                    {{ cat.nombre }}
+                  </label>
+                </div>
+              </li>
+            </ul>
 
             <h6 class="mb-2">Sucursal</h6>
-              <ul class="list-group list-group-flush">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <div class="form-check">
+                  <input
+                    class="form-check-input" 
+                    type="checkbox"
+                    id="suc-todas"
+                    [checked]="sucursalSeleccionada.id === 0"
+                    (change)="filtrarPorSucursal({id:0, nombre:'Todas'})">
+                  <label class="form-check-label" for="suc-todas">
+                    Cualquier sucursal
+                  </label>
+                </div>
+              </li>
 
-                <!-- Todas -->
-                <li class="list-group-item">
-                  <div class="form-check">
-                    <input
-                      class="form-check-input" 
-                      type="checkbox"
-                      id="suc-todas"
-                      [checked]="sucursalSeleccionada.id === 0"
-                      (change)="filtrarPorSucursal({id:0, nombre:'Todas'})">
-
-                    <label class="form-check-label" for="suc-todas">
-                      Cualquier sucursal
-                    </label>
-                  </div>
-                </li>
-
-                <!-- Sucursales -->
-                <li class="list-group-item" *ngFor="let suc of sucursales">
-                  <div class="form-check">
-                    <input
-                      class="form-check-input" 
-                      type="checkbox"
-                      [id]="'suc-' + suc.id"
-                      [checked]="sucursalSeleccionada.id === suc.id"
-                      (click)="onSucursalClick(suc, $event)">
-
-                    <label class="form-check-label" [for]="'suc-' + suc.id">
-                      {{ suc.nombre }}
-                    </label>
-                  </div>
-                </li>
-
-              </ul>
-
+              <li class="list-group-item" *ngFor="let suc of sucursales">
+                <div class="form-check">
+                  <input
+                    class="form-check-input" 
+                    type="checkbox"
+                    [id]="'suc-' + suc.id"
+                    [checked]="sucursalSeleccionada.id === suc.id"
+                    (click)="onSucursalClick(suc, $event)">
+                  <label class="form-check-label" [for]="'suc-' + suc.id">
+                    {{ suc.nombre }}
+                  </label>
+                </div>
+              </li>
+            </ul>
           </div>
-          <div
-          *ngIf="catSelec.id !== 0 && sucursalSeleccionada.id === 0"
-          class="alert alert-info py-2">
-          Estos servicios pueden encontrarse en una o más sucursales.
-          Seleccioná una sucursal para ver disponibilidad específica.
+
+          <div *ngIf="catSelec.id !== 0 && sucursalSeleccionada.id === 0"
+               class="alert alert-info py-2">
+            Estos servicios pueden encontrarse en una o más sucursales.
+            Seleccioná una sucursal para ver disponibilidad específica.
           </div>
-          
         </div>
-          
-        
       </div>
-
-      
 
       <!-- TARJETAS SERVICIOS -->
       <div class="col-md-9">
-
         <div *ngIf="serviciosFiltrados.length === 0" class="col-12">
-            <div class="alert alert-warning text-center py-4">
-              <h5 class="mb-2">No se encontraron servicios</h5>
-
-              <p class="mb-1">
-                No hay servicios para
-                <strong>{{ catSelec.nombre !== 'Todas' ? catSelec.nombre : 'ninguna categoría' }}</strong>
-                disponibles
-                <span *ngIf="sucursalSeleccionada.id !== 0">
+          <div class="alert alert-warning text-center py-4">
+            <h5 class="mb-2">No se encontraron servicios</h5>
+            <p class="mb-1">
+              No hay servicios para
+              <strong>{{ catSelec.nombre !== 'Todas' ? catSelec.nombre : 'ninguna categoría' }}</strong>
+              disponibles
+              <span *ngIf="sucursalSeleccionada.id !== 0">
                 en {{ sucursalSeleccionada.nombre }}.
-                </span>
-              </p>
-            </div>
+              </span>
+            </p>
           </div>
+        </div>
 
-
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-
-
-          
-
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
           <div class="col" *ngFor="let servicio of serviciosFiltrados">
-            <div class="card h-100 shadow-sm servicio-card">
-
+            <div class="kpi-card servicio-card h-100">
               <img
                 [src]="servicio.imagen"
                 class="card-img-top"
                 alt="Imagen servicio">
-
               <div class="card-body d-flex flex-column">
                 <h5 class="card-title">{{ servicio.nombre }}</h5>
-
-                <h6 class="card-subtitle text-muted mb-2">
-                  Tipo de vehículo: {{ servicio.categoriaNombre }}
-                </h6>
-
+                <h6 class="card-subtitle mb-2">{{ servicio.categoriaNombre }}</h6>
                 <p class="mb-3">Precio: ${{ servicio.precio }}</p>
-
                 <div class="mt-auto">
                   <button
                     class="btn btn-warning w-100"
@@ -239,17 +125,11 @@
                   </button>
                 </div>
               </div>
-
             </div>
           </div>
-
         </div>
       </div>
 
     </div>
   </div>
 </main>
-
-
-
-
