@@ -1,8 +1,82 @@
-.editar{
-    display: flex;
-    justify-content: right;
+/* Fondo general */
+.admin-panel {
+  background-color: var(--color-principal);
+  min-height: 100vh;
+  color: var(--color-texto);
 }
-img{
-    height: 400px;
-    align-items: center;
+
+/* Card horizontal */
+.producto-detalle-card {
+  background-color: var(--color-card);
+  border-left: 5px solid var(--color-secundario);
+  border-radius: 0.75rem;
+  box-shadow: 0 0 25px rgba(0,0,0,0.35);
+  transition: 0.3s ease;
+}
+
+/* Imagen */
+.producto-detalle-img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: contain;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+/* Título */
+.producto-title {
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--color-secundario);
+}
+
+/* Precio */
+.producto-precio {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-texto);
+  margin-bottom: 1rem;
+}
+
+/* Subtítulos */
+.producto-subtitle {
+  color: var(--color-muted);
+  font-weight: 700;
+  margin-top: 1rem;
+}
+
+/* Descripción */
+.producto-desc {
+  color: var(--color-texto);
+  font-size: 1rem;
+}
+
+/* Hover premium */
+.producto-detalle-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 35px rgba(240,173,0,0.3);
+}
+
+/* botones */
+.btn-primary {
+  background-color: var(--color-secundario);
+  border: none;
+  color: #000;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.btn-primary:hover {
+  background-color: #e0ab3f;
+}
+
+.btn-outline-secondary {
+  border-color: var(--color-secundario);
+  color: var(--color-secundario);
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--color-secundario);
+  color: #000;
 }

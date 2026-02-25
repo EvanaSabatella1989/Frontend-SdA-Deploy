@@ -15,6 +15,12 @@
     height: 400px;
   } */
 
+:root {
+  --dark: #1c1c1c;
+  --metal: #2a2a2a;
+  --accent: #f0ad00;
+}
+
 header.fondo {
   display: flex;
   align-items: center;
@@ -96,7 +102,8 @@ main {
 
   :root {
   --color-principal: #121212; /* Fondo oscuro principal */
-  --color-secundario: #f0ad00; /* Dorado */
+  --color-secundario: #ffcc00; /* Dorado */
+  --color-secundario-apagado: #e6b800; 
   --color-card: #1e1e1e; /* Fondo de tarjetas */
   --color-texto: #f1f1f1; /* Texto principal */
   --color-muted: #bdbdbd; /* Texto secundario */

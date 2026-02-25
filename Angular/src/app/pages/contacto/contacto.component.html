@@ -1,5 +1,5 @@
-<!-- contenedor del formulario -->
-<div class="container py-5">
+
+<!-- <div class="container py-5">
   <h3 class="fs-2 text-center mb-4">Contactate con Nosotros</h3>
   <p class="text-center mb-4">Escribinos y te respoderemos a la brevedad</p>
   <div class="card shadow-lg mx-auto p-4" style="max-width: 600px; border-radius: 15px; background-color: #f8f9fa;">
@@ -60,7 +60,7 @@
   </div>
 </div>
 
-<!-- contenedor de redes sociales -->
+
 <div class="container py-5 text-center">
   <h3 class="fs-2 mb-4">También podes seguinos en nuestras redes</h3>
   <div class="d-flex justify-content-center gap-3">
@@ -77,4 +77,84 @@
       <i class="fab fa-linkedin-in"></i>
     </a>
   </div>
+</div> -->
+<main>
+<div class="container py-5 contacto-section">
+  <h3 class="fs-2 text-center mb-2">Contactate con Nosotros</h3>
+  <p class="text-center mb-4 text-muted">
+    Escribinos y te responderemos a la brevedad
+  </p>
+
+  <div class="card contacto-card shadow-lg mx-auto p-4">
+    <form [formGroup]="form" (ngSubmit)="enviarFormulario()">
+
+      <!-- Nombre -->
+      <div class="mb-3">
+        <label class="form-label">
+          <i class="bi bi-person me-1"></i> Nombre
+        </label>
+
+        <input
+          type="text"
+          class="form-control contacto-input"
+          formControlName="nombre"
+        />
+
+        <div *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched">
+          <p class="text-danger">Nombre requerido</p>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label class="form-label">
+          <i class="bi bi-envelope me-1"></i> Email
+        </label>
+
+        <input
+          type="email"
+          class="form-control contacto-input"
+          formControlName="email"
+        />
+      </div>
+
+      <!-- Mensaje -->
+      <div class="mb-3">
+        <label class="form-label">
+          <i class="bi bi-chat-dots me-1"></i> Mensaje
+        </label>
+
+        <textarea
+          class="form-control contacto-input"
+          rows="4"
+          placeholder="Escribí tu mensaje..."
+          formControlName="mensaje">
+        </textarea>
+      </div>
+
+      <!-- Botón -->
+      <div class="d-grid">
+        <button class="btn contacto-btn btn-lg" type="submit" [disabled]="form.invalid || cargando">
+          <span *ngIf="!cargando">Enviar</span>
+          <span *ngIf="cargando">Enviando...</span>
+        </button>
+      </div>
+    </form>
+
+    <p *ngIf="enviado" class="text-success text-center mt-3">
+      ✅ Mensaje enviado correctamente
+    </p>
+  </div>
 </div>
+
+<!-- Redes -->
+<div class="container py-5 text-center">
+  <h3 class="fs-2 mb-4">Seguinos en redes</h3>
+  <div class="d-flex justify-content-center gap-3">
+    <a class="social-btn" href="#"><i class="fab fa-facebook-f"></i></a>
+    <a class="social-btn" href="#"><i class="fab fa-twitter"></i></a>
+    <a class="social-btn" href="#"><i class="fab fa-instagram"></i></a>
+    <a class="social-btn" href="#"><i class="fab fa-linkedin-in"></i></a>
+  </div>
+</div>
+</main>

@@ -3,7 +3,11 @@
     class="d-flex flex-wrap justify-content-md-between align-items-center text-align-center"
   >
     <div class="d-flex col-12 col-md-6 gap-5 align-items-md-center">
-      <img src="{{product.imagen}}" alt="{{product.nombre}}" style="height: 50px; width: 50px" />
+      <img 
+  src="{{product.imagen}}" 
+  alt="{{product.nombre}}" 
+  class="carrito-img"
+/>
       <h5 class="text-center fw-semilbold">{{product.nombre}}</h5>
     </div>
 
@@ -35,10 +39,10 @@
   </div>
 
   <div class="d-flex gap-3 mt-3 more-btn">
-    <span class="text-primary cursor-pointer" (click)="deleteOfCart()"
+    <span class="cursor-pointer" (click)="deleteOfCart()"
       >Eliminar</span
     >
     <!-- <span class="text-primary">Comprar ahora</span> -->
-    <span class="text-primary" [routerLink]="'/articulo/' + product.id">Detalle</span>
+    <span  [routerLink]="'/articulo/' + product.id">Detalle</span>
   </div>
 </div>

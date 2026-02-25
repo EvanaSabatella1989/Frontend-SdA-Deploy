@@ -1,10 +1,14 @@
-:root {
+/* :root {
 --dark: #1c1c1c;
 --metal: #2a2a2a;
 --accent: #f0ad00;
-}
+} */
 
 /* LOOK MECÁNICA INDUSTRIAL */
+
+main{
+  background-color: var(--color-principal);
+}
 .card {
   background-color: #1c1c1c;
   color: #f1f1f1;
@@ -26,6 +30,11 @@ img {
 }
 
 /* CTA */
+
+.btn{
+  color: var(--color-principal);
+  margin-top: 15px;
+}
 .btn-primary {
   background-color: #f0ad00;
   border: none;

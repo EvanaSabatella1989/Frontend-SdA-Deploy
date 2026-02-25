@@ -1,3 +1,5 @@
+/* 
+
 .categorias{
     display: flex;
     justify-content:right;
@@ -6,10 +8,6 @@
     align-items: center;
     justify-content: center;
 }
-/* .agregar{
-    display: flex;
-    justify-content: right;
-} */
 
 .agregar {
   display: flex;
@@ -22,15 +20,13 @@
   text-decoration: underline;
 }
 
-/* Contenedor de la imagen */
+
 .card-img-wrapper {
-overflow: hidden; /* CLAVE: evita que la imagen se salga */
+overflow: hidden; 
 border-top-left-radius: .375rem;
 border-top-right-radius: .375rem;
 }
 
-
-/* Imagen */
 .card-img-top {
     height: 190px;
     object-fit: contain;
@@ -48,4 +44,101 @@ transform: scale(1.08);
 .card-img-top {
 height: 200px;
 }
+} */
+
+:root {
+  --color-principal: #121212; 
+  --color-secundario: #f0ad00; 
+  --color-card: #1e1e1e; 
+  --color-texto: #f1f1f1; 
+  --color-muted: #bdbdbd; 
+}
+
+section {
+  background-color: var(--color-principal);
+  min-height: 100vh;
+  color: var(--color-texto);
+  padding: 3rem 0;
+}
+
+h3 {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-secundario);
+}
+.cat-selec {
+  color: var(--color-texto);
+  text-decoration: none;
+}
+
+.card {
+  background-color: var(--color-card);
+  color: var(--color-texto);
+  border-left: 4px solid var(--color-secundario);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px rgba(240,173,0,0.3);
+}
+
+.card-img-top {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+.card-title {
+  font-weight: 700;
+  color: var(--color-texto);
+}
+
+.card-text {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+.card-img-wrapper {
+  background-color: #fff;   /* fondo blanco */
+  padding: 10px;             /* espacio interno opcional */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-primary {
+  background-color: var(--color-secundario);
+  border: none;
+  color: #000;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.btn-primary:hover {
+  background-color: #e0ab3f;
+  color: #000;
+}
+
+.dropdown-menu {
+  background-color: var(--color-card);
+  border: none;
+}
+
+.dropdown-item {
+  color: var(--color-texto);
+}
+
+.dropdown-item:hover {
+  background-color: var(--color-secundario);
+  color: #000;
 }

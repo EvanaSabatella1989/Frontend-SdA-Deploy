@@ -71,13 +71,13 @@ No hay productos para la categoría seleccionada
       <div *ngFor="let prod of productosFiltrados" class="col d-flex">
         <div class="card w-100 my-2 shadow-2-strong">
           <div class="card-img-wrapper">
-          <img [src]="prod.imagen" class="card-img-top" style="aspect-ratio: 1 / 1" />
+            <img [src]="prod.imagen" class="card-img-top" />
           </div>
           <div class="card-body d-flex flex-column">
             <h5 class="card-title">{{prod.nombre}}</h5>
             <p class="card-text">${{prod.precio}}</p>
             <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-              <button class="btn btn-primary shadow-0 me-1" [routerLink]="'/articulo/' + prod.id">
+              <button class="btn btn-primary shadow-0 me-1 w-100" [routerLink]="'/articulo/' + prod.id">
                 Ver detalle
               </button>
             </div>

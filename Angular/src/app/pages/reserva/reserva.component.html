@@ -1,8 +1,11 @@
+<main class="admin-panel py-5">
+  <div class="container my-5">
+
 <div class="container mt-5 mb-5">
   <div class="row g-4">
     <!-- izquierda servicio (usuario) -->
     <div class="col-md-6">
-      <div class="card shadow-sm rounded">
+      <div class="card shadow-sm rounded p-4 reserva-card">
         <img *ngIf="servicio.imagen" [src]="servicio.imagen" class="card-img-top" alt="{{ servicio.nombre }}"
           style="object-fit: cover; max-height: 300px;">
         <div class="card-body">
@@ -17,7 +20,7 @@
 
     <!-- derecha formulario (usuario) -->
     <div class="col-md-6">
-      <div class="card shadow-sm rounded p-4" style="background-color: #f8f9fa;">
+      <div class="card shadow-sm rounded p-4 reserva-card">
         <h3 class="mb-4">Reservar turno</h3>
 
         <form *ngIf="reservaForm" [formGroup]="reservaForm" (ngSubmit)="reservar()">
@@ -56,4 +59,7 @@
 
 
 </div>
+
+</div>
+</main>
 

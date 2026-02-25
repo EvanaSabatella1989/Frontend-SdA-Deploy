@@ -1,98 +1,68 @@
-<!--Main layout-->
-<main class="mt-5 pt-4">
-  <div class="container mt-5">
-    <!--Grid row-->
-    <div class="row">
-      <!--Grid column-->
-      <div class="col-md-6 mb-4">
-        <img src="{{ productos.imagen }}" class="img-fluid" alt="" />
-      </div>
-      <!--Grid column-->
+<main class="admin-panel py-5">
+  <div class="container my-5">
 
-      <!--Grid column-->
-      <div class="col-md-6 mb-4">
-        <!--Content-->
-        <div class="p-4">
-          <div class="mb-3">
-            <strong
-              ><h1>{{ productos.nombre }}</h1></strong
-            >
-          </div>
+    <div class="card producto-detalle-card p-3">
+      <div class="row g-4 align-items-center">
 
-          <p class="lead">
-            <span class="me-1"> </span>
-            <span>${{ productos.precio }}</span>
-          </p>
+        <!-- Imagen -->
+        <div class="col-md-5 text-center">
+          <img
+            [src]="productos.imagen"
+            class="producto-detalle-img"
+            alt="{{ productos.nombre }}"
+          />
+        </div>
 
-          <strong><p style="font-size: 20px">Descripción</p></strong>
+        <!-- Detalles -->
+        <div class="col-md-7">
+          <h2 class="producto-title">{{ productos.nombre }}</h2>
 
-          <p>{{ productos.descripcion }}</p>
+          <p class="producto-precio">${{ productos.precio }}</p>
 
-          <!-- <strong><p style="font-size: 20px">Stock disponible: {{productos.cantidad}}</p></strong> -->
-          
-          <strong>
-            <p style="font-size: 20px">
-              <ng-container *ngIf="sinStock; else conStock">
-                <span class="text-danger fw-bold">Sin stock</span>
-              </ng-container>
+          <h6 class="producto-subtitle">Descripción</h6>
+          <p class="producto-desc">{{ productos.descripcion }}</p>
 
-              <ng-template #conStock>
-                Stock disponible: {{ productos.cantidad }}
-                <span *ngIf="ultimoDisponible" class="text-warning fw-bold ms-2">
-                  Último disponible
-                </span>
-              </ng-template>
-            </p>
-          </strong>
-          
-          <br />
+          <h6 class="producto-subtitle">
+            <ng-container *ngIf="sinStock; else conStock">
+              <span class="text-danger fw-bold">Sin stock</span>
+            </ng-container>
 
-          <form class="d-flex justify-content-left">
-            <!-- Default input -->
-            
-            <div *ngIf="!isInCart(productos.id) " class="d-flex justify-content-left">
-              <!-- <div class="form-outline me-1" style="width: 100px">
-                <input type="number" [(ngModel)]="cantidad" (input)="guardarCantidad($event)" value="1" min="1" class="form-control" />
-              </div> -->
+            <ng-template #conStock>
+              Stock disponible: {{ productos.cantidad }}
+              <span *ngIf="ultimoDisponible" class="text-warning fw-bold ms-2">
+                Último disponible
+              </span>
+            </ng-template>
+          </h6>
 
-
-            <!-- <button *ngIf="!isAdmin"
-              class="btn btn-primary shadow-0 me-1"
-              (click)="agregarCarrito()"
-            >
-              Añadir al carrito
-            </button> -->
+          <!-- Botones -->
+          <div class="d-flex flex-wrap gap-2 mt-3">
 
             <button
-            *ngIf="!isAdmin && !isInCart(productos.id)"
-            class="btn btn-primary shadow-0 me-1"
-            (click)="agregarCarrito()"
-            [disabled]="sinStock">
-            Añadir al carrito
-          </button>
+              *ngIf="!isAdmin && !isInCart(productos.id)"
+              class="btn btn-primary"
+              (click)="agregarCarrito()"
+              [disabled]="sinStock">
+              Añadir al carrito
+            </button>
 
-          </div>
-          <div *ngIf="isInCart(productos.id)">
-            <button 
-              class="btn btn-primary shadow-0 me-1" 
-              routerLink="/carrito"
-              >
+            <button
+              *ngIf="isInCart(productos.id)"
+              class="btn btn-primary"
+              routerLink="/carrito">
               Ver carrito
             </button>
+
+            <a routerLink="/productos" class="btn btn-outline-secondary">
+              Volver
+            </a>
+
           </div>
-            
-            <a routerLink="/productos" type="button" class="btn btn-secondary"
-              >Volver</a
-            >
-          </form>
+
         </div>
-        <!--Content-->
+
       </div>
-      <!--Grid column-->
     </div>
-    <!--Grid row-->
 
-    <hr />
   </div>
-
-<!--Main layout-->
+</main>
