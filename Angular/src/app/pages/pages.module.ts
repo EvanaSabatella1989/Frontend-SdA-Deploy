@@ -43,6 +43,8 @@ import { AgregarSucursalesComponent } from './agregar-sucursales/agregar-sucursa
 import { ListaVentasComponent } from './lista-ventas/lista-ventas.component';
 import { RestablecerPasswordComponent } from './restablecer-password/restablecer-password.component';
 import { ConfirmarRestablecerPasswordComponent } from './confirmar-restablecer-password/confirmar-restablecer-password.component';
+import { ListaEmpleadosComponent } from './lista-empleados/lista-empleados.component';
+import { PanelEmpleadoComponent } from './panel-empleado/panel-empleado.component';
 
 
 
@@ -89,6 +91,8 @@ import { ConfirmarRestablecerPasswordComponent } from './confirmar-restablecer-p
     ListaVentasComponent,
     RestablecerPasswordComponent,
     ConfirmarRestablecerPasswordComponent,
+    ListaEmpleadosComponent,
+    PanelEmpleadoComponent,
 
 
 
@@ -104,7 +108,8 @@ import { ConfirmarRestablecerPasswordComponent } from './confirmar-restablecer-p
     SucursalesComponent, ContactoComponent, RegistrarseComponent, LoginComponent,
     CarritoComponent, ServicioComponent, CategoriasComponent,
     ListaProductosComponent,
-    AgregarCategoriasComponent, AgregarProductosComponent, EditarCategoriasComponent,RestablecerPasswordComponent,ConfirmarRestablecerPasswordComponent
+    AgregarCategoriasComponent, AgregarProductosComponent, EditarCategoriasComponent,RestablecerPasswordComponent,ConfirmarRestablecerPasswordComponent,
+    ListaEmpleadosComponent,PanelEmpleadoComponent
 
   ]
 

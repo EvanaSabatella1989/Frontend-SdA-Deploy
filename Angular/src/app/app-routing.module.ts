@@ -43,6 +43,8 @@ import { AgregarSucursalesComponent } from './pages/agregar-sucursales/agregar-s
 import { ListaVentasComponent } from './pages/lista-ventas/lista-ventas.component';
 import { RestablecerPasswordComponent } from './pages/restablecer-password/restablecer-password.component';
 import { ConfirmarRestablecerPasswordComponent } from './pages/confirmar-restablecer-password/confirmar-restablecer-password.component';
+import { ListaEmpleadosComponent } from './pages/lista-empleados/lista-empleados.component';
+import { PanelEmpleadoComponent } from './pages/panel-empleado/panel-empleado.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -85,6 +87,8 @@ const routes: Routes = [
   {path:'restablecer-password',component:RestablecerPasswordComponent},
   {path:'password-reset-confirm/:uid/:token',component:ConfirmarRestablecerPasswordComponent},
 //  {path: 'password-reset-confirm',component: ConfirmarRestablecerPasswordComponent} ,
+  {path:'lista-empleados',component:ListaEmpleadosComponent},
+  {path:'panel-empleados',component:PanelEmpleadoComponent},
 
 
 

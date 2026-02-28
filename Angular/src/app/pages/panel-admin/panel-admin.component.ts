@@ -12,9 +12,10 @@ export class PanelAdminComponent {
     { titulo: 'Servicios', descripcion: 'CRUD de servicios', ruta: '/lista-servicios', icono: 'bi bi-tools' },
     { titulo: 'Reservas', descripcion: 'Gestionar reservas', ruta: '/admin/reservas', icono: 'bi bi-calendar-check' },
     { titulo: 'Turnos', descripcion: 'Asignar turnos', ruta: '/turnos', icono: 'bi bi-clock' },
-    { titulo: 'Usuarios', descripcion: 'Administrar usuarios', ruta: '/lista-usuarios', icono: 'bi bi-people' },
     { titulo: 'Sucursales', descripcion: 'Administrar sucursales', ruta: '/lista-sucursales', icono: 'bi bi-building' },
-    { titulo: 'Ventas', descripcion: 'Ver ventas realizadas', ruta: '/lista-ventas', icono: 'bi bi-receipt' }
+    { titulo: 'Ventas', descripcion: 'Ver ventas realizadas', ruta: '/lista-ventas', icono: 'bi bi-receipt' },
+    { titulo: 'Clientes', descripcion: 'Administrar clientes', ruta: '/lista-usuarios', icono: 'bi bi-people' },
+    { titulo: 'Empleados', descripcion: 'Administrar empleados', ruta: '/lista-empleados', icono: 'bi bi-people' }
   ];
 
   stats = {
