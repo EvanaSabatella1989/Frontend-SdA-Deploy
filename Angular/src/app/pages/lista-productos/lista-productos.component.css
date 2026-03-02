@@ -39,7 +39,7 @@ img{
 
 /* PANEL ADMIN */
 .admin-panel {
-  background-color: #0b1022; /* combina con footer #060818 */
+  background-color: var(--color-principal); /* combina con footer #060818 */
   min-height: calc(100vh - 200px);
   color: #e5e7eb;
 }
