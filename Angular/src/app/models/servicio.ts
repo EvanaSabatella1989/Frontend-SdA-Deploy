@@ -9,16 +9,18 @@ export class Servicio {
     precio: number;
     fecha_creacion?: string;
     sucursal?: Sucursal;   
+     area?: string; 
     
     
 
-    constructor(nombre:string,descripcion:string,precio:number,fecha_creacion:string,imagen:File){
+    constructor(nombre:string,descripcion:string,precio:number,fecha_creacion:string,imagen:File,area: string){
 
         this.nombre=nombre;
         this.imagen=imagen;
         this.descripcion=descripcion;
         this.precio=precio;
         this.fecha_creacion=fecha_creacion;
+        this.area=area;
         
     }
     

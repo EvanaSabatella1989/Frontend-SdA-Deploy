@@ -119,6 +119,9 @@ interface LoginResponse {
   access_token: string;
   refresh_token: string;
   is_admin: boolean;
+  is_staff: boolean;
+  is_empleado: boolean;
+  cargo?: string | null;
   first_name: string;
   last_name: string;
   id: number;

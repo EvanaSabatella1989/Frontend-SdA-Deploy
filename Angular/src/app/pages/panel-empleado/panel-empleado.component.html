@@ -1,1 +1,32 @@
-<p>panel-empleado works!</p>
+<h3>Trabajos pendientes de hoy</h3>
+
+<table class="table table-striped" *ngIf="reservas.length > 0">
+  <thead>
+    <tr>
+      <th>Cliente</th>
+      <th>Vehículo</th>
+      <th>Servicio</th>
+      <th>Hora</th>
+      <th>Acción</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let r of reservas">
+      <td>{{ r.cliente?.user?.first_name }} {{ r.cliente?.user?.last_name }}</td>
+      <td>{{ r.vehiculo?.modelo }}</td>
+      <td>{{ r.servicio?.nombre }}</td>
+      <td>{{ r.turno?.hora }}</td>
+      <td>
+        <button class="btn btn-primary btn-sm"
+                (click)="tomarReserva(r.id)">
+          Tomar
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="reservas.length === 0">
+  No hay trabajos pendientes para hoy.
+</div>

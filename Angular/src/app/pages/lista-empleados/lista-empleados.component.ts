@@ -20,7 +20,12 @@ export class ListaEmpleadosComponent {
   first_name: string = '';
   last_name: string = '';
   password: string = '';
-  cargo: string = '';
+  // cargo: string = '';
+
+// opciones disponibles
+  cargo: string[] = ['lavanderia', 'gomeria', 'electricidad', 'chapa_pintura'];
+// cargo seleccionado
+  cargoSeleccionada?: string;
   showPassword: boolean = false;
 
   constructor(private authService: EmpleadoService) { }
@@ -45,7 +50,7 @@ export class ListaEmpleadosComponent {
       this.email = empleado.email;
       this.first_name = empleado.first_name;
       this.last_name = empleado.last_name;
-      this.cargo = empleado.cargo;
+      this.cargoSeleccionada = empleado.cargo;
       this.password = ''; //por ahora no se puede
     } else {
       // form crear
@@ -54,7 +59,7 @@ export class ListaEmpleadosComponent {
       this.first_name = '';
       this.last_name = '';
       this.password = '';
-      this.cargo = '';
+      this.cargoSeleccionada = undefined;
     }
 
     const modal = new bootstrap.Modal(
@@ -71,7 +76,7 @@ export class ListaEmpleadosComponent {
       this.authService.editarEmpleado(
         this.empleadoActual.id,
         {
-          cargo: this.cargo,
+          cargo: this.cargoSeleccionada,
           first_name: this.first_name,
           last_name: this.last_name,
           email: this.email
@@ -93,7 +98,7 @@ export class ListaEmpleadosComponent {
 
     //crear
 
-    if (!this.email || !this.password || !this.cargo) {
+    if (!this.email || !this.password || !this.cargoSeleccionada) {
       alert('Todos los campos son obligatorios ❌');
       return;
     }
@@ -103,7 +108,7 @@ export class ListaEmpleadosComponent {
       password: this.password,
       first_name: this.first_name,
       last_name: this.last_name,
-      cargo: this.cargo
+      cargo: this.cargoSeleccionada
     }).subscribe({
       next: () => {
         alert('Empleado creado correctamente ☑️');

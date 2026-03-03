@@ -30,7 +30,8 @@ export class ListaServiciosComponent {
   catSelec: any = { id: 0, nombre: 'Todos' };
   sucursales: any[] = [];
   sucursalSeleccionada: number | null = null;
-
+  areas: string[] = ['lavanderia', 'gomeria', 'electricidad', 'chapa_pintura'];
+  areaSeleccionada: string | null = null;
 
   constructor(private sucursalService: ServicioService, private list: ServicioService, private activatedRouter: ActivatedRoute, private router: Router) {
 
@@ -71,7 +72,7 @@ export class ListaServiciosComponent {
       }
     });
 
-    
+
   }
 
 
@@ -81,6 +82,7 @@ export class ListaServiciosComponent {
         this.miList = todaLaLista.map((s: any) => {
           const categoriaEncontrada = this.categorias.find(c => c.id === s.categoria);
           const sucursalesNombres = s.sucursales?.map((suc: any) => suc.nombre).join(', ') || 'sin sucursal';
+          console.log("Servicio completo:", s);
           return {
             ...s,
             categoriaNombre: categoriaEncontrada ? categoriaEncontrada.nombre : 'Sin categoría',
@@ -111,14 +113,16 @@ export class ListaServiciosComponent {
       this.categoriaSeleccionada = servicio.categoria ?? null;
       this.sucursalSeleccionada = servicio.sucursal?.id ?? null;
       this.imagenSeleccionada = null; // para que no quede la imagen anterior cargada
+      this.areaSeleccionada = servicio.area ?? null;
     } else {
-      // modo crera/modal limpio
+      // modo crear/modal limpio
       this.servicioActual = null;
       this.nombre = '';
       this.descripcion = '';
       this.precio = null;
       this.imagenSeleccionada = null;
       this.sucursalSeleccionada = null;
+      this.areaSeleccionada = null;
     }
 
     const modalEl = document.getElementById('modalServicio');
@@ -144,6 +148,11 @@ export class ListaServiciosComponent {
 
     if (!this.nombre?.trim() || !this.descripcion?.trim() || this.precio == null) {
       alert('⚠️ Debes completar todos los campos antes de guardar!');
+      return;
+    }
+
+    if (!this.areaSeleccionada) {
+      alert("⚠️ Debes seleccionar un área");
       return;
     }
 
@@ -179,6 +188,7 @@ export class ListaServiciosComponent {
     formData.append('nombre', this.nombre);
     formData.append('descripcion', this.descripcion);
     formData.append('precio', this.precio.toString());
+    formData.append('area', this.areaSeleccionada);
     // formData.append('sucursal', this.sucursalSeleccionada.toString());
 
 
@@ -253,7 +263,8 @@ export class ListaServiciosComponent {
       this.campoInvalido(this.nombre) ||
       this.campoInvalido(this.descripcion) ||
       this.precioInvalido() ||
-      !this.categoriaSeleccionada
+      !this.categoriaSeleccionada|| 
+      !this.areaSeleccionada
     );
   }
 
@@ -271,7 +282,7 @@ export class ListaServiciosComponent {
     return this.nombre?.trim().length > 50;
   }
 
-  
+
 
 
 }

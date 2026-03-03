@@ -63,33 +63,83 @@ export class LoginComponent implements OnInit {
     return this.form.get('password')
   }
 
+  // login(e: Event) {
+  //   e.preventDefault()
+  //   if(this.form.valid){
+  //     this.status = 'loading'
+  //     const {email, password} = this.form.getRawValue()
+  //     this.authService.login(email as string, password as string)
+  //     .subscribe({
+  //       next: (resp) => {
+  //         this.status = 'success'
+  //         if(resp.is_admin){
+  //           this.router.navigate(['/cms'])
+  //         }
+  //         this.router.navigate(['/home'])
+  //       },
+  //       error: () => {
+  //         this.status = 'failed'
+  //         setTimeout(() => {
+  //           this.status = 'init'
+  //         }, 2000)
+  //         console.log('error')
+  //       }
+  //     })
+  //     console.log(this.form.value)
+  //   }else {
+  //     this.form.markAllAsTouched()
+  //   }
+  //  }
+
   login(e: Event) {
-    e.preventDefault()
-    if(this.form.valid){
-      this.status = 'loading'
-      const {email, password} = this.form.getRawValue()
-      this.authService.login(email as string, password as string)
+  e.preventDefault();
+
+  if (this.form.valid) {
+
+    this.status = 'loading';
+    const { email, password } = this.form.getRawValue();
+
+    this.authService.login(email as string, password as string)
       .subscribe({
         next: (resp) => {
-          this.status = 'success'
-          if(resp.is_admin){
-            this.router.navigate(['/cms'])
+
+          this.status = 'success';
+
+          
+          this.authService.saveSession(resp);
+
+          //  ADMIN
+          if (resp.is_admin) {
+            this.router.navigate(['/panel']);
           }
-          this.router.navigate(['/home'])
+
+          // EMPLEADO 
+          else if (resp.cargo) {
+            this.router.navigate(['/panel-empleados']);
+          }
+
+          //  CLIENTE
+          else {
+            this.router.navigate(['/home']);
+          }
+
         },
         error: () => {
-          this.status = 'failed'
+          this.status = 'failed';
+
           setTimeout(() => {
-            this.status = 'init'
-          }, 2000)
-          console.log('error')
+            this.status = 'init';
+          }, 2000);
+
+          console.log('error');
         }
-      })
-      console.log(this.form.value)
-    }else {
-      this.form.markAllAsTouched()
-    }
-   }
+      });
+
+  } else {
+    this.form.markAllAsTouched();
+  }
+}
+
 
   //para ver la contraseña
   togglePassword() {

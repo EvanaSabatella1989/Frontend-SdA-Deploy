@@ -1,103 +1,167 @@
 <main>
 
-    <h2 class="text-center mb-4">Lista de Empleados</h2>
+  <!-- Título -->
+  <h2 class="text-center mb-4">Lista de Empleados</h2>
 
-    <div class="d-flex justify-content-end mb-3">
-        <button class="btn btn-success" (click)="abrirModal()">
-            + Nuevo Empleado
-        </button>
-    </div>
+  <!-- Botón crear -->
+  <div class="d-flex justify-content-end mb-3">
+    <button class="btn btn-success" (click)="abrirModal()">
+      + Nuevo Empleado
+    </button>
+  </div>
 
-    <table class="table table-bordered table-striped text-center align-middle">
-        <thead class="table-dark">
-            <tr>
-                <th>Email</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Cargo</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
+  <!-- Tabla -->
+  <table class="table table-bordered table-striped text-center align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>Email</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Cargo</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
 
-        <tbody>
-            <tr *ngFor="let empleado of empleados">
-                <td>{{ empleado.email }}</td>
-                <td>{{ empleado.first_name }} </td>
-                <td>{{ empleado.last_name }}</td>
-                <td>{{ empleado.cargo }}</td>
-                <td>
-                    <button class="btn btn-primary btn-sm me-2" (click)="abrirModal(empleado)">
-                        Editar
-                    </button>
+    <tbody>
+      <!-- Recorre empleados -->
+      <tr *ngFor="let empleado of empleados">
 
-                    <button class="btn btn-danger btn-sm" (click)="eliminarEmpleado(empleado.id)">
-                        Eliminar
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <!-- Datos del empleado -->
+        <td>{{ empleado.email }}</td>
+        <td>{{ empleado.first_name }}</td>
+        <td>{{ empleado.last_name }}</td>
+
+        <!-- Mostramos el cargo guardado -->
+        <td>{{ empleado.cargo }}</td>
+
+        <!-- Botones -->
+        <td>
+          <button class="btn btn-primary btn-sm me-2"
+                  (click)="abrirModal(empleado)">
+            Editar
+          </button>
+
+          <button class="btn btn-danger btn-sm"
+                  (click)="eliminarEmpleado(empleado.id)">
+            Eliminar
+          </button>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
 
 </main>
 
-<!-- modal-->
+
+<!-- ================= MODAL ================= -->
+
 <div class="modal fade" id="modalEmpleado" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
+  <div class="modal-dialog">
+    <div class="modal-content">
 
-            <div class="modal-header">
-                <h5 class="modal-title">
-                    {{ empleadoActual ? 'Editar Empleado' : 'Crear Empleado' }}
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
+      <!-- Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">
+          {{ empleadoActual ? 'Editar Empleado' : 'Crear Empleado' }}
+        </h5>
 
-            <div class="modal-body">
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="modal">
+        </button>
+      </div>
 
-                <div class="mb-3">
-                    <label>Email</label>
-                    <input type="email" class="form-control" [(ngModel)]="email" name="email">
-                </div>
+      <!-- Body -->
+      <div class="modal-body">
 
-                <div class="mb-3" *ngIf="!empleadoActual">
-                    <label>Contraseña</label>
-                    <div class="input-group">
-                        <input [type]="showPassword ? 'text' : 'password'" class="form-control" [(ngModel)]="password"
-                            name="password">
-
-                        <button class="btn btn-outline-secondary" type="button" (click)="togglePassword()">
-                            👁
-                        </button>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label>Nombre</label>
-                    <input type="text" class="form-control" [(ngModel)]="first_name" name="first_name">
-                </div>
-
-                <div class="mb-3">
-                    <label>Apellido</label>
-                    <input type="text" class="form-control" [(ngModel)]="last_name" name="last_name">
-                </div>
-
-                <div class="mb-3">
-                    <label>Cargo</label>
-                    <input type="text" class="form-control" [(ngModel)]="cargo" name="cargo">
-                </div>
-
-            </div>
-
-            <div class="modal-footer">
-                <button class="btn btn-secondary" (click)="cerrarModal()">
-                    Cancelar
-                </button>
-
-                <button class="btn btn-primary" (click)="guardarEmpleado()">
-                    {{ empleadoActual ? 'Actualizar' : 'Crear' }}
-                </button>
-            </div>
-
+        <!-- Email -->
+        <div class="mb-3">
+          <label>Email</label>
+          <input type="email"
+                 class="form-control"
+                 [(ngModel)]="email"
+                 name="email">
         </div>
+
+        <!-- Contraseña (solo al crear) -->
+        <div class="mb-3" *ngIf="!empleadoActual">
+          <label>Contraseña</label>
+          <div class="input-group">
+
+            <input [type]="showPassword ? 'text' : 'password'"
+                   class="form-control"
+                   [(ngModel)]="password"
+                   name="password">
+
+            <button class="btn btn-outline-secondary"
+                    type="button"
+                    (click)="togglePassword()">
+              👁
+            </button>
+
+          </div>
+        </div>
+
+        <!-- Nombre -->
+        <div class="mb-3">
+          <label>Nombre</label>
+          <input type="text"
+                 class="form-control"
+                 [(ngModel)]="first_name"
+                 name="first_name">
+        </div>
+
+        <!-- Apellido -->
+        <div class="mb-3">
+          <label>Apellido</label>
+          <input type="text"
+                 class="form-control"
+                 [(ngModel)]="last_name"
+                 name="last_name">
+        </div>
+
+        <!-- ================== CARGO (CORREGIDO) ================== -->
+        <!-- Ahora usamos SELECT y no input -->
+        <div class="mb-3">
+          <label>Área</label>
+
+          <select class="form-select"
+                  [(ngModel)]="cargoSeleccionada"
+                  name="cargo"
+                  required>
+
+            <!-- Opción por defecto -->
+            <option [ngValue]="undefined">
+              Seleccione un área
+            </option>
+
+            <!-- Lista de cargos -->
+            <option *ngFor="let c of cargo"
+                    [value]="c">
+              {{ c }}
+            </option>
+
+          </select>
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+
+        <button class="btn btn-secondary"
+                (click)="cerrarModal()">
+          Cancelar
+        </button>
+
+        <button class="btn btn-primary"
+                (click)="guardarEmpleado()">
+          {{ empleadoActual ? 'Actualizar' : 'Crear' }}
+        </button>
+
+      </div>
+
     </div>
+  </div>
 </div>

@@ -71,6 +71,7 @@
         <thead>
           <tr>
             <th>Servicio</th>
+            <th>Área</th>
             <th class="text-center">Imagen</th>
             <th class="d-none d-lg-table-cell">Descripción</th>
             <th>Precio</th>
@@ -84,6 +85,8 @@
           <tr *ngFor="let item of miList">
 
             <td class="fw-bold">{{ item.nombre }}</td>
+
+            <td class="fw-bold">{{ item.area}}</td>
 
             <td class="text-center">
               <img [src]="item.imagen" class="img-servicio" />
@@ -102,15 +105,11 @@
 
             <td class="text-center">
               <div class="d-flex justify-content-center gap-2">
-                <button
-                  class="btn btn-sm btn-outline-warning"
-                  (click)="abrirModal(item)">
+                <button class="btn btn-sm btn-outline-warning" (click)="abrirModal(item)">
                   <i class="bi bi-pencil-fill"></i>
                 </button>
 
-                <button
-                  class="btn btn-sm btn-outline-danger"
-                  (click)="delete(item)">
+                <button class="btn btn-sm btn-outline-danger" (click)="delete(item)">
                   <i class="bi bi-trash-fill"></i>
                 </button>
               </div>
@@ -141,7 +140,7 @@
       <div class="modal-body">
         <form>
 
-          
+
           <div class="mb-3">
             <label>Nombre</label>
             <input type="text" class="form-control" [(ngModel)]="nombre" name="nombre"
@@ -149,6 +148,17 @@
             <div *ngIf="nombreMuyLargo()" class="text-danger small">
               El nombre no debe superar los 25 caracteres.
             </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Área</label>
+            <select class="form-select" [(ngModel)]="areaSeleccionada" name="area" required>
+              <option value="" disabled selected>Seleccione un área</option>
+              <option value="lavanderia">Lavandería</option>
+              <option value="gomeria">Gomería</option>
+              <option value="electricidad">Electricidad</option>
+              <option value="chapa_pintura">Chapa y Pintura</option>
+            </select>
           </div>
 
           <div class="mb-3">
@@ -180,7 +190,7 @@
 
             <input type="file" class="form-control" (change)="seleccionarImagen($event)"
               [ngClass]="{'is-invalid': !imagenSeleccionada && !servicioActual}">
-            
+
           </div>
         </form>
       </div>
@@ -192,4 +202,4 @@
       </div>
     </div>
   </div>
-</div> 
+</div>
