@@ -56,6 +56,16 @@
   font-size: 0.85rem;
 }
 
+/* Quita la línea superior de la fila expandida */
+.fila-productos td {
+  border-top: none !important;
+}
+
+/* Opcional: quitar también borde inferior de la fila anterior */
+.custom-table tr:has(+ .fila-productos) td {
+  border-bottom: none !important;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
 
