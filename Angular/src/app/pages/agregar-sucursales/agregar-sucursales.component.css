@@ -1,0 +1,184 @@
+/* Contenedor principal */
+.admin-panel {
+  background-color: var(--color-principal);
+  min-height: 100vh;
+  padding: 3rem 1rem;
+}
+
+h2 {
+  color: white;
+}
+
+.card {
+  background-color: var(--color-card);
+  border: 2px solid var(--color-secundario);
+}
+
+/* Tabla personalizada */
+
+.custom-table thead {
+  background-color: var(--color-secundario);
+  
+}
+
+.custom-table th{
+  color: black;
+  border-color: var(--color-secundario);
+  text-align: left;
+}
+
+.custom-table td {
+    color: white;
+    border-color: var(--color-secundario);
+    text-align: left;
+}
+
+.custom-table tbody tr {
+  transition: all 0.2s ease-in-out;
+}
+
+.custom-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  transform: scale(1.01);
+}
+
+/* Botón principal */
+.btn-warning {
+  border-radius: 8px;
+}
+
+/* Modal personalizado */
+.modal-content {
+  background-color: var(--color-card);
+  border: 2px solid var(--color-secundario);
+  border-radius: 16px;
+  color: white;
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--color-secundario);
+}
+
+.modal-footer {
+  border-top: 1px solid var(--color-secundario);
+}
+
+.modal-title {
+  color: white;
+}
+
+.modal-content .form-control {
+  background-color: transparent;
+  border: 1px solid var(--color-secundario);
+  color: white;
+}
+
+.modal-content .form-control:focus {
+  background-color: transparent;
+  color: white;
+  border-color: var(--color-secundario);
+  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25); /* opcional */
+}
+
+.modal-content input[type="checkbox"] {
+  accent-color: var(--color-secundario);
+  margin-right: 6px;
+}
+
+.custom-modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-close {
+  filter: invert(1);
+}
+
+/* Contenedor de acciones */
+.acciones-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px; /* separación entre botones */
+}
+
+@media (max-width: 768px) {
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .modal-dialog {
+    margin: 1rem;
+  }
+
+  .modal-content{
+    border-radius: 12px;
+  }
+
+  .custom-table thead {
+    display: none; /* ocultamos encabezado */
+  }
+
+  .custom-table,
+  .custom-table tbody,
+  .custom-table tr,
+  .custom-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .custom-table tr {
+    background-color: var(--color-card);
+    border: 2px solid var(--color-secundario);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .custom-table td {
+    text-align: left;
+    padding: 0.4rem 0;
+    border: none;
+  }
+
+  .custom-table td:last-child {
+    /* display: flex;
+    justify-content: flex-center; */
+    gap: 0.8rem;
+    margin-top: 0.8rem;
+  }
+
+  .custom-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: block;
+    color: var(--color-secundario);
+    margin-bottom: 2px;
+  }
+
+  .acciones-container {
+    justify-content: center; /* centrados */
+    margin-top: 0.8rem;
+    gap: 70px;
+}
+
+  .custom-modal-footer {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+  .custom-modal-footer .btn {
+    width: 100%;
+  }
+}
+

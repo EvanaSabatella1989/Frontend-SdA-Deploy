@@ -1,17 +1,9 @@
-<div class="container">
+<!-- <div class="container">
   <h2>Agregar Nuevo Vehículo</h2>
   <form [formGroup]="vehiculoForm" (ngSubmit)="agregarVehiculo()">
 
     <label>Categoría:</label>
-    <!-- <select formControlName="categoria" class="form-control">
-      <option value="">Seleccione una categoría</option>
-      <option value="Moto">Moto</option>
-      <option value="Auto">Auto</option>
-      <option value="Camión">Camión</option>
-      <option value="Ómnibus">Ómnibus</option>
-      <option value="Furgón">Furgón</option>
-      <option value="Otro">Otro</option>
-    </select> -->
+    
     <select formControlName="categoria" class="form-control">
      <option value="">Seleccione una categoría</option>
      <option *ngFor="let cat of categorias" [ngValue]="cat">{{ cat.nombre }}</option>
@@ -27,7 +19,6 @@
     <input type="text" formControlName="modelo" class="form-control">
 
     <label>Tipo:</label>
-    <!-- <input type="text" formControlName="tipo" class="form-control"> -->
     <select formControlName="tipo" class="form-control" [disabled]="tiposDisponibles.length === 0">
       <option value="">Seleccione un tipo de vehiculo</option>
       <option *ngFor="let tipo of tiposDisponibles" [value]="tipo">{{ tipo }}</option>
@@ -38,4 +29,4 @@
 
     <button type="submit" class="btn btn-primary mt-3" [disabled]="vehiculoForm.invalid">Agregar Vehículo</button>
   </form>
-</div>
+</div> -->

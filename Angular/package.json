@@ -8,9 +8,6 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "deploy": "ng deploy --base-href=https://evanasabatella1989.github.io/Frontend-SdA-Deploy/ --dir=dist/frontend-sda-deploy"
-
-
-
   },
   "private": true,
   "dependencies": {
@@ -36,6 +33,7 @@
     "@angular-devkit/build-angular": "^15.2.7",
     "@angular/cli": "~15.2.7",
     "@angular/compiler-cli": "^15.2.8",
+    "@types/bootstrap": "^5.2.10",
     "@types/jasmine": "~4.0.0",
     "@types/leaflet": "^1.9.16",
     "angular-cli-ghpages": "^2.0.3",

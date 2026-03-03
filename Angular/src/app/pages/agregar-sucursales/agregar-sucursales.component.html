@@ -1,4 +1,4 @@
-<main>
+<!-- <main>
  <div  class="mt-5">
 <h2 class="text-center mb-4">Lista de Sucursales</h2>
 
@@ -36,7 +36,7 @@
 </div>
 
 
-<!-- Modal -->
+
 <div class="modal fade" id="sucursalModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -78,4 +78,130 @@
   </div>
 </div>
 
+</main> -->
+
+
+<!-- <main class="container py-5"> -->
+<main class="admin-panel py-4">
+  <div class="container">
+  <div class="card shadow-lg rounded-4 p-4">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+      <h2 class="m-0 fw-bold text-white">Lista de Sucursales</h2>
+
+      <button 
+        class="btn btn-warning fw-semibold px-4"
+        (click)="abrirModal()">
+        + Nueva Sucursal
+      </button>
+    </div>
+
+    <!-- Tabla Responsive -->
+    <div class="table">
+      <table class="table align-middle text-center custom-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+            <th>Servicios</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let sucursal of sucursales">
+            <!-- <td>{{ sucursal.nombre }}</td>
+            <td>{{ sucursal.direccion }}</td>
+            <td>{{ sucursal.telefono }}</td>
+            <td>
+              <span *ngFor="let s of sucursal.servicios; let last = last">
+                {{ s.nombre }}<span *ngIf="!last"> - </span>
+              </span>
+            </td> -->
+            <td data-label="Nombre">{{ sucursal.nombre }}</td>
+            <td data-label="Dirección">{{ sucursal.direccion }}</td>
+            <td data-label="Teléfono">{{ sucursal.telefono }}</td>
+            <td data-label="Servicios"><span *ngFor="let s of sucursal.servicios; let last = last">
+                {{ s.nombre }}<span *ngIf="!last"> - </span>
+              </span></td>
+            <td >
+  <div class="acciones-container">
+    <button class="btn btn-sm btn-outline-warning"
+            (click)="abrirModal(sucursal)">
+      <i class="bi bi-pencil-fill"></i>
+    </button>
+
+    <button class="btn btn-sm btn-outline-danger"
+            (click)="eliminar(sucursal.id!)">
+      <i class="bi bi-trash-fill"></i>
+    </button>
+  </div>
+</td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
+
+  <div class="d-flex justify-content-center mt-4">
+      <a routerLink="/panel" class="btn btn-outline-light">
+        Volver al Panel
+      </a>
+    </div>
+
+</div>
+
+<!-- MODAL -->
+
+<div class="modal fade" id="sucursalModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ sucursalSeleccionada ? 'Editar' : 'Nueva' }} Sucursal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form">
+          <div class="mb-3">
+            <label>Nombre</label>
+            <input type="text" formControlName="nombre" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Dirección</label>
+            <input type="text" formControlName="direccion" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Teléfono</label>
+            <input type="text" formControlName="telefono" class="form-control">
+          </div>
+
+    
+<div formArrayName="servicios">
+  <div *ngFor="let s of servicios; let i = index">
+    <input type="checkbox" [value]="s.id" (change)="onCheckboxChange($event)"
+           [checked]="form.get('servicios')?.value.includes(s.id)">
+    {{ s.nombre }}
+  </div>
+</div>
+
+        </form>
+      </div>
+      <div class="modal-footer custom-modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+
+        <button class="btn btn-success" (click)="guardar()">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </main>
+

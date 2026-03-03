@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Venta } from 'src/app/models/venta';
 import { VentaService } from 'src/app/service/venta.service';
+import { ViewChild, ElementRef } from '@angular/core';
 declare var bootstrap: any;
 
 @Component({
@@ -22,7 +23,8 @@ export class ListaVentasComponent {
   ventaSeleccionada: Venta | null = null;
   modalDetalle: any;
   loading = true;
-
+  @ViewChild('tablaScroll') tablaScroll!: ElementRef;
+  ventasExpandida = new Set<number>();
 
   constructor(private ventaService: VentaService) { }
 
@@ -48,6 +50,23 @@ export class ListaVentasComponent {
       
     });
   }
+
+  toggleVenta(id: number) {
+
+  if (this.ventasExpandida.has(id)) {
+    this.ventasExpandida.delete(id);
+  } else {
+    this.ventasExpandida.add(id);
+
+    // 👇 vuelve suavemente al inicio horizontal
+    setTimeout(() => {
+      this.tablaScroll.nativeElement.scrollTo({
+        left: 0,
+        behavior: 'smooth'
+      });
+    }, 50);
+  }
+}
 
   
 

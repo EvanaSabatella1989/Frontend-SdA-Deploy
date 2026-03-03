@@ -28,7 +28,7 @@ margin-top: 1rem;
 
 
 .admin-footer {
-  background-color: #121212;
+  background-color: var(--color-principal);
   border-top: 1px solid #1f1f1f;
 }
 

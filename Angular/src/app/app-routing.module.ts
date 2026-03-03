@@ -99,7 +99,8 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, 
     { 
       // useHash: true,
-      scrollPositionRestoration: 'top', useHash: true ,
+      scrollPositionRestoration: 'top', 
+      // useHash: true ,
     })],
   exports: [RouterModule]
 })

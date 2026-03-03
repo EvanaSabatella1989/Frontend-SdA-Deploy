@@ -1,0 +1,136 @@
+.admin-panel {
+  background-color: var(--color-principal);
+  min-height: 100vh;
+  padding: 3rem 1rem;
+}
+
+.card {
+  background-color: var(--color-card);
+  border: 2px solid var(--color-secundario);
+}
+
+.custom-table thead {
+  background-color: var(--color-secundario);
+}
+
+.custom-table th {
+  color: black;
+  border-color: var(--color-secundario);
+  text-align: left;
+}
+
+.custom-table td {
+  color: white;
+  border-color: var(--color-secundario);
+  text-align: left;
+  
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
+
+.custom-table tbody tr {
+  transition: all 0.2s ease-in-out;
+}
+
+.custom-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  transform: scale(1.01);
+}
+
+/* Productos */
+.productos-row {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+
+.productos-row ul {
+  padding-left: 20px;
+}
+
+.productos-inline {
+  background: rgba(255,255,255,0.05);
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+/* Quita la línea superior de la fila expandida */
+.fila-productos td {
+  border-top: none !important;
+}
+
+/* Opcional: quitar también borde inferior de la fila anterior */
+.custom-table tr:has(+ .fila-productos) td {
+  border-bottom: none !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+
+  /* .custom-table thead {
+    display: none;
+  } */
+
+  /* .custom-table,
+  .custom-table tbody,
+  .custom-table tr,
+  .custom-table td {
+    display: block;
+    width: 100%;
+  } */
+
+  /* .custom-table tr {
+    background-color: var(--color-card);
+    border: 2px solid var(--color-secundario);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  } */
+
+  /* .custom-table td {
+    text-align: left;
+    padding: 0.4rem 0;
+    border: none;
+  } */
+
+  /* .custom-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: block;
+    color: var(--color-secundario);
+    margin-bottom: 2px;
+  } */
+
+  .productos-row {
+    border: none;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+  }
+
+  .table-responsive-custom {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hace que la tabla no se comprima */
+.custom-table {
+  min-width: 1100px; /* ajustá según tus columnas */
+}
+
+.table-responsive-custom::-webkit-scrollbar {
+  height: 6px;
+}
+
+.table-responsive-custom::-webkit-scrollbar-thumb {
+  background: var(--color-secundario);
+  border-radius: 10px;
+}
+
+.custom-table th,
+.custom-table td {
+  white-space: nowrap;   /* 👈 evita salto de línea */
+}
+}
