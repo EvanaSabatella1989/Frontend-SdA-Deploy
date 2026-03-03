@@ -1,4 +1,4 @@
-<main>
+<!-- <main>
 <div class="container">
   <h2>Lista de Ventas</h2>
 
@@ -25,7 +25,7 @@
    <tbody>
   <ng-container *ngFor="let venta of ventas">
 
-    <!--fila principal -->
+ 
     <tr>
       <td>{{ venta.id }}</td>
       <td>{{ venta.numero_factura }}</td>
@@ -36,7 +36,7 @@
       <td>{{ venta.estado }}</td>
     </tr>
 
-    <!-- fila productos -->
+
     <tr *ngIf="venta.detalles?.length">
       <td colspan="7" class="bg-light text-start">
         <strong>Productos comprados:</strong>
@@ -61,4 +61,148 @@
 
   
 
+</main> -->
+
+
+<main class="admin-panel py-4">
+  <div class="container">
+    <div class="card shadow-lg rounded-4 p-4">
+
+      <!-- Header -->
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+        <h2 class="m-0 fw-bold text-white">Lista de Ventas</h2>
+      </div>
+
+      <!-- Loading -->
+      <div *ngIf="loading" class="text-center text-white">
+        ⏳ Cargando ventas...
+      </div>
+
+      <!-- Tabla -->
+      <div class="table-responsive-custom" #tablaScroll>
+        <table class="table align-middle text-center custom-table">
+
+          <thead>
+            <tr>
+              <th>Id Cliente</th>
+              <th>Factura</th>
+              <th>Cliente</th>
+              <th>Fecha</th>
+              <th>Total</th>
+              <th>Tipo de Pago</th>
+              <th>Estado</th>
+              <th>Productos</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <ng-container *ngFor="let venta of ventas">
+
+              <!-- Fila principal -->
+              <!-- <tr>
+                <td data-label="Id Cliente">{{ venta.id }}</td>
+                <td data-label="Nro Factura">{{ venta.numero_factura }}</td>
+                <td data-label="Nombre Cliente">
+                  {{ venta.cliente_nombre }} {{ venta.cliente_apellido }}
+                </td>
+                <td data-label="Fecha">
+                  {{ venta.fecha_pago | date:'dd/MM/yyyy HH:mm' }}
+                </td>
+                <td data-label="Total">
+                  {{ venta.total | currency }}
+                </td>
+                <td data-label="Tipo de Pago">
+                  {{ venta.tipo_pago }}
+                </td>
+                <td data-label="Estado">
+                  {{ venta.estado }}
+                </td>
+              </tr>
+
+            
+              <tr *ngIf="venta.detalles?.length">
+                <td colspan="7" class="productos-row">
+                  <strong>Productos comprados:</strong>
+
+                  <ul class="mb-0 mt-2">
+                    <li *ngFor="let det of venta.detalles">
+                      {{ det.producto_nombre }}
+                      — Cant: {{ det.cantidad }}
+                      — ${{ det.precio }}
+                    </li>
+                  </ul>
+                </td>
+              </tr> -->
+
+              <tr>
+  <td data-label="ID">{{ venta.id }}</td>
+  <td data-label="Factura">{{ venta.numero_factura }}</td>
+  <td data-label="Cliente">
+    {{ venta.cliente_nombre }} {{ venta.cliente_apellido }}
+  </td>
+  <td data-label="Fecha">
+    {{ venta.fecha_pago | date:'dd/MM/yyyy HH:mm' }}
+  </td>
+  <td data-label="Total">
+    {{ venta.total | currency }}
+  </td>
+  <td data-label="Tipo de Pago">
+    {{ venta.tipo_pago }}
+  </td>
+  <td data-label="Estado">
+    {{ venta.estado }}
+  </td>
+  <td data-label="Productos">
+    <!-- <div class="productos-inline mt-2" *ngIf="venta.detalles?.length">
+      <ul class="mb-0">
+        <li *ngFor="let det of venta.detalles">
+          {{ det.producto_nombre }} (x{{ det.cantidad }})
+        </li>
+      </ul>
+    </div> -->
+    <button class="btn btn-sm btn-outline-light mt-2"
+          (click)="toggleVenta(venta.id!)">
+    Ver productos
+  </button>
+  
+  </td>
+  
+</tr>
+<tr *ngIf="ventasExpandida.has(venta.id!)">
+  <td colspan="7">
+    <ul>
+      <li *ngFor="let det of venta.detalles">
+        {{ det.producto_nombre }} (x{{ det.cantidad }})
+      </li>
+      
+
+    </ul>
+    <div class="text-start">
+      <button 
+        class="btn btn-sm btn-outline-warning"
+        (click)="toggleVenta(venta.id!)">
+        Cerrar
+      </button>
+    </div>
+
+    
+  </td>
+</tr>
+
+            </ng-container>
+          </tbody>
+
+        </table>
+      </div>
+
+    </div>
+
+    <!-- Botón volver -->
+    <div class="d-flex justify-content-center mt-4">
+      <a routerLink="/panel" class="btn btn-outline-light">
+        Volver al Panel
+      </a>
+    </div>
+
+  </div>
 </main>
