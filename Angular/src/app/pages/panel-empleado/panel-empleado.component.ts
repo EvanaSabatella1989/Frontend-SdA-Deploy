@@ -19,7 +19,7 @@ misTrabajos: any[] = [];
     this.cargarReservas();
   }
 
-     // 🔵 Traer reservas pendientes
+     // traer reservas pendientes
   cargarReservas() {
     this.serviceEmpleado.getReservasHoyEmpleado().subscribe({
       next: (data) => {
@@ -29,7 +29,7 @@ misTrabajos: any[] = [];
     });
   }
 
-  // 🔵 Tomar reserva
+  // tomar reserva
   tomarReserva(id: number) {
     this.serviceEmpleado.tomarReserva(id).subscribe({
       next: () => {
@@ -42,7 +42,7 @@ misTrabajos: any[] = [];
     });
   }
 
-  // 🟢 Traer mis órdenes
+  // traer mis órdenes
   cargarMisTrabajos() {
     this.serviceEmpleado.getMisTrabajos().subscribe({
       next: (data) => {
@@ -52,7 +52,7 @@ misTrabajos: any[] = [];
     });
   }
 
-  // 🟢 Cambiar estado orden
+  // cambiar estado orden
   cambiarEstado(id: number, estado: string) {
     this.serviceEmpleado.cambiarEstadoOrden(id, estado).subscribe({
       next: () => {

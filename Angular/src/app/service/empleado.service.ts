@@ -32,14 +32,14 @@ editarEmpleado(id: number, empleado: Partial<Empleado>): Observable<Empleado> {
 //   return this.http.get(`${this.apiUrl}/mis-trabajos/`);
 // }
 
-// 🔵 1️⃣ Reservas pendientes del empleado (hoy)
+//Reservas pendientes del empleado 
   getReservasHoyEmpleado() {
     return this.http.get<any[]>(
       `${this.apiUrl}/reservas/hoy-empleado/`
     );
   }
 
-  // 🔵 2️⃣ Tomar reserva (crear orden)
+  //Tomar reserva (crear orden)
   tomarReserva(id: number) {
     return this.http.post(
       `${this.apiUrl}/reservas/${id}/tomar/`,
@@ -47,14 +47,14 @@ editarEmpleado(id: number, empleado: Partial<Empleado>): Observable<Empleado> {
     );
   }
 
-    // 🟢 Mis órdenes de trabajo
+    //Mis órdenes de trabajo
   getMisTrabajos() {
     return this.http.get<any[]>(
       `${this.apiUrl}/ordenes_trabajo/mis-trabajos/`
     );
   }
 
-// 🟢 4️⃣ Cambiar estado de orden
+//Cambiar estado de orden
   cambiarEstadoOrden(id: number, estado: string) {
     return this.http.patch(
       `${this.apiUrl}/ordenes/${id}/cambiar-estado/`,
