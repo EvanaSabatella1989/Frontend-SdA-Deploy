@@ -6,7 +6,6 @@ import { UsuarioService } from 'src/app/service/usuario.service'
 import { VehiculoService } from 'src/app/service/vehiculo.service';
 import { CategoriaService } from 'src/app/service/categoria.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-perfil',

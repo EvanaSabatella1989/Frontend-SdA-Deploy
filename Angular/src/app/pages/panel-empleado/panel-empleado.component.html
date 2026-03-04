@@ -1,32 +1,178 @@
-<h3>Trabajos pendientes de hoy</h3>
+<div class="mb-3">
+  <button class="btn btn-outline-primary me-2"
+          (click)="modo='pendientes'">
+    Reservas Pendientes
+  </button>
 
-<table class="table table-striped" *ngIf="reservas.length > 0">
+  <button class="btn btn-outline-success"
+          (click)="modo='mis_trabajos'; cargarMisTrabajos()">
+    Mis Trabajos
+  </button>
+</div>
+
+<!--  SECCIÓN RESERVAS PENDIENTES -->
+<div *ngIf="modo === 'pendientes'">
+
+  <h3>Trabajos pendientes de hoy</h3>
+
+  <table class="table table-striped" *ngIf="reservas.length > 0">
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Servicio</th>
+        <th>Fecha</th>
+        <th>Vehículo</th>
+        <th>Estado</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let r of reservas">
+        <td>{{ r.cliente.first_name }} {{ r.cliente.last_name }}</td>
+        <td>{{ r.servicio_info.nombre }}</td>
+        <td>{{ r.turno_info.fecha }} {{ r.turno_info.hora }}</td>
+        <td>
+          {{ r.vehiculo_info.marca }}
+          {{ r.vehiculo_info.modelo }}
+        </td>
+
+        <td>
+          <span *ngIf="r.estado === 'pendiente'"
+                class="badge bg-warning text-dark">
+            🟡 Pendiente
+          </span>
+        </td>
+
+        <td>
+          <button *ngIf="r.estado === 'pendiente'"
+                  class="btn btn-primary btn-sm"
+                  (click)="tomarReserva(r.id)">
+            Tomar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="reservas.length === 0">
+    No hay trabajos pendientes para hoy.
+  </div>
+
+</div>
+
+<!--  SECCIÓN MIS TRABAJOS -->
+<div *ngIf="modo === 'mis_trabajos'">
+
+  <h3>Mis trabajos asignados</h3>
+
+  <table class="table table-bordered" *ngIf="misTrabajos.length > 0">
   <thead>
     <tr>
-      <th>Cliente</th>
+      <th>Empleado</th>
       <th>Vehículo</th>
+      <th>Cliente</th>
       <th>Servicio</th>
-      <th>Hora</th>
+      <th>Ingreso</th>
+      <th>Egreso</th>
+      <th>Diagnóstico</th>
+      <th>Observaciones</th>
+      <th>Estado</th>
       <th>Acción</th>
     </tr>
   </thead>
 
   <tbody>
-    <tr *ngFor="let r of reservas">
-      <td>{{ r.cliente?.user?.first_name }} {{ r.cliente?.user?.last_name }}</td>
-      <td>{{ r.vehiculo?.modelo }}</td>
-      <td>{{ r.servicio?.nombre }}</td>
-      <td>{{ r.turno?.hora }}</td>
+    <tr *ngFor="let orden of misTrabajos">
+
+      <!-- EMPLEADO -->
       <td>
-        <button class="btn btn-primary btn-sm"
-                (click)="tomarReserva(r.id)">
-          Tomar
-        </button>
+        {{ orden.empleado_nombre || orden.empleado }}
       </td>
+
+      <!-- VEHICULO -->
+      <td>
+        {{ orden.reserva?.vehiculo_info?.marca }}
+        {{ orden.reserva?.vehiculo_info?.modelo }}
+      </td>
+
+      <!-- CLIENTE -->
+      <td>
+        {{ orden.cliente_info?.first_name }}
+        {{ orden.reserva?.cliente?.last_name }}
+      </td>
+
+      <!-- SERVICIO -->
+      <td>
+        {{ orden.reserva?.servicio_info?.nombre }}
+      </td>
+
+      <!-- FECHA INGRESO -->
+      <td>
+        {{ orden.fecha_ingreso | date:'short' }}
+      </td>
+
+      <!-- FECHA EGRESO -->
+      <td>
+        {{ orden.fecha_egreso ? (orden.fecha_egreso | date:'short') : '-' }}
+      </td>
+
+      <!-- DIAGNOSTICO -->
+      <td>
+        {{ orden.diagnostico || 'Sin diagnóstico' }}
+      </td>
+
+      <!-- OBSERVACIONES -->
+      <td>
+        {{ orden.observaciones || 'Sin observaciones' }}
+      </td>
+
+      <!-- ESTADO -->
+      <td>
+        <span class="badge"
+          [ngClass]="{
+            'bg-secondary': orden.estado === 'pendiente',
+            'bg-warning': orden.estado === 'en_proceso',
+            'bg-success': orden.estado === 'finalizado',
+            'bg-dark': orden.estado === 'entregado'
+          }">
+          {{ orden.estado }}
+        </span>
+      </td>
+
+      <!-- ACCIONES -->
+      <td>
+
+        <button *ngIf="orden.estado === 'pendiente'"
+                class="btn btn-warning btn-sm"
+                (click)="cambiarEstado(orden.id, 'en_proceso')">
+          Iniciar
+        </button>
+
+        <button *ngIf="orden.estado === 'en_proceso'"
+                class="btn btn-success btn-sm"
+                (click)="cambiarEstado(orden.id, 'finalizado')">
+          Finalizar
+        </button>
+
+        <button *ngIf="orden.estado === 'finalizado'"
+                class="btn btn-dark btn-sm"
+                (click)="cambiarEstado(orden.id, 'entregado')">
+          Entregar
+        </button>
+
+        <span *ngIf="orden.estado === 'entregado'">
+          ✔ Entregado
+        </span>
+
+      </td>
+
     </tr>
   </tbody>
 </table>
 
-<div *ngIf="reservas.length === 0">
-  No hay trabajos pendientes para hoy.
+  <div *ngIf="misTrabajos.length === 0">
+    No tenés trabajos asignados.
+  </div>
+
 </div>

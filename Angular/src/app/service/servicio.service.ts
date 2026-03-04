@@ -96,13 +96,7 @@ export class ServicioService {
     });
   }
 
-  getReservasHoyEmpleado() {
-  return this.http.get<any[]>(`${this.apiUrl}/reservas/hoy-empleado/`);
-}
 
-tomarReserva(id: number) {
-  return this.http.post(`${this.apiUrl}/reservas/${id}/tomar/`, {});
-}
   // dias disponibles  de sucursales
   obtenerDiasDisponibles(sucursalId: number) {
     return this.http.get<{ dias_disponibles: string[] }>(

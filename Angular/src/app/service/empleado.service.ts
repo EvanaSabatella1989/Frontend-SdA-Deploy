@@ -27,7 +27,47 @@ editarEmpleado(id: number, empleado: Partial<Empleado>): Observable<Empleado> {
   return this.http.put<Empleado>(`${this.apiUrl + '/empleado/'}${id}/`, empleado);
 }
 
-getMisTrabajos() {
-  return this.http.get(`${this.apiUrl}/mis-trabajos/`);
+//reservas pendientes del empleado
+// getMisTrabajos() {
+//   return this.http.get(`${this.apiUrl}/mis-trabajos/`);
+// }
+
+// 🔵 1️⃣ Reservas pendientes del empleado (hoy)
+  getReservasHoyEmpleado() {
+    return this.http.get<any[]>(
+      `${this.apiUrl}/reservas/hoy-empleado/`
+    );
+  }
+
+  // 🔵 2️⃣ Tomar reserva (crear orden)
+  tomarReserva(id: number) {
+    return this.http.post(
+      `${this.apiUrl}/reservas/${id}/tomar/`,
+      {}
+    );
+  }
+
+    // 🟢 Mis órdenes de trabajo
+  getMisTrabajos() {
+    return this.http.get<any[]>(
+      `${this.apiUrl}/ordenes_trabajo/mis-trabajos/`
+    );
+  }
+
+// 🟢 4️⃣ Cambiar estado de orden
+  cambiarEstadoOrden(id: number, estado: string) {
+    return this.http.patch(
+      `${this.apiUrl}/ordenes/${id}/cambiar-estado/`,
+      { estado: estado }
+    );
+  }
+
+    getReservasHoyEmpleado1() {
+  return this.http.get<any[]>(`${this.apiUrl}/reservas/hoy-empleado/`);
 }
+
+tomarReserva1(id: number) {
+  return this.http.post(`${this.apiUrl}/reservas/${id}/tomar/`, {});
+}
+
 }
