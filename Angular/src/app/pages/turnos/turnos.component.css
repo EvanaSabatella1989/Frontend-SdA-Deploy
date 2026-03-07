@@ -1,0 +1,172 @@
+.admin-panel {
+  background-color: var(--color-principal);
+  min-height: 100vh;
+  padding: 3rem 1rem;
+}
+
+.card {
+  background-color: var(--color-card);
+  border: 2px solid var(--color-secundario);
+}
+
+.custom-table thead {
+  background-color: var(--color-secundario);
+}
+
+.custom-table th {
+  color: black;
+  border-color: var(--color-secundario);
+  text-align: center;
+}
+
+.custom-table td {
+  color: white;
+  border-color: var(--color-secundario);
+  text-align: center;
+  
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
+
+.custom-table tbody tr {
+  transition: all 0.2s ease-in-out;
+}
+
+.custom-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  transform: scale(1.01);
+}
+
+
+.productos-row {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+
+.productos-row ul {
+  padding-left: 20px;
+}
+
+.productos-inline {
+  background: rgba(255,255,255,0.05);
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+
+.fila-productos td {
+  border-top: none !important;
+}
+
+
+.custom-table tr:has(+ .fila-productos) td {
+  border-bottom: none !important;
+}
+
+
+@media (max-width: 768px) {
+
+
+  .productos-row {
+    border: none;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+  }
+
+  .table-responsive-custom {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+.custom-table {
+  min-width: 850px; 
+}
+
+.table-responsive-custom::-webkit-scrollbar {
+  height: 6px;
+}
+
+.table-responsive-custom::-webkit-scrollbar-thumb {
+  background: var(--color-secundario);
+  border-radius: 10px;
+}
+
+.custom-table th,
+.custom-table td {
+  white-space: nowrap;   
+}
+}
+
+.modal-content {
+  background-color: var(--color-card);
+  border: 2px solid var(--color-secundario);
+  border-radius: 16px;
+  color: white;
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--color-secundario);
+}
+
+.modal-footer {
+  border-top: 1px solid var(--color-secundario);
+}
+
+.modal-title {
+  color: white;
+}
+
+.modal-content .form-control {
+  background-color: transparent;
+  border: 1px solid var(--color-secundario);
+  color: white;
+}
+
+.modal-content .form-control:focus {
+  background-color: var(--color-principal);
+  color: white;
+  border-color: var(--color-secundario);
+  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+}
+
+.modal-content input[type="checkbox"] {
+  accent-color: var(--color-secundario);
+}
+
+.custom-modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-close {
+  filter: invert(1);
+}
+
+/* select.form-select {
+  background-color: black;
+  color: white;
+  border: 1px solid #555;
+}
+
+select.form-select option {
+  background-color: black;
+  color: white;
+} */
+
+/* Icono calendario */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+/* Icono reloj */
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}

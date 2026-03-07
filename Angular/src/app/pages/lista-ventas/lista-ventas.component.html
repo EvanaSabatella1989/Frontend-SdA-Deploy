@@ -1,84 +1,19 @@
-<!-- <main>
-<div class="container">
-  <h2>Lista de Ventas</h2>
-
-  <div *ngIf="loading" class="text-center">
-  ⏳ Cargando ventas...
-</div>
-
-
-  <table class="table table-bordered table-striped mt-3">
-   
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">id</th>
-        <th scope="col">Factura</th>
-        <th scope="col">Cliente</th>
-        <th scope="col">Fecha</th>
-        <th scope="col">Total</th>
-        <th scope="col">Tipo de pago</th>
-        <th scope="col">Estado</th>
-       
-      </tr>
-    </thead>
-     
-   <tbody>
-  <ng-container *ngFor="let venta of ventas">
-
- 
-    <tr>
-      <td>{{ venta.id }}</td>
-      <td>{{ venta.numero_factura }}</td>
-      <td>{{ venta.cliente_nombre }} {{ venta.cliente_apellido }} </td>
-      <td>{{ venta.fecha_pago | date:'dd/MM/yyyy HH:mm' }}</td>
-      <td>{{ venta.total | currency }}</td>
-      <td>{{ venta.tipo_pago }}</td>
-      <td>{{ venta.estado }}</td>
-    </tr>
-
-
-    <tr *ngIf="venta.detalles?.length">
-      <td colspan="7" class="bg-light text-start">
-        <strong>Productos comprados:</strong>
-
-        <ul class="mb-0 mt-1">
-          <li *ngFor="let det of venta.detalles">
-            {{ det.producto_nombre }}
-            — Cant: {{ det.cantidad }}
-            — ${{ det.precio }}
-          </li>
-        </ul>
-      </td>
-    </tr>
-
-  </ng-container>
-</tbody>
-
-  </table>
-</div>
-
-
-
-  
-
-</main> -->
-
 
 <main class="admin-panel py-4">
   <div class="container">
     <div class="card shadow-lg rounded-4 p-4">
 
-      <!-- Header -->
+      
       <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
         <h2 class="m-0 fw-bold text-white">Lista de Ventas</h2>
       </div>
 
-      <!-- Loading -->
+      
       <div *ngIf="loading" class="text-center text-white">
         ⏳ Cargando ventas...
       </div>
 
-      <!-- Tabla -->
+      
       <div class="table-responsive-custom" #tablaScroll>
         <table class="table align-middle text-center custom-table">
 
@@ -98,41 +33,7 @@
           <tbody>
             <ng-container *ngFor="let venta of ventas">
 
-              <!-- Fila principal -->
-              <!-- <tr>
-                <td data-label="Id Cliente">{{ venta.id }}</td>
-                <td data-label="Nro Factura">{{ venta.numero_factura }}</td>
-                <td data-label="Nombre Cliente">
-                  {{ venta.cliente_nombre }} {{ venta.cliente_apellido }}
-                </td>
-                <td data-label="Fecha">
-                  {{ venta.fecha_pago | date:'dd/MM/yyyy HH:mm' }}
-                </td>
-                <td data-label="Total">
-                  {{ venta.total | currency }}
-                </td>
-                <td data-label="Tipo de Pago">
-                  {{ venta.tipo_pago }}
-                </td>
-                <td data-label="Estado">
-                  {{ venta.estado }}
-                </td>
-              </tr>
-
-            
-              <tr *ngIf="venta.detalles?.length">
-                <td colspan="7" class="productos-row">
-                  <strong>Productos comprados:</strong>
-
-                  <ul class="mb-0 mt-2">
-                    <li *ngFor="let det of venta.detalles">
-                      {{ det.producto_nombre }}
-                      — Cant: {{ det.cantidad }}
-                      — ${{ det.precio }}
-                    </li>
-                  </ul>
-                </td>
-              </tr> -->
+             
 
               <tr>
   <td data-label="ID">{{ venta.id }}</td>
@@ -153,13 +54,7 @@
     {{ venta.estado }}
   </td>
   <td data-label="Productos">
-    <!-- <div class="productos-inline mt-2" *ngIf="venta.detalles?.length">
-      <ul class="mb-0">
-        <li *ngFor="let det of venta.detalles">
-          {{ det.producto_nombre }} (x{{ det.cantidad }})
-        </li>
-      </ul>
-    </div> -->
+   
     <button class="btn btn-sm btn-outline-light mt-2"
           (click)="toggleVenta(venta.id!)">
     Ver productos

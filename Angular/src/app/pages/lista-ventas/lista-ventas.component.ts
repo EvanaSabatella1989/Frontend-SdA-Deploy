@@ -58,7 +58,6 @@ export class ListaVentasComponent {
   } else {
     this.ventasExpandida.add(id);
 
-    // 👇 vuelve suavemente al inicio horizontal
     setTimeout(() => {
       this.tablaScroll.nativeElement.scrollTo({
         left: 0,
@@ -67,9 +66,5 @@ export class ListaVentasComponent {
     }, 50);
   }
 }
-
-  
-
-
 
 }

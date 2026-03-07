@@ -39,7 +39,7 @@
   transform: scale(1.01);
 }
 
-/* Productos */
+
 .productos-row {
   background-color: rgba(255, 255, 255, 0.05);
   color: white;
@@ -56,52 +56,19 @@
   font-size: 0.85rem;
 }
 
-/* Quita la línea superior de la fila expandida */
+
 .fila-productos td {
   border-top: none !important;
 }
 
-/* Opcional: quitar también borde inferior de la fila anterior */
+
 .custom-table tr:has(+ .fila-productos) td {
   border-bottom: none !important;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
 
-  /* .custom-table thead {
-    display: none;
-  } */
-
-  /* .custom-table,
-  .custom-table tbody,
-  .custom-table tr,
-  .custom-table td {
-    display: block;
-    width: 100%;
-  } */
-
-  /* .custom-table tr {
-    background-color: var(--color-card);
-    border: 2px solid var(--color-secundario);
-    border-radius: 12px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-  } */
-
-  /* .custom-table td {
-    text-align: left;
-    padding: 0.4rem 0;
-    border: none;
-  } */
-
-  /* .custom-table td::before {
-    content: attr(data-label);
-    font-weight: bold;
-    display: block;
-    color: var(--color-secundario);
-    margin-bottom: 2px;
-  } */
 
   .productos-row {
     border: none;
@@ -115,9 +82,9 @@
   -webkit-overflow-scrolling: touch;
 }
 
-/* Hace que la tabla no se comprima */
+
 .custom-table {
-  min-width: 1100px; /* ajustá según tus columnas */
+  min-width: 1100px; 
 }
 
 .table-responsive-custom::-webkit-scrollbar {
@@ -131,6 +98,6 @@
 
 .custom-table th,
 .custom-table td {
-  white-space: nowrap;   /* 👈 evita salto de línea */
+  white-space: nowrap;   
 }
 }
