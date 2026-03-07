@@ -122,6 +122,8 @@ liberarTurno(reservaId: number) {
     `${this.apiUrl}/reservas/${reservaId}/liberar-turno/`,
     {}
   );
+
+
 }
 
 
@@ -179,9 +181,13 @@ obtenerServiciosPorSucursal(sucursalId: number): Observable<any[]> {
   }
 
   //crud para turnos
-  getTurnos(): Observable<Turno[]> {
-    return this.http.get<Turno[]>(`${this.apiUrl}/turnos/`);
-  }
+  // getTurnos(): Observable<Turno[]> {
+  //   return this.http.get<Turno[]>(`${this.apiUrl}/turnos/`);
+  // }
+  getTurnos(verTodos: boolean = false): Observable<Turno[]> {
+  const params = verTodos ? '?ver_todos=true' : '';
+  return this.http.get<Turno[]>(`${this.apiUrl}/turnos/${params}`);
+}
 
   createTurno(turno: Turno): Observable<Turno> {
     return this.http.post<Turno>(`${this.apiUrl}/turnos/`, turno);
@@ -194,6 +200,10 @@ obtenerServiciosPorSucursal(sucursalId: number): Observable<any[]> {
   deleteTurno(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/turnos/${id}/`);
   }
+
+  generarTurnos(data: { sucursal_id: number, fecha: string }) {
+  return this.http.post<any>(`${this.apiUrl}/turnos/generar-turnos/`, data);
+}
 }
 
 

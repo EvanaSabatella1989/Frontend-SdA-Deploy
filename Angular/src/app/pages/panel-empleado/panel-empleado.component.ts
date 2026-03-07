@@ -11,6 +11,7 @@ export class PanelEmpleadoComponent {
   reservas: any[] = [];
   modo: 'pendientes' | 'mis_trabajos' = 'pendientes';
 misTrabajos: any[] = [];
+ordenSeleccionada: any = null;
 
   constructor(
     private serviceEmpleado: EmpleadoService) { }
@@ -61,4 +62,28 @@ misTrabajos: any[] = [];
       error: (err) => console.error(err)
     });
   }
+
+  // seleccionar orden para editar
+  editarOrden(orden: any){
+  this.ordenSeleccionada = {...orden};
+}
+
+guardarOrden() {
+  if (!this.ordenSeleccionada) return;
+
+  const data = {
+    diagnostico: this.ordenSeleccionada.diagnostico,
+    observaciones: this.ordenSeleccionada.observaciones,
+    estado: this.ordenSeleccionada.estado
+  };
+
+  this.serviceEmpleado.actualizarOrden(this.ordenSeleccionada.id, data).subscribe({
+    next: () => {
+      alert("Orden actualizada correctamente");
+      this.ordenSeleccionada = null;
+      this.cargarMisTrabajos();
+    },
+    error: (err) => console.error(err)
+  });
+}
 }

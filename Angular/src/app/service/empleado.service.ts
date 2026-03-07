@@ -57,17 +57,17 @@ editarEmpleado(id: number, empleado: Partial<Empleado>): Observable<Empleado> {
 //Cambiar estado de orden
   cambiarEstadoOrden(id: number, estado: string) {
     return this.http.patch(
-      `${this.apiUrl}/ordenes/${id}/cambiar-estado/`,
+      `${this.apiUrl}/ordenes_trabajo/${id}/cambiar-estado/`,
       { estado: estado }
     );
   }
 
-    getReservasHoyEmpleado1() {
-  return this.http.get<any[]>(`${this.apiUrl}/reservas/hoy-empleado/`);
+   
+// actualiza el contenido
+actualizarOrden(id: number, data: any): Observable<any> {
+  return this.http.patch(`${this.apiUrl}/ordenes_trabajo/${id}/actualizar-orden/`, data);
 }
 
-tomarReserva1(id: number) {
-  return this.http.post(`${this.apiUrl}/reservas/${id}/tomar/`, {});
-}
+
 
 }

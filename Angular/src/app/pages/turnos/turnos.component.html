@@ -52,9 +52,27 @@
     <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
       <h2 class="m-0 fw-bold text-white">Gestión de Turnos</h2>
 
+      <!-- filtro para ver todos los turnos creados -->
+      <div class="form-check form-switch mt-2">
+      <input class="form-check-input" type="checkbox" 
+             [checked]="verTodos"
+             (change)="toggleVerTodos()">
+      <label class="form-check-label text-white">Ver turnos pasados</label>
+    </div>
+
+      <button class="btn btn-warning fw-semibold px-4" (click)="abrirModalGenerar()">
+      ⚡ Generar Turnos automaticos
+    </button>
+
       <button class="btn btn-warning fw-semibold px-4" (click)="abrirModal()">
-        + Nuevo Turno
+        + Generar Turnos manualmente
       </button>
+
+      <button class="btn btn-danger fw-semibold px-4" 
+          *ngIf="turnosSeleccionados.size > 0"
+          (click)="eliminarSeleccionados()">
+    🗑 Eliminar ({{ turnosSeleccionados.size }})
+  </button>
     </div>
 
     <!-- Tabla -->
@@ -64,6 +82,11 @@
 
         <thead>
           <tr>
+             <th>
+      <input type="checkbox" 
+             (change)="seleccionarTodos()"
+             [checked]="turnosSeleccionados.size === turnos.length && turnos.length > 0">
+    </th>
             <th>Sucursal</th>
             <th>Fecha</th>
             <th>Hora</th>
@@ -74,7 +97,13 @@
 
         <tbody>
 
-          <tr *ngFor="let turno of turnos">
+          <tr *ngFor="let turno of turnos" [ngClass]="{'table-active': turnosSeleccionados.has(turno.id!)}">
+
+             <td>
+    <input type="checkbox"
+           [checked]="turnosSeleccionados.has(turno.id!)"
+           (change)="toggleSeleccion(turno.id!)">
+  </td>
 
             <td data-label="Sucursal">
               {{ turno.sucursal?.nombre || 'N/A' }}
@@ -358,4 +387,43 @@
     </div>
   </div>
 
+</div>
+
+<div class="modal fade" id="modalGenerar" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Generar Turnos del Día</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <form [formGroup]="formGenerar">
+
+          <div class="mb-3">
+            <label class="form-label">Sucursal</label>
+            <select formControlName="sucursal_id" class="form-control">
+              <option [ngValue]="null">Seleccione una sucursal</option>
+              <option *ngFor="let suc of sucursales" [ngValue]="suc.id">
+                {{ suc.nombre }}
+              </option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Fecha</label>
+            <input type="date" formControlName="fecha" class="form-control">
+          </div>
+
+        </form>
+      </div>
+
+      <div class="modal-footer custom-modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button class="btn btn-info" (click)="generarTurnos()">Generar</button>
+      </div>
+
+    </div>
+  </div>
 </div>

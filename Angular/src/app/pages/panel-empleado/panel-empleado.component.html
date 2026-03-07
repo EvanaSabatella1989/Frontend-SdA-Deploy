@@ -143,6 +143,12 @@
       <!-- ACCIONES -->
       <td>
 
+        <button *ngIf="orden.estado === 'en_proceso'"
+        class="btn btn-primary btn-sm"
+        (click)="editarOrden(orden)">
+  Completar
+</button>
+
         <button *ngIf="orden.estado === 'pendiente'"
                 class="btn btn-warning btn-sm"
                 (click)="cambiarEstado(orden.id, 'en_proceso')">
@@ -175,4 +181,38 @@
     No tenés trabajos asignados.
   </div>
 
+</div>
+
+<!-- editar  -->
+<div *ngIf="ordenSeleccionada" class="card mt-4">
+  <div class="card-header">
+    Completar Orden
+  </div>
+
+  <div class="card-body">
+
+    <div class="mb-3">
+      <label>Diagnóstico</label>
+      <textarea class="form-control"
+                [(ngModel)]="ordenSeleccionada.diagnostico">
+      </textarea>
+    </div>
+
+    <div class="mb-3">
+      <label>Observaciones</label>
+      <textarea class="form-control"
+                [(ngModel)]="ordenSeleccionada.observaciones">
+      </textarea>
+    </div>
+
+    <button class="btn btn-success"
+            (click)="guardarOrden()">
+      Guardar
+    </button>
+
+    <button class="btn btn-secondary ms-2" (click)="ordenSeleccionada = null">
+  Cancelar
+</button>
+
+  </div>
 </div>
