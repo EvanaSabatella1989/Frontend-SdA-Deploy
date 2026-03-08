@@ -24,7 +24,7 @@ h4{
 
 /* PANEL */
 .admin-panel {
-  background-color: #0b0e1a;
+  background-color: var(--color-principal);
   min-height: 100vh;
   color: #fff;
 }
@@ -38,11 +38,13 @@ h4{
 
 /* TABLA */
 .table-dark {
-  background-color: #11142a;
+  background-color: var(--color-card);
+  border: 2px solid var(--color-secundario);
+  border-radius: 25px;  
 }
 
 .table-dark th {
-  color: #ffc107;
+  color: var(--color-secundario);
   font-size: 0.9rem;
 }
 
