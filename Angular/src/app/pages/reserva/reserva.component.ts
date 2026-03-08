@@ -121,6 +121,7 @@ export class ReservaComponent {
       this.mensaje = '⚠️ Necesitás cargar un vehículo antes de reservar.';
       localStorage.setItem('returnToReserva', this.router.url);
       this.router.navigate(['/agregar-vehiculo']);
+      return;
     }
 
     // const clienteId = this.authService.obtenerIdUsuario2();

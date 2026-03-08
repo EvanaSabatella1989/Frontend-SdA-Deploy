@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { forkJoin } from 'rxjs';
 import { AuthService } from 'src/app/service/auth.service';
 import { ServicioService } from 'src/app/service/servicio.service';
 declare var bootstrap: any;
@@ -21,6 +22,8 @@ export class AgregarReservasComponent {
   reservaActual: any = null;
   modalInstance: any;
   isAdmin: boolean = false;
+  reservasSeleccionadas: Set<number> = new Set();
+
 
   constructor(private fb: FormBuilder, private servicioService: ServicioService, private authService: AuthService) { }
 
@@ -36,7 +39,8 @@ export class AgregarReservasComponent {
       cliente: ['', Validators.required],
       servicio: ['', Validators.required],
       sucursal: ['', Validators.required],
-      turno: ['', Validators.required]
+      turno: ['', Validators.required],
+      estado: ['']
     });
 
     this.servicioService.obtenerSucursales().subscribe(data => this.sucursales = data);
@@ -134,6 +138,41 @@ export class AgregarReservasComponent {
       this.servicioService.eliminarReserva(id).subscribe(() => this.cargarReservas());
     }
   }
+
+
+  // eliminar en grupo 
+  toggleSeleccion(id: number) {
+  if (this.reservasSeleccionadas.has(id)) {
+    this.reservasSeleccionadas.delete(id);
+  } else {
+    this.reservasSeleccionadas.add(id);
+  }
+}
+
+seleccionarTodos() {
+  if (this.reservasSeleccionadas.size === this.reservas.length) {
+    this.reservasSeleccionadas.clear();
+  } else {
+    this.reservas.forEach(r => this.reservasSeleccionadas.add(r.id));
+  }
+}
+
+eliminarSeleccionadas() {
+  if (this.reservasSeleccionadas.size === 0) return;
+
+  if (!confirm(`¿Eliminar ${this.reservasSeleccionadas.size} reservas?`)) return;
+
+  const ids = Array.from(this.reservasSeleccionadas);
+  const peticiones = ids.map(id => this.servicioService.eliminarReserva(id));
+
+  forkJoin(peticiones).subscribe({
+    next: () => {
+      this.reservasSeleccionadas.clear();
+      this.cargarReservas();
+    },
+    error: (err) => console.error(err)
+  });
+}
 
 }
   

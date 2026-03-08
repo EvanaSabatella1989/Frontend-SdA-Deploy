@@ -20,7 +20,7 @@ export class PerfilComponent implements OnInit {
   reservas: any[] = [];
   isAdmin: boolean = false;
 
-  // 🔹 FORMULARIO MODAL
+  //  FORMULARIO MODAL
   vehiculoForm: FormGroup;
   categorias: any[] = [];
   marcasDisponibles: string[] = [];
@@ -65,7 +65,7 @@ export class PerfilComponent implements OnInit {
   private servicioService: ServicioService, 
   private categoriaService: CategoriaService ) {
 
-    // 🔹 Inicialización del formulario
+    //  Inicialización del formulario
     this.vehiculoForm = this.fb.group({
       marca: ['', Validators.required],
       modelo: ['', Validators.required],
@@ -106,7 +106,7 @@ export class PerfilComponent implements OnInit {
     this.isAdmin = isAdmin;
   });
 
-  // 🔹 Escuchar cambios en categoría
+  //  Escuchar cambios en categoría
     this.vehiculoForm.get('categoria')?.valueChanges.subscribe(categoria => {
 
   this.marcasDisponibles = this.marcasPorCategoria[categoria?.nombre] || [];
@@ -223,6 +223,12 @@ reprogramarReserva(reserva: any) {
   });
 }
 
+confirmarReprogramar(reserva: any) {
+  const ok = confirm('¿Seguro que querés reprogramar? Tu turno actual se liberará.');
+  if (!ok) return;
+  this.reprogramarReserva(reserva);
+}
+
 //   agregarVehiculo() {
 //   if (this.vehiculoForm.valid) {
 //     // Solo enviar el ID de la categoría
@@ -258,7 +264,7 @@ abrirModal(vehiculo?: any) {
   document.body.style.overflow = 'hidden';
 
   if (vehiculo) {
-    // 🔥 MODO EDICIÓN
+    // MODO EDICIÓN
     this.modoEdicion = true;
     this.vehiculoEditandoId = vehiculo.id;
 
@@ -274,19 +280,19 @@ abrirModal(vehiculo?: any) {
     //   anio_fabricacion: vehiculo.anio_fabricacion
     // });
 
-    // 1️⃣ Primero seteamos la categoría
+    //  Primero seteamos la categoría
     this.vehiculoForm.patchValue({
       categoria: categoriaObj
     });
 
-    // 2️⃣ Forzamos a que se carguen marcas y tipos
+    //  Forzamos a que se carguen marcas y tipos
     this.marcasDisponibles =
       this.marcasPorCategoria[categoriaObj?.nombre] || [];
 
     this.tiposDisponibles =
       this.tiposPorCategoria[categoriaObj?.nombre] || [];
 
-    // 3️⃣ Ahora sí seteamos el resto
+    //  seteamos el resto
     this.vehiculoForm.patchValue({
       marca: vehiculo.marca,
       modelo: vehiculo.modelo,
@@ -295,7 +301,7 @@ abrirModal(vehiculo?: any) {
     });
 
   } else {
-    // 🔥 MODO CREAR
+    //  MODO CREAR
     this.modoEdicion = false;
     this.vehiculoEditandoId = null;
     this.vehiculoForm.reset();
@@ -355,7 +361,7 @@ guardarVehiculo() {
 
   if (this.modoEdicion && this.vehiculoEditandoId) {
 
-    // 🔥 EDITAR
+    // EDITAR
     this.vehiculoService.editarVehiculo(
       this.vehiculoEditandoId,
       vehiculoData
@@ -369,7 +375,7 @@ guardarVehiculo() {
 
   } else {
 
-    // 🔥 CREAR
+    //  CREAR
     this.vehiculoService.agregarVehiculo(vehiculoData).subscribe({
       next: () => {
         alert('✅ Vehículo agregado');

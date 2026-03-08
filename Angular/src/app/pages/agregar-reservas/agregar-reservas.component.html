@@ -6,6 +6,11 @@
 
     <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
       <h2 class="m-0 fw-bold text-white">Gestión de Reservas</h2>
+       <button class="btn btn-danger fw-semibold px-4"
+            *ngIf="reservasSeleccionadas.size > 0"
+            (click)="eliminarSeleccionadas()">
+      🗑 Eliminar ({{ reservasSeleccionadas.size }})
+    </button>
       <button class="btn btn-warning fw-semibold px-4" (click)="abrirModal()">+ Nueva Reserva</button>
     </div>
     
@@ -13,26 +18,44 @@
     <table class="table align-middle text-center custom-table">
       <thead>
         <tr>
+          <th>
+      <input type="checkbox"
+             (change)="seleccionarTodos()"
+             [checked]="reservasSeleccionadas.size === reservas.length && reservas.length > 0">
+    </th>
           <th scope="col">Cliente</th>
           <th scope="col">Servicio</th>
           <th scope="col">Sucursal</th>
           <th scope="col">Fecha</th>
           <th scope="col">Hora</th>
+          <th scope="col">Estado</th>
           <th scope="col">Acciones</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let r of reservas">
+           <td>
+    <input type="checkbox"
+           [checked]="reservasSeleccionadas.has(r.id)"
+           (change)="toggleSeleccion(r.id)">
+  </td>
           <td>{{ r.cliente.first_name }} {{ r.cliente.last_name }}</td>
           <td>{{ r.servicio_info?.nombre }}</td>
           <td>{{ r.sucursal_info?.nombre }}</td>
           <td>{{ r.turno_info?.fecha }}</td>
           <td>{{ r.turno_info?.hora }}</td>
-          <!-- <td>
-            <button class="btn btn-primary btn-sm me-2" (click)="abrirModal(r)">Editar</button>
-            <button class="btn btn-danger btn-sm" (click)="eliminarReserva(r.id)">Eliminar</button>
-          </td> -->
-
+         
+          <td>
+  <span class="badge"
+    [ngClass]="{
+      'bg-warning text-dark': r.estado === 'pendiente',
+      'bg-success': r.estado === 'confirmada',
+      'bg-info': r.estado === 'reprogramada',
+      'bg-danger': r.estado === 'cancelada'
+    }">
+    {{ r.estado }}
+  </span>
+</td>
           <td data-label="Acciones">
 
               <div class="acciones-container">
@@ -58,9 +81,6 @@
     </div>
     </div>
 
-    <!-- <div class="mb-3 d-flex justify-content-center">
-    <a routerLink="/panel" class="btn btn-info">Volver</a>
-  </div> -->
 
 
   <div class="d-flex justify-content-center mt-4">
