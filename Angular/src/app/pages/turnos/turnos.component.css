@@ -148,18 +148,7 @@
   filter: invert(1);
 }
 
-/* select.form-select {
-  background-color: black;
-  color: white;
-  border: 1px solid #555;
-}
 
-select.form-select option {
-  background-color: black;
-  color: white;
-} */
-
-/* Icono calendario */
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
   cursor: pointer;

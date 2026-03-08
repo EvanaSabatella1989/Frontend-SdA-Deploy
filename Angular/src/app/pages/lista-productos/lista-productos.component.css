@@ -65,9 +65,10 @@ img{
 
 /* TABLAS */
 .table-dark {
-  background-color: #111827;
+  background-color: var(--color-card);
   border-radius: 10px;
-  overflow: hidden;
+  border: 2px solid var(--color-secundario);
+  /* overflow: hidden; */
 }
 
 .table-dark thead {
@@ -86,14 +87,14 @@ img{
 }
 
 .table-hover tbody tr:hover {
-  background-color: #1f2937;
+  background-color: var(--color-card);
 }
 
 /* INPUTS Y SELECT */
 .form-control,
 .form-select {
-  background-color: #111827;
-  border: 1px solid #1f2937;
+  background-color: var(--color-card);
+  border: 1px solid var(--color-secundario);
   color: #e5e7eb;
 }
 
@@ -103,7 +104,7 @@ img{
 
 .form-control:focus,
 .form-select:focus {
-  background-color: #111827;
+  background-color: var(--color-principal);
   border-color: #ffc107;
   box-shadow: none;
   color: #ffffff;
