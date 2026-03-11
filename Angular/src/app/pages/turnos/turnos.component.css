@@ -40,7 +40,7 @@
 }
 
 
-.productos-row {
+/* .productos-row {
   background-color: rgba(255, 255, 255, 0.05);
   color: white;
 }
@@ -64,43 +64,7 @@
 
 .custom-table tr:has(+ .fila-productos) td {
   border-bottom: none !important;
-}
-
-
-@media (max-width: 768px) {
-
-
-  .productos-row {
-    border: none;
-    margin-top: 0.5rem;
-    padding-top: 0.5rem;
-  }
-
-  .table-responsive-custom {
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-
-.custom-table {
-  min-width: 850px; 
-}
-
-.table-responsive-custom::-webkit-scrollbar {
-  height: 6px;
-}
-
-.table-responsive-custom::-webkit-scrollbar-thumb {
-  background: var(--color-secundario);
-  border-radius: 10px;
-}
-
-.custom-table th,
-.custom-table td {
-  white-space: nowrap;   
-}
-}
+} */
 
 .modal-content {
   background-color: var(--color-card);
@@ -159,3 +123,40 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
   cursor: pointer;
 }
+
+
+@media (max-width: 768px) {
+
+
+  /* .productos-row {
+    border: none;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+  } */
+
+  .table-responsive-custom {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+.custom-table {
+  min-width: 850px; 
+}
+
+.table-responsive-custom::-webkit-scrollbar {
+  height: 6px;
+}
+
+.table-responsive-custom::-webkit-scrollbar-thumb {
+  background: var(--color-secundario);
+  border-radius: 10px;
+}
+
+.custom-table th,
+.custom-table td {
+  white-space: nowrap;   
+}
+}
+

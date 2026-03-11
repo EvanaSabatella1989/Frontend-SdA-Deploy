@@ -1,13 +1,21 @@
-<main>
+<main class="admin-panel py-4">
 
-  <h2 class="text-center mb-4">Lista de Usuarios</h2>
+  <div class="container">
+
+  <div class="card shadow-lg rounded-4 p-4"> 
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+  <h2 class="m-0 fw-bold text-white">Lista de Usuarios</h2>
 
   <div class="d-flex justify-content-end mb-3">
-    <button class="btn btn-success" (click)="abrirModal()">+ Nuevo Usuario</button>
+    <button class="btn btn-warning fw-bold" (click)="abrirModal()">+ Nuevo Usuario</button>
   </div>
 
-  <table class="table table-bordered table-striped text-center align-middle">
-    <thead class="table-dark">
+  </div>
+
+  <div class="table-responsive-custom">
+
+  <table class="table align-middle text-center custom-table">
+    <thead>
       <tr>
         <th scope="col">Email</th>
         <th scope="col">Nombre</th>
@@ -23,21 +31,32 @@
         <td>{{ cliente.direccion }}</td>
         <td>{{ cliente.num_telefono }}</td>
         <td>
-          <button class="btn btn-primary btn-sm me-2" (click)="abrirModal(cliente)">Editar</button>
-          <button class="btn btn-danger btn-sm" (click)="eliminarCliente(cliente)">Eliminar</button>
+          <button class="btn btn-sm btn-outline-warning me-2" (click)="abrirModal(cliente)"><i class="bi bi-pencil-fill"></i></button>
+          <button class="btn btn-sm btn-outline-danger" (click)="eliminarCliente(cliente)"><i class="bi bi-trash-fill"></i></button>
         </td>
       </tr>
     </tbody>
   </table>
 
-  <div class="mb-3 d-flex justify-content-center">
-    <a routerLink="/panel" class="btn btn-info">Volver</a>
   </div>
+
+  
+  </div>
+  <div class="d-flex justify-content-center mt-4">
+    <a routerLink="/panel" class="btn btn-warning fw-bold">
+      Volver al Panel
+    </a>
+  </div>
+
+</div>
+
+
 
 </main>
 
+
 <!-- modal para editar y crear -->
-<div class="modal fade" id="modalCliente" tabindex="-1">
+<div class="modal fade" id="modalCliente" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -45,9 +64,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
-        <div class="alert alert-info">
+        <!-- <div class="alert alert-info">
           <strong>Campos obligatorios:</strong> Email, Contraseña, Nombre y Apellido.
-        </div>
+        </div> -->
         <form>
           <div class="mb-3" *ngIf="!clienteActual">
             <label>Email</label>
@@ -109,3 +128,4 @@
     </div>
   </div>
 </div>
+
