@@ -3,13 +3,14 @@
    margin: 5px;
 }  
 
+
 .container h2{
     color:aliceblue;
     margin:5px;
 }
 
 .album{
-    background-color:  #060818;
+    background-color:var(--color-principal);
 }
 
 

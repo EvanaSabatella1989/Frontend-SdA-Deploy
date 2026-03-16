@@ -33,6 +33,12 @@ editarEmpleado(id: number, empleado: Partial<Empleado>): Observable<Empleado> {
 // }
 
 //Reservas pendientes del empleado 
+  getReservasMesEmpleado() {
+    return this.http.get<any[]>(
+      `${this.apiUrl}/reservas/mes-empleado/`
+    );
+  }
+
   getReservasHoyEmpleado() {
     return this.http.get<any[]>(
       `${this.apiUrl}/reservas/hoy-empleado/`
@@ -67,6 +73,8 @@ editarEmpleado(id: number, empleado: Partial<Empleado>): Observable<Empleado> {
 actualizarOrden(id: number, data: any): Observable<any> {
   return this.http.patch(`${this.apiUrl}/ordenes_trabajo/${id}/actualizar-orden/`, data);
 }
+
+
 
 
 

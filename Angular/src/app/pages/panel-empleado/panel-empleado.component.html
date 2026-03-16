@@ -1,21 +1,128 @@
-<div class="mb-3">
-  <button class="btn btn-outline-primary me-2"
-          (click)="modo='pendientes'">
-    Reservas Pendientes
-  </button>
+<main class="admin-panel py-5">
+  <div class="container">
 
-  <button class="btn btn-outline-success"
-          (click)="modo='mis_trabajos'; cargarMisTrabajos()">
-    Mis Trabajos
-  </button>
+    <h2 class="text-center mb-5 admin-title">
+      Panel de Empleado
+    </h2>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 mb-5">
+
+  <div class="col">
+    <div class="kpi-card">
+      <i class="bi bi-calendar-check"></i>
+      <div>
+        <!-- <h3>{{ stats.reservasHoy }}</h3> -->
+         <h3  (click)="mostrarReservasHoy()" style="cursor:pointer">Reservas de hoy</h3>
+         {{ stats.reservasHoy }}
+        <p>Reservas del día</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="kpi-card">
+      <i class="bi bi-calendar-check"></i>
+      <div>
+        <!-- <h3>{{ stats.reservasHoy }}</h3> -->
+         <h3 (click)="mostrarReservasMes()" style="cursor: pointer;">Reservas del mes</h3>
+         {{ stats.reservasMes }}
+        <p>Reservas futuras</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="kpi-card">
+      <i class="bi bi-clock-history"></i>
+      <div>
+         <h3>Pendientes</h3>
+         {{ stats.pendientes }}
+        <p>Servicios pendientes</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="kpi-card">
+      <i class="bi bi-tools"></i>
+      <div>
+        <!-- <h3>{{ stats.finalizados }}</h3> -->
+         <h3 (click)="mostrarTrabajosAsignados()" style="cursor: pointer;">En taller</h3>
+         {{ stats.enTaller }}
+        <p>Trabajos asignados</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="kpi-card">
+      <i class="bi bi-check-circle"></i>
+      <div>
+         <h3 (click)="mostrarTrabajosFinalizados()">Finalizados</h3>
+         {{ stats.finalizados }}
+        <p>Historial trabajos</p>
+      </div>
+    </div>
+  </div>
+
+</div>  
+
+  
+<!-- #Reservas mes -->
+<div #tablaSeccion *ngIf="modo === 'reservas_mes'" class="mt-4">
+<h4 class="table-title">Reservas del Mes</h4>
+<div class="table-responsive-custom">
+
+<table class="table align-middle text-center custom-table">
+
+<thead>
+<tr>
+<th>Fecha</th>
+<th>Hora</th>
+<th>Servicio</th>
+<th>Cliente</th>
+<th>Vehículo</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr *ngFor="let r of reservasMes">
+
+<td>{{ r.turno_info.fecha }}</td>
+
+<td>{{ r.turno_info.hora }}</td>
+
+<td>{{ r.servicio_info.nombre }}</td>
+
+<td>
+{{ r.cliente.first_name }} {{ r.cliente.last_name }}
+</td>
+
+<td>
+{{ r.vehiculo_info.marca }} {{ r.vehiculo_info.modelo }}
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
 </div>
 
-<!--  SECCIÓN RESERVAS PENDIENTES -->
-<div *ngIf="modo === 'pendientes'">
+<div *ngIf="reservasMes.length === 0">
+    <p class="info">No hay trabajos reservados.</p>
+</div>
 
-  <h3>Trabajos pendientes de hoy</h3>
+</div>
+<!-- #Reservas hoy -->
+<div #tablaSeccion *ngIf="modo === 'pendientes'" class="mt-4">
 
-  <table class="table table-striped" *ngIf="reservas.length > 0">
+<h4 class="table-title">Reservas de Hoy</h4>
+
+<div class="table align-middle text-center custom-table"> 
+
+<table class="table align-middle text-center custom-table" *ngIf="reservas.length > 0">
     <thead>
       <tr>
         <th>Cliente</th>
@@ -54,19 +161,185 @@
       </tr>
     </tbody>
   </table>
+  </div> 
 
   <div *ngIf="reservas.length === 0">
-    No hay trabajos pendientes para hoy.
+    <p class="info">No hay trabajos pendientes para hoy.</p>
   </div>
 
 </div>
 
+
+
+
+
+<!-- <div class="mb-3">
+  <button class="btn btn-outline-primary me-2"
+          (click)="modo='pendientes'">
+    Reservas Pendientes
+  </button>
+
+  <button class="btn btn-outline-success"
+          (click)="modo='mis_trabajos'; cargarMisTrabajos()">
+    Mis Trabajos
+  </button>
+</div> -->
+
+<!--  SECCIÓN RESERVAS PENDIENTES -->
+<!--
+<div *ngIf="modo === 'pendientes'">
+
+  <h3>Trabajos pendientes de hoy</h3>
+
+   <table class="table table-striped" *ngIf="reservas.length > 0">
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Servicio</th>
+        <th>Fecha</th>
+        <th>Vehículo</th>
+        <th>Estado</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let r of reservas">
+        <td>{{ r.cliente.first_name }} {{ r.cliente.last_name }}</td>
+        <td>{{ r.servicio_info.nombre }}</td>
+        <td>{{ r.turno_info.fecha }} {{ r.turno_info.hora }}</td>
+        <td>
+          {{ r.vehiculo_info.marca }}
+          {{ r.vehiculo_info.modelo }}
+        </td>
+
+        <td>
+          <span *ngIf="r.estado === 'pendiente'"
+                class="badge bg-warning text-dark">
+            🟡 Pendiente
+          </span>
+        </td>
+
+        <td>
+          <button *ngIf="r.estado === 'pendiente'"
+                  class="btn btn-primary btn-sm"
+                  (click)="tomarReserva(r.id)">
+            Tomar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table> -->
+
+  <!-- <div *ngIf="reservas.length === 0">
+    No hay trabajos pendientes para hoy.
+  </div> 
+
+</div>
+-->
+
+<!-- Finalizados -->
+<div #tablaSeccion *ngIf="modo === 'finalizados'">
+
+
+
+  <h3 class="table-title">Mis trabajos realizados</h3>
+  <div class="table-responsive-custom">
+  <table class="table align-middle text-center custom-table" *ngIf="misTrabajosFinalizados.length > 0">
+  <thead>
+    <tr>
+      <th>Empleado</th>
+      <th>Vehículo</th>
+      <th>Cliente</th>
+      <th>Servicio</th>
+      <th>Ingreso</th>
+      <th>Egreso</th>
+      <th>Diagnóstico</th>
+      <th>Observaciones</th>
+      <th>Estado</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let orden of misTrabajosFinalizados">
+
+      <!-- EMPLEADO -->
+      <td>
+        {{ orden.empleado_nombre || orden.empleado }}
+      </td>
+
+      <!-- VEHICULO -->
+      <td>
+        {{ orden.reserva?.vehiculo_info?.marca }}
+        {{ orden.reserva?.vehiculo_info?.modelo }}
+      </td>
+
+      <!-- CLIENTE -->
+      <td>
+        {{ orden.cliente_info?.first_name }}
+        {{ orden.reserva?.cliente?.last_name }}
+      </td>
+
+      <!-- SERVICIO -->
+      <td>
+        {{ orden.reserva?.servicio_info?.nombre }}
+      </td>
+
+      <!-- FECHA INGRESO -->
+      <td>
+        {{ orden.fecha_ingreso | date:'short' }}
+      </td>
+
+      <!-- FECHA EGRESO -->
+      <td>
+        {{ orden.fecha_egreso ? (orden.fecha_egreso | date:'short') : '-' }}
+      </td>
+
+      <!-- DIAGNOSTICO -->
+      <td>
+        {{ orden.diagnostico || 'Sin diagnóstico' }}
+      </td>
+
+      <!-- OBSERVACIONES -->
+      <td>
+        {{ orden.observaciones || 'Sin observaciones' }}
+      </td>
+
+      <!-- ESTADO -->
+      <td>
+        <span class="badge"
+          [ngClass]="{
+            'bg-secondary': orden.estado === 'pendiente',
+            'bg-warning': orden.estado === 'en_proceso',
+            'bg-success': orden.estado === 'finalizado',
+            'bg-dark': orden.estado === 'entregado'
+          }">
+          {{ orden.estado }}
+        </span>
+      </td>
+
+    </tr>
+  </tbody>
+</table>
+  </div>
+
+  <div *ngIf="misTrabajosFinalizados.length === 0">
+    <p class="info">No hay historial de trabajos</p>
+  </div>
+
+</div>
+
+
+
+
 <!--  SECCIÓN MIS TRABAJOS -->
-<div *ngIf="modo === 'mis_trabajos'">
+<div #tablaSeccion *ngIf="modo === 'mis_trabajos'">
 
-  <h3>Mis trabajos asignados</h3>
 
-  <table class="table table-bordered" *ngIf="misTrabajos.length > 0">
+
+  <h3 class="table-title">Mis trabajos asignados</h3>
+  <div class="table-responsive-custom">
+  <table class="table align-middle text-center custom-table" *ngIf="misTrabajos.length > 0">
   <thead>
     <tr>
       <th>Empleado</th>
@@ -176,9 +449,10 @@
     </tr>
   </tbody>
 </table>
+  </div>
 
   <div *ngIf="misTrabajos.length === 0">
-    No tenés trabajos asignados.
+    <p class="info">No tiene trabajos asignados</p>
   </div>
 
 </div>
@@ -216,3 +490,5 @@
 
   </div>
 </div>
+</div>
+</main>

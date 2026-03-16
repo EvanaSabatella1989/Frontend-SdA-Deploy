@@ -1,30 +1,58 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core'; 
 import { EmpleadoService } from 'src/app/service/empleado.service';
 import { ServicioService } from 'src/app/service/servicio.service';
 
 @Component({
   selector: 'app-panel-empleado',
   templateUrl: './panel-empleado.component.html',
-  styleUrls: ['./panel-empleado.component.css']
+  styleUrls: ['./panel-empleado.component.css'],
 })
 export class PanelEmpleadoComponent {
   reservas: any[] = [];
-  modo: 'pendientes' | 'mis_trabajos' = 'pendientes';
-misTrabajos: any[] = [];
-ordenSeleccionada: any = null;
+  modo: 'pendientes' | 'reservas_mes'| 'mis_trabajos' | 'finalizados' = 'pendientes' ;
+  misTrabajos: any[] = [];
+  ordenSeleccionada: any = null;
+  reservasMes: any[] = [];
+  misTrabajosFinalizados: any[] = [];
+  @ViewChild('tablaSeccion') tablaSeccion!: ElementRef;
 
+  stats = {
+    reservasHoy: 0,
+    reservasMes: 0,
+    pendientes: 0,
+    enTaller: 0,
+    finalizados: 0
+  };
   constructor(
     private serviceEmpleado: EmpleadoService) { }
 
   ngOnInit() {
     this.cargarReservas();
+    this.cargarReservasMes();
+    this.cargarMisTrabajos();
   }
 
      // traer reservas pendientes
+
+  cargarReservasMes() {
+    this.serviceEmpleado.getReservasMesEmpleado().subscribe({
+      next: (data) => {
+        console.log("Reservas del mes recibidas:", data);  // 👈 AQUÍ
+        this.reservasMes = data;
+
+        // contadores
+        this.stats.reservasMes = data.length;
+        // this.stats.pendientes = data.filter((r: any) => r.estado === 'pendiente').length;
+      },
+      error: (err) => console.error("Error trayendo reservas del mes:", err)
+    });
+  }
+
   cargarReservas() {
     this.serviceEmpleado.getReservasHoyEmpleado().subscribe({
       next: (data) => {
         this.reservas = data;
+        this.stats.reservasHoy = data.length;
       },
       error: (err) => console.error(err)
     });
@@ -45,13 +73,28 @@ ordenSeleccionada: any = null;
 
   // traer mis órdenes
   cargarMisTrabajos() {
-    this.serviceEmpleado.getMisTrabajos().subscribe({
-      next: (data) => {
-        this.misTrabajos = data;
-      },
-      error: (err) => console.error(err)
-    });
-  }
+  this.serviceEmpleado.getMisTrabajos().subscribe({
+    next: (data) => {
+      this.misTrabajos = data.filter(
+        (orden: any) => orden.estado === 'pendiente' || orden.estado === 'en_proceso'
+      );
+
+      this.stats.enTaller = data.filter(
+        (orden: any) => orden.estado === 'pendiente' || orden.estado === 'en_proceso'
+      ).length;
+
+      this.stats.finalizados = data.filter(
+        (orden: any) => orden.estado === 'entregado' || orden.estado === 'finalizado'
+      ).length;
+
+      // filtrar solo finalizados
+      this.misTrabajosFinalizados = data.filter(
+        (orden: any) => orden.estado === 'entregado' || orden.estado === 'finalizado'
+      );
+    },
+    error: (err) => console.error(err)
+  });
+}
 
   // cambiar estado orden
   cambiarEstado(id: number, estado: string) {
@@ -86,4 +129,35 @@ guardarOrden() {
     error: (err) => console.error(err)
   });
 }
+
+scrollATabla() {
+  setTimeout(() => {
+    this.tablaSeccion?.nativeElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }, 100);
+}
+
+  mostrarReservasMes(){
+    this.modo = 'reservas_mes';
+    this.scrollATabla();
+  }
+
+  mostrarReservasHoy(){
+    this.modo = 'pendientes';
+    this.scrollATabla();
+  }
+
+  mostrarTrabajosAsignados(){
+    this.modo = 'mis_trabajos';
+    this.cargarMisTrabajos();
+    this.scrollATabla();
+  }
+
+  mostrarTrabajosFinalizados(){
+    this.modo = 'finalizados';
+    this.cargarMisTrabajos();
+    this.scrollATabla();
+  }
 }

@@ -1,0 +1,130 @@
+/* PANEL ADMIN INDUSTRIAL */
+.admin-panel {
+  background-color: #121212;
+  min-height: 100vh;
+}
+
+.admin-title {
+  color: #f0ad00;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.admin-card {
+  background-color: #1e1e1e;
+  color: #f1f1f1;
+  border: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px rgba(240, 173, 0, 0.3);
+}
+
+.admin-icon {
+  font-size: 3rem;
+  color: #f0ad00;
+}
+
+.btn-warning {
+  border-radius: 4px;
+}
+
+
+
+.kpi-card {
+  background-color: #1e1e1e;
+  color: #f1f1f1;
+  padding: 1.5rem;
+  border-left: 4px solid #f0ad00;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 6px;
+}
+
+.kpi-card i {
+  font-size: 2.5rem;
+  color: #f0ad00;
+}
+
+.kpi-card h3 {
+  margin: 0;
+  font-weight: 800;
+}
+
+.kpi-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #bdbdbd;
+}
+
+/* .table{
+  background-color: #f1f1f1;
+} */
+
+.custom-table thead {
+  background-color: var(--color-secundario);
+}
+
+.custom-table th {
+  color: black;
+  border-color: var(--color-secundario);
+  text-align: center;
+}
+
+.custom-table td {
+  color: white;
+  border-color: var(--color-secundario);
+  text-align: center;
+  
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
+
+.custom-table tbody tr {
+  transition: all 0.2s ease-in-out;
+}
+
+.custom-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  transform: scale(1.01);
+}
+
+.table-title, .info{
+  color: #f1f1f1;
+}
+
+@media (max-width: 768px) {
+
+.table-responsive-custom {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+.custom-table {
+  min-width: 850px; 
+}
+
+.table-responsive-custom::-webkit-scrollbar {
+  height: 6px;
+}
+
+.table-responsive-custom::-webkit-scrollbar-thumb {
+  background: var(--color-secundario);
+  border-radius: 10px;
+}
+
+.custom-table th,
+.custom-table td {
+  white-space: nowrap;
+  text-align: left;   
+}
+}
+
