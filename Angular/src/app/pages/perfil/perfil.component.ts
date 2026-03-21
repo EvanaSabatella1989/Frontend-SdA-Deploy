@@ -6,6 +6,7 @@ import { UsuarioService } from 'src/app/service/usuario.service'
 import { VehiculoService } from 'src/app/service/vehiculo.service';
 import { CategoriaService } from 'src/app/service/categoria.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-perfil',
@@ -27,6 +28,8 @@ export class PerfilComponent implements OnInit {
   tiposDisponibles: string[] = [];
   modoEdicion: boolean = false;
   vehiculoEditandoId: number | null = null;
+  historialPorVehiculo: { [vehiculoId: number]: any[] | undefined } = {};
+vehiculoExpandido: number | null = null;
 
   marcasPorCategoria: { [key: string]: string[] } = {
     Moto: ['Honda','Yamaha','Kawasaki','Suzuki','Benelli','Zanella','Corven','Motomel','Mondial','Otra'],
@@ -63,7 +66,8 @@ export class PerfilComponent implements OnInit {
   private authService: AuthService,  
   private router: Router,                
   private servicioService: ServicioService, 
-  private categoriaService: CategoriaService ) {
+  private categoriaService: CategoriaService,
+private http: HttpClient ) {
 
     //  Inicialización del formulario
     this.vehiculoForm = this.fb.group({
@@ -397,4 +401,29 @@ finalizarGuardado() {
   });
 }
 
+toggleHistorial(vehiculoId: number): void {
+  if (this.vehiculoExpandido === vehiculoId) {
+    this.vehiculoExpandido = null;
+    return;
+  }
+  this.vehiculoExpandido = vehiculoId;
+
+  if (!this.historialPorVehiculo[vehiculoId]) {
+    this.vehiculoService.getHistorialVehiculo(vehiculoId).subscribe({
+      next: (data) => {
+        this.historialPorVehiculo[vehiculoId] = data;
+      },
+      error: (err) => console.error('Error al obtener historial', err)
+    });
+  }
+}
+
+getHistorial(vehiculoId: number): any[] {
+  return this.historialPorVehiculo[vehiculoId] || [];
+  
+}
+
+isLoadingHistorial(vehiculoId: number): boolean {
+  return this.historialPorVehiculo[vehiculoId] === undefined;
+}
 }

@@ -59,5 +59,10 @@ export class VehiculoService {
   eliminarVehiculo(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/vehiculo/eliminar/${id}/`);
   }
+
+  // trae los datos de la reserva
+  getHistorialVehiculo(vehiculoId: number): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/ordenes_trabajo/por-vehiculo/?vehiculo=${vehiculoId}`);
+}
 }
 

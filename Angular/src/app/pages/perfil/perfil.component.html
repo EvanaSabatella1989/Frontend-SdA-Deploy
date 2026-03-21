@@ -1,225 +1,296 @@
-
-  <section class="w-100 vh-auto d-flex align-items-center bg-color">
+<section class="w-100 vh-auto d-flex align-items-center bg-color">
   <div *ngIf="usuario" class="perfil py-5">
+
+    <!-- ===== DATOS DEL USUARIO ===== -->
     <h2>Perfil de {{ usuario.first_name }} {{ usuario.last_name }}</h2>
     <p><strong>Email:</strong> {{ usuario.email }}</p>
     <p><strong>Teléfono:</strong> {{ usuario.num_telefono }}</p>
 
-<div *ngIf="!isAdmin" class="py-5">
-    <h2>Vehiculos <i class="bi bi-car-front-fill"></i></h2>
-    <div *ngIf="vehiculos.length > 0; else noVehiculos">
-    <ul >
-    <li *ngFor="let vehiculo of vehiculos" class="vehiculo-item d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+    <!-- ===== SECCIÓN VEHÍCULOS (solo cliente) ===== -->
+    <div *ngIf="!isAdmin" class="py-5">
+      <h2>Vehiculos <i class="bi bi-car-front-fill"></i></h2>
 
-  <div class="vehiculo-info">
-    <i class="fa-solid fa-2x vehiculo-icon "
-       [ngClass]="iconosCategorias[vehiculo.categoriaNombre]">
-    </i>
+      <div *ngIf="vehiculos.length > 0; else noVehiculos">
+        <ul>
+          <li *ngFor="let vehiculo of vehiculos"
+              class="vehiculo-item d-flex flex-column flex-md-row justify-content-between align-items-md-center">
 
-    <span class="vehiculo-texto">
-      {{vehiculo.modelo}} - {{vehiculo.tipo}}
-    </span>
-  </div>
+            <!-- Icono y nombre del vehículo -->
+            <div class="vehiculo-info">
+              <i class="fa-solid fa-2x vehiculo-icon"
+                 [ngClass]="iconosCategorias[vehiculo.categoriaNombre]">
+              </i>
+              <span class="vehiculo-texto">
+                {{ vehiculo.modelo }} - {{ vehiculo.tipo }}
+              </span>
+            </div>
 
-  <div class="vehiculo-acciones">
-    <!-- <button [routerLink]="['/vehiculo/editar', vehiculo.id]" class="btn-warning">
-      <i class="bi bi-pencil-fill"></i>
-    </button> -->
-    <button 
-      class="btn-warning"
-      (click)="abrirModal(vehiculo)">
-      <i class="bi bi-pencil-fill"></i>
-    </button>
+            <!-- Botones editar / eliminar -->
+            <div class="vehiculo-acciones">
+              <button class="btn-warning" (click)="abrirModal(vehiculo)">
+                <i class="bi bi-pencil-fill"></i>
+              </button>
+              <button type="button" class="btn btn-danger"
+                      (click)="eliminarVehiculo(vehiculo.id)">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
 
-    <button type="button"
-            class="btn btn-danger"
-            (click)="eliminarVehiculo(vehiculo.id)">
-      <i class="fa-solid fa-trash"></i>
-    </button>
-  </div>
+          </li>
+        </ul>
 
-</li>
-    
-  </ul>
-  <div class="btn-center">
-  <button 
-  class="btn btn-warning w-100"
-  (click)="abrirModal()">
-  <i class="bi bi-car-front-fill me-2"></i>
-  Agregar vehículo
-</button>
-  </div>
-</div>
-</div>
-  <ng-template #noVehiculos>
-    <p>No hay vehiculos cargados.</p>
-    <div class="btn-center">
-    <button routerLink="/agregar-vehiculo" class="btn btn-warning w-100"><i class="bi bi-car-front-fill me-2"></i>Cargar un vehiculo</button>
-    </div>
-</ng-template>
-    
-<div *ngIf="!isAdmin" >
-    <h2>
-    Carrito <i class="bi bi-cart-fill"></i> 
-  </h2>
-    <div *ngIf="carrito.length > 0; else noProductos">
-        
+        <!-- Botón agregar vehículo -->
+        <div class="btn-center">
+          <button class="btn btn-warning w-100" (click)="abrirModal()">
+            <i class="bi bi-car-front-fill me-2"></i>
+            Agregar vehículo
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Sin vehículos cargados -->
+      <ng-template #noVehiculos>
+        <p>No hay vehiculos cargados.</p>
+        <div class="btn-center">
+          <button routerLink="/agregar-vehiculo" class="btn btn-warning w-100">
+            <i class="bi bi-car-front-fill me-2"></i>Cargar un vehiculo
+          </button>
+        </div>
+      </ng-template>
+
+    </div><!-- cierre sección vehículos -->
+
+    <!-- ===== SECCIÓN CARRITO (solo cliente) ===== -->
+    <div *ngIf="!isAdmin">
+      <h2>Carrito <i class="bi bi-cart-fill"></i></h2>
+
+      <div *ngIf="carrito.length > 0; else noProductos">
         <p>Tiene productos en el carrito</p>
-      <div class="btn-center d-flex">
-        <button routerLink="/carrito" class="btn btn-warning w-100 w-md-auto">
-        <i class="bi bi-bag-check-fill"></i> Continuar comprando
-      </button>
+        <div class="btn-center d-flex">
+          <button routerLink="/carrito" class="btn btn-warning w-100 w-md-auto">
+            <i class="bi bi-bag-check-fill"></i> Continuar comprando
+          </button>
+        </div>
       </div>
-        
-      </div>
-    <ng-template #noProductos>
+
+      <!-- Sin productos en el carrito -->
+      <ng-template #noProductos>
         <p>No hay productos en el carrito.</p>
         <div class="btn-center d-flex justify-content-center">
-        <button routerLink="/productos" class="btn btn-warning w-100 w-md-auto">
-        <i class="bi bi-bag-check-fill"></i> Ir a comprar
-      </button>
-      </div>
-    </ng-template>
-  </div>
+          <button routerLink="/productos" class="btn btn-warning w-100 w-md-auto">
+            <i class="bi bi-bag-check-fill"></i> Ir a comprar
+          </button>
+        </div>
+      </ng-template>
 
-  <div *ngIf="!isAdmin" class="py-5">
-    <h2>Mis turnos <i class="bi bi-calendar-event"></i></h2>
-    <div *ngIf="reservas.length > 0; else noTurnos">
-      <p class="py-2">Tiene las siguientes reservas</p>
-        <li *ngFor="let reserva of reservas" class="d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-  <strong>{{ reserva.servicio_info.nombre }}</strong>
-  <p>en sucursal</p>
-  <strong>{{ reserva.sucursal_info.nombre }}</strong>
-  <p>El día: </p>
-  <strong>{{ reserva.turno_info.fecha | date:'dd/MM/yyyy' }}</strong>
-  <p>a las </p>
-  <strong>{{ reserva.turno_info.hora }}</strong>
-  
-  <!-- Mostrar alerta de turno vencido -->
-  <p *ngIf="isTurnoVencido(reserva)" class="text-danger">
-    Turno vencido
-  </p>
-  
-  <!-- Estado -->
-<p>
-  Estado:
-  <span class="badge"
-    [ngClass]="{
-      'bg-warning': reserva.estado === 'pendiente',
-      'bg-success': reserva.estado === 'confirmada',
-      'bg-info': reserva.estado === 'reprogramada',
-      'bg-danger': reserva.estado === 'cancelada'
-    }">
-    {{ reserva.estado | titlecase }}
-  </span>
-</p>
+    </div><!-- cierre sección carrito -->
 
-<!-- Botones -->
-<div class="mt-2"
-     *ngIf="reserva.estado !== 'cancelada' && !isTurnoVencido(reserva)">
+    <!-- ===== SECCIÓN MIS TURNOS (solo cliente) ===== -->
+    <div *ngIf="!isAdmin" class="py-5">
+      <h2>Mis turnos <i class="bi bi-calendar-event"></i></h2>
 
-  <button class="btn btn-danger btn-sm me-2"
-          (click)="cancelarReserva(reserva.id)">
-    Cancelar
-  </button>
+      <div *ngIf="reservas.length > 0; else noTurnos">
+        <p class="py-2">Tiene las siguientes reservas</p>
 
-  <button class="btn btn-warning btn-sm"
-          (click)="confirmarReprogramar(reserva)">
-    Reprogramar
-  </button>
+        <li *ngFor="let reserva of reservas"
+            class="d-flex flex-column flex-md-row justify-content-between align-items-md-center">
 
+          <!-- Datos del turno -->
+          <strong>{{ reserva.servicio_info.nombre }}</strong>
+          <p>en sucursal</p>
+          <strong>{{ reserva.sucursal_info.nombre }}</strong>
+          <p>El día:</p>
+          <strong>{{ reserva.turno_info.fecha | date:'dd/MM/yyyy' }}</strong>
+          <p>a las</p>
+          <strong>{{ reserva.turno_info.hora }}</strong>
 
-</div>
+          <!-- Alerta turno vencido -->
+          <p *ngIf="isTurnoVencido(reserva)" class="text-danger">
+            Turno vencido
+          </p>
 
-</li>
+          <!-- Badge de estado de la reserva -->
+          <p>
+            Estado:
+            <span class="badge"
+              [ngClass]="{
+                'bg-warning':   reserva.estado === 'pendiente',
+                'bg-success':   reserva.estado === 'confirmada',
+                'bg-info':      reserva.estado === 'reprogramada',
+                'bg-danger':    reserva.estado === 'cancelada'
+              }">
+              {{ reserva.estado | titlecase }}
+            </span>
+          </p>
+
+          <!-- Botones cancelar / reprogramar (solo si no está cancelada ni vencida) -->
+          <div class="mt-2"
+               *ngIf="reserva.estado !== 'cancelada' && !isTurnoVencido(reserva)">
+            <button class="btn btn-danger btn-sm me-2"
+                    (click)="cancelarReserva(reserva.id)">
+              Cancelar
+            </button>
+            <button class="btn btn-warning btn-sm"
+                    (click)="confirmarReprogramar(reserva)">
+              Reprogramar
+            </button>
+          </div>
+
+        </li>
+
         <p>Lo esperamos!!</p>
-        <!-- <button routerLink="/carrito">Continuar comprando</button> -->
-        
       </div>
-    <ng-template #noTurnos>
-        <p>No hay reservas de servicios.</p>
-    </ng-template>
-  </div>
 
-  <!-- <div *ngIf="isAdmin">
-    <h2>Turnos asignados</h2>
-  </div> -->
-   
-  </div>
+      <!-- Sin turnos reservados -->
+      <ng-template #noTurnos>
+        <p>No hay reservas de servicios.</p>
+      </ng-template>
+
+    </div><!-- cierre sección mis turnos -->
+
+    <!-- ===== SECCIÓN HISTORIAL DE SERVICIOS (solo cliente) ===== -->
+    <div *ngIf="!isAdmin" class="py-5">
+      <h2>Historial de servicios <i class="bi bi-tools"></i></h2>
+
+      <div *ngIf="vehiculos.length > 0; else sinVehiculos">
+        <div *ngFor="let vehiculo of vehiculos" class="mb-3">
+
+          <!-- Encabezado clickeable para expandir/colapsar -->
+          <div class="vehiculo-historial-header d-flex justify-content-between align-items-center"
+               (click)="toggleHistorial(vehiculo.id)"
+               style="cursor: pointer;">
+            <span>
+              <i class="fa-solid fa-2x vehiculo-icon me-2"
+                 [ngClass]="iconosCategorias[vehiculo.categoriaNombre]">
+              </i>
+              <strong>{{ vehiculo.marca }} {{ vehiculo.modelo }}</strong>
+              <small class="text-muted ms-2">({{ vehiculo.anio_fabricacion }})</small>
+            </span>
+            <!-- Flecha arriba/abajo según esté expandido -->
+            <i class="bi"
+               [ngClass]="vehiculoExpandido === vehiculo.id ? 'bi-chevron-up' : 'bi-chevron-down'">
+            </i>
+          </div>
+
+          <!-- Lista de órdenes de trabajo expandible -->
+          <div *ngIf="vehiculoExpandido === vehiculo.id" class="mt-2 ms-3">
+
+            <!-- Mientras carga los datos -->
+            <p *ngIf="isLoadingHistorial(vehiculo.id)">
+              Cargando historial...
+            </p>
+
+            <!-- Sin servicios registrados para este vehículo -->
+            <p *ngIf="!isLoadingHistorial(vehiculo.id) && getHistorial(vehiculo.id).length === 0">
+              Este vehículo no tiene servicios registrados.
+            </p>
+
+            <!-- Lista de órdenes de trabajo -->
+            <ul *ngIf="getHistorial(vehiculo.id).length > 0">
+              <li *ngFor="let orden of getHistorial(vehiculo.id)"
+                  class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-2">
+
+                <!-- Nombre del servicio realizado -->
+                <strong>{{ orden.servicio_nombre }}</strong>
+
+                <!-- Fecha y hora del turno -->
+                <span>{{ orden.turno_fecha | date:'dd/MM/yyyy' }} a las {{ orden.turno_hora }}</span>
+
+                <!-- Badge con el estado de la orden de trabajo -->
+                <span class="badge"
+                  [ngClass]="{
+                    'bg-warning':   orden.estado === 'pendiente',
+                    'bg-primary':   orden.estado === 'en_proceso',
+                    'bg-success':   orden.estado === 'finalizado',
+                    'bg-secondary': orden.estado === 'entregado'
+                  }">
+                  {{ orden.estado | titlecase }}
+                </span>
+
+                <!-- Diagnóstico del técnico (solo si existe) -->
+                <small *ngIf="orden.diagnostico" class="text-muted">
+                  {{ orden.diagnostico }}
+                </small>
+
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Sin vehículos registrados -->
+      <ng-template #sinVehiculos>
+        <p>No hay vehículos registrados.</p>
+      </ng-template>
+
+    </div><!-- cierre sección historial -->
+
+  </div><!-- cierre div.perfil -->
 </section>
 
+<!-- ===== MODAL AGREGAR / EDITAR VEHÍCULO ===== -->
+<!-- Fondo oscuro, click afuera cierra el modal -->
+<div class="custom-backdrop" *ngIf="mostrarModal" (click)="cerrarModal()">
 
-<!-- Modal: -->
-
-<!-- <div class="modal fade show d-block" *ngIf="mostrarModal" id="vehiculoModal" tabindex="-1">
-  <div class="modal-dialog modal-lg modal-dialog-centered"> -->
-<div class="custom-backdrop"
-     *ngIf="mostrarModal"
-     (click)="cerrarModal()">
-
-  <div class="custom-modal"
-       (click)="$event.stopPropagation()">
+  <!-- Contenedor del modal, stopPropagation evita que se cierre al clickear adentro -->
+  <div class="custom-modal" (click)="$event.stopPropagation()">
     <div class="modal-content bg-dark text-white">
 
+      <!-- Título del modal según modo -->
       <div class="modal-header form-container py-3">
-        <h5 class="modal-title">{{ modoEdicion ? 'Editar Vehículo' : 'Agregar Nuevo Vehículo' }}</h5>
-        <button type="button"
-        class="btn-close"
-        (click)="cerrarModal()">
-</button>
+        <h5 class="modal-title">
+          {{ modoEdicion ? 'Editar Vehículo' : 'Agregar Nuevo Vehículo' }}
+        </h5>
+        <button type="button" class="btn-close" (click)="cerrarModal()"></button>
       </div>
 
       <div class="modal-body">
-
         <form [formGroup]="vehiculoForm" (ngSubmit)="guardarVehiculo()" class="form-container">
 
+          <!-- Categoría del vehículo -->
           <label>Categoría:</label>
           <select formControlName="categoria" class="form-control mb-3">
             <option value="">Seleccione una categoría</option>
-            <option *ngFor="let cat of categorias"
-                    [ngValue]="cat">
+            <option *ngFor="let cat of categorias" [ngValue]="cat">
               {{ cat.nombre }}
             </option>
           </select>
 
+          <!-- Marca según categoría seleccionada -->
           <label>Marca:</label>
-          <select formControlName="marca"
-                  class="form-control mb-3">
+          <select formControlName="marca" class="form-control mb-3">
             <option value="">Seleccione una marca</option>
-            <option *ngFor="let marca of marcasDisponibles"
-                    [value]="marca">
+            <option *ngFor="let marca of marcasDisponibles" [value]="marca">
               {{ marca }}
             </option>
           </select>
 
+          <!-- Modelo del vehículo -->
           <label>Modelo:</label>
-          <input type="text"
-                 formControlName="modelo"
-                 class="form-control mb-3">
+          <input type="text" formControlName="modelo" class="form-control mb-3">
 
+          <!-- Tipo según categoría seleccionada -->
           <label>Tipo:</label>
-          <select formControlName="tipo"
-                  class="form-control mb-3">
+          <select formControlName="tipo" class="form-control mb-3">
             <option value="">Seleccione un tipo</option>
-            <option *ngFor="let tipo of tiposDisponibles"
-                    [value]="tipo">
+            <option *ngFor="let tipo of tiposDisponibles" [value]="tipo">
               {{ tipo }}
             </option>
           </select>
 
+          <!-- Año de fabricación -->
           <label>Año:</label>
-          <input type="number"
-                 formControlName="anio_fabricacion"
-                 class="form-control mb-3">
+          <input type="number" formControlName="anio_fabricacion" class="form-control mb-3">
 
-          <button type="submit"
-                  class="btn btn-warning w-100"
+          <!-- Botón guardar, deshabilitado si el formulario es inválido -->
+          <button type="submit" class="btn btn-warning w-100"
                   [disabled]="vehiculoForm.invalid">
             {{ modoEdicion ? 'Actualizar Vehículo' : 'Guardar Vehículo' }}
           </button>
 
         </form>
-
       </div>
 
     </div>
