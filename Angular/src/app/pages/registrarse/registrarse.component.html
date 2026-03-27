@@ -182,6 +182,9 @@
         <li *ngIf="registrar.get('password1')?.hasError('similarData')">
           No debe contener tu nombre, apellido o correo
         </li>
+        <li *ngIf="registrar.get('password1')?.hasError('noSpecialChar')">
+          Debe contener al menos un carácter especial
+        </li>
       </ul>
     </div>
 

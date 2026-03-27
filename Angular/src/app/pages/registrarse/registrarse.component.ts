@@ -165,7 +165,9 @@ export class RegistrarseComponent implements OnInit {
               this.errorMessage = 'La contraseña es demasiado común';
             } else if (msg.includes('similar')) {
               this.errorMessage = 'La contraseña es muy parecida a tus datos personales';
-            } else {
+            } else if (msg.includes('especial')) {
+              this.errorMessage = 'La contraseña debe tener al menos un carácter especial';
+            }else {
               this.errorMessage = msg;
             }
           }
@@ -235,6 +237,10 @@ export class RegistrarseComponent implements OnInit {
 
       if (/^\d+$/.test(password)) {
         errors['onlyNumbers'] = true;
+      }
+
+      if (!/[^a-zA-Z0-9]/.test(password)) {
+        errors['noSpecialChar'] = true;
       }
 
       const lower = password.toLowerCase();
